@@ -17,6 +17,7 @@
 #include "VolumeControl.h"
 #include <SDL_events.h>
 
+#define gettext_noop(A) A
 
 GuiMenu::GuiMenu(Window* window) : GuiComponent(window), mMenu(window, _("MAIN MENU").c_str()), mVersion(window)
 {
@@ -165,7 +166,7 @@ void GuiMenu::openUISettings()
 	auto UImodeSelection = std::make_shared< OptionListComponent<std::string> >(mWindow, _("UI MODE"), false);
 	std::vector<std::string> UImodes = UIModeController::getInstance()->getUIModes();
 	for (auto it = UImodes.cbegin(); it != UImodes.cend(); it++)
-		UImodeSelection->add(*it, *it, Settings::getInstance()->getString("UIMode") == *it);
+		UImodeSelection->add(_(it->c_str()), *it, Settings::getInstance()->getString("UIMode") == *it);
 	s->addWithLabel(_("UI MODE"), UImodeSelection);
 	Window* window = mWindow;
 	s->addSaveFunc([ UImodeSelection, window]
@@ -179,7 +180,7 @@ void GuiMenu::openUISettings()
 				"To unlock and return to the full UI, enter this code: \n"		\
 				"\"{2}\"\n\n"								\
 				"Do you want to proceed?"))
-				% selectedMode % UIModeController::getInstance()->getFormattedPassKeyStr();
+			  % _(selectedMode.c_str()) % UIModeController::getInstance()->getFormattedPassKeyStr();
 			window->pushGui(new GuiMsgBox(window, message.str(), 
 				_("YES"), [selectedMode] {
 					LOG(LogDebug) << "Setting UI mode to " << selectedMode;
@@ -221,11 +222,11 @@ void GuiMenu::openUISettings()
 	// transition style
 	auto transition_style = std::make_shared< OptionListComponent<std::string> >(mWindow, _("TRANSITION STYLE"), false);
 	std::vector<std::string> transitions;
-	transitions.push_back("fade");
-	transitions.push_back("slide");
-	transitions.push_back("instant");
+	transitions.push_back(gettext_noop("fade"));
+	transitions.push_back(gettext_noop("slide"));
+	transitions.push_back(gettext_noop("instant"));
 	for(auto it = transitions.cbegin(); it != transitions.cend(); it++)
-		transition_style->add(*it, *it, Settings::getInstance()->getString("TransitionStyle") == *it);
+	  transition_style->add(_(it->c_str()), *it, Settings::getInstance()->getString("TransitionStyle") == *it);
 	s->addWithLabel(_("TRANSITION STYLE"), transition_style);
 	s->addSaveFunc([transition_style] {
 		if (Settings::getInstance()->getString("TransitionStyle") == "instant"
@@ -272,12 +273,12 @@ void GuiMenu::openUISettings()
 	// GameList view style
 	auto gamelist_style = std::make_shared< OptionListComponent<std::string> >(mWindow, _("GAMELIST VIEW STYLE"), false);
 	std::vector<std::string> styles;
-	styles.push_back("automatic");
-	styles.push_back("basic");
-	styles.push_back("detailed");
-	styles.push_back("video");
+	styles.push_back(gettext_noop("automatic"));
+	styles.push_back(gettext_noop("basic"));
+	styles.push_back(gettext_noop("detailed"));
+	styles.push_back(gettext_noop("video"));
 	for (auto it = styles.cbegin(); it != styles.cend(); it++)
-		gamelist_style->add(*it, *it, Settings::getInstance()->getString("GamelistViewStyle") == *it);
+	  gamelist_style->add(_(it->c_str()), *it, Settings::getInstance()->getString("GamelistViewStyle") == *it);
 	s->addWithLabel(_("GAMELIST VIEW STYLE"), gamelist_style);
 	s->addSaveFunc([gamelist_style] {
 		bool needReload = false;
@@ -290,7 +291,7 @@ void GuiMenu::openUISettings()
 
 	// Optionally start in selected system
 	auto systemfocus_list = std::make_shared< OptionListComponent<std::string> >(mWindow, _("START ON SYSTEM"), false);
-	systemfocus_list->add("NONE", "", Settings::getInstance()->getString("StartupSystem") == "");
+	systemfocus_list->add(_("NONE"), "", Settings::getInstance()->getString("StartupSystem") == "");
 	for (auto it = SystemData::sSystemVector.cbegin(); it != SystemData::sSystemVector.cend(); it++)
 	{
 		if ("retropie" != (*it)->getName())
@@ -326,12 +327,12 @@ void GuiMenu::openOtherSettings()
 	// power saver
 	auto power_saver = std::make_shared< OptionListComponent<std::string> >(mWindow, _("POWER SAVER MODES"), false);
 	std::vector<std::string> modes;
-	modes.push_back("disabled");
-	modes.push_back("default");
-	modes.push_back("enhanced");
-	modes.push_back("instant");
+	modes.push_back(gettext_noop("disabled"));
+	modes.push_back(gettext_noop("default"));
+	modes.push_back(gettext_noop("enhanced"));
+	modes.push_back(gettext_noop("instant"));
 	for (auto it = modes.cbegin(); it != modes.cend(); it++)
-		power_saver->add(*it, *it, Settings::getInstance()->getString("PowerSaverMode") == *it);
+	  power_saver->add(_(it->c_str()), *it, Settings::getInstance()->getString("PowerSaverMode") == *it);
 	s->addWithLabel(_("POWER SAVER MODES"), power_saver);
 	s->addSaveFunc([this, power_saver] {
 		if (Settings::getInstance()->getString("PowerSaverMode") != "instant" && power_saver->getSelected() == "instant") {

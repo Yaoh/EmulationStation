@@ -7,6 +7,8 @@
 #include "guis/GuiVideoScreensaverOptions.h"
 #include "Settings.h"
 
+#define gettext_noop(A) A
+
 GuiGeneralScreensaverOptions::GuiGeneralScreensaverOptions(Window* window, const char* title) : GuiScreensaverOptions(window, title)
 {
 	// screensaver time
@@ -21,12 +23,12 @@ GuiGeneralScreensaverOptions::GuiGeneralScreensaverOptions(Window* window, const
 	// screensaver behavior
 	auto screensaver_behavior = std::make_shared< OptionListComponent<std::string> >(mWindow, _("SCREENSAVER BEHAVIOR"), false);
 	std::vector<std::string> screensavers;
-	screensavers.push_back("dim");
-	screensavers.push_back("black");
-	screensavers.push_back("random video");
-	screensavers.push_back("slideshow");
+	screensavers.push_back(gettext_noop("dim"));
+	screensavers.push_back(gettext_noop("black"));
+	screensavers.push_back(gettext_noop("random video"));
+	screensavers.push_back(gettext_noop("slideshow"));
 	for(auto it = screensavers.cbegin(); it != screensavers.cend(); it++)
-		screensaver_behavior->add(*it, *it, Settings::getInstance()->getString("ScreenSaverBehavior") == *it);
+		screensaver_behavior->add(_(it->c_str()), *it, Settings::getInstance()->getString("ScreenSaverBehavior") == *it);
 	addWithLabel(_("SCREENSAVER BEHAVIOR"), screensaver_behavior);
 	addSaveFunc([this, screensaver_behavior] {
 		if (Settings::getInstance()->getString("ScreenSaverBehavior") != "random video" && screensaver_behavior->getSelected() == "random video") {

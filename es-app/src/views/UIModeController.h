@@ -11,6 +11,8 @@ class ViewController;
 
 struct Input;
 
+#define gettext_noop(A) A
+
 class UIModeController {
 public:
 	static UIModeController* getInstance();
@@ -37,7 +39,7 @@ private:
 	void unlockUIMode(); 
 
 	static UIModeController * sInstance;
-	const std::vector<std::string> mUIModes = { "Full", "Kiosk", "Kid" };
+	const std::vector<std::string> mUIModes = { gettext_noop("Full"), gettext_noop("Kiosk"), gettext_noop("Kid") };
 	
 	// default passkeyseq = "uuddlrlrba", as defined in the setting 'UIMode_passkey'.
 	std::string mPassKeySequence;

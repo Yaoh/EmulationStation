@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: retropie-emulationstation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-10 14:57+0100\n"
+"POT-Creation-Date: 2018-02-10 17:10+0100\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -319,6 +319,15 @@ msgstr "ALÉATOIRE"
 msgid "LAUNCH SCREENSAVER"
 msgstr "ÉCRAN DE VEILLE"
 
+msgid "Full"
+msgstr "COMPLET"
+
+msgid "Kiosk"
+msgstr "KIOSQUE"
+
+msgid "Kid"
+msgstr "ENFANT"
+
 msgid "<No Entries Found>"
 msgstr "<Vide>"
 
@@ -348,6 +357,18 @@ msgstr "ÉCRAN DE VEILLE APRÈS"
 
 msgid "SCREENSAVER BEHAVIOR"
 msgstr "TYPE D'ÉCRAN DE VEILLE"
+
+msgid "dim"
+msgstr "BASSE LUMINOSITÉ"
+
+msgid "black"
+msgstr "ÉCRAN NOIR"
+
+msgid "random video"
+msgstr "VIDÉO"
+
+msgid "slideshow"
+msgstr "DIAPORAMA"
 
 msgid ""
 "The \"Random Video\" screensaver shows videos from your gamelist.\n"
@@ -480,14 +501,38 @@ msgstr "TRANSITIONS DU CARROUSEL"
 msgid "TRANSITION STYLE"
 msgstr "STYLE DE TRANSITION"
 
+msgid "fade"
+msgstr "FONDU"
+
+msgid "slide"
+msgstr "VOLET"
+
+msgid "instant"
+msgstr "INSTANTANÉ"
+
 msgid "THEME SET"
 msgstr "THÈME"
 
 msgid "GAMELIST VIEW STYLE"
 msgstr "STYLE DES LISTES DE JEUX"
 
+msgid "automatic"
+msgstr "AUTOMATIQUE"
+
+msgid "basic"
+msgstr "SIMPLE"
+
+msgid "detailed"
+msgstr "DÉTAILLÉE"
+
+msgid "video"
+msgstr "VIDÉO"
+
 msgid "START ON SYSTEM"
 msgstr "DÉMARRER SUR"
+
+msgid "NONE"
+msgstr "AUCUN"
 
 msgid "ON-SCREEN HELP"
 msgstr "AFFICHER L'AIDE"
@@ -500,6 +545,15 @@ msgstr "LIMITE VRAM"
 
 msgid "POWER SAVER MODES"
 msgstr "ÉCONOMIE D'ÉNERGIE"
+
+msgid "disabled"
+msgstr "DÉSACTIVÉ"
+
+msgid "default"
+msgstr "NORMAL"
+
+msgid "enhanced"
+msgstr "AMÉLIORÉ"
 
 msgid "SAVE METADATA ON EXIT"
 msgstr "SAUVEGARDER LES MÉTADONNÉES AVANT DE QUITTER"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: retropie-emulationstation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-10 16:17+0100\n"
+"POT-Creation-Date: 2018-02-10 17:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -316,6 +316,15 @@ msgstr ""
 msgid "LAUNCH SCREENSAVER"
 msgstr ""
 
+msgid "Full"
+msgstr ""
+
+msgid "Kiosk"
+msgstr ""
+
+msgid "Kid"
+msgstr ""
+
 msgid "<No Entries Found>"
 msgstr ""
 
@@ -344,6 +353,18 @@ msgid "SCREENSAVER AFTER"
 msgstr ""
 
 msgid "SCREENSAVER BEHAVIOR"
+msgstr ""
+
+msgid "dim"
+msgstr ""
+
+msgid "black"
+msgstr ""
+
+msgid "random video"
+msgstr ""
+
+msgid "slideshow"
 msgstr ""
 
 msgid ""
@@ -461,13 +482,37 @@ msgstr ""
 msgid "TRANSITION STYLE"
 msgstr ""
 
+msgid "fade"
+msgstr ""
+
+msgid "slide"
+msgstr ""
+
+msgid "instant"
+msgstr ""
+
 msgid "THEME SET"
 msgstr ""
 
 msgid "GAMELIST VIEW STYLE"
 msgstr ""
 
+msgid "automatic"
+msgstr ""
+
+msgid "basic"
+msgstr ""
+
+msgid "detailed"
+msgstr ""
+
+msgid "video"
+msgstr ""
+
 msgid "START ON SYSTEM"
+msgstr ""
+
+msgid "NONE"
 msgstr ""
 
 msgid "ON-SCREEN HELP"
@@ -480,6 +525,15 @@ msgid "VRAM LIMIT"
 msgstr ""
 
 msgid "POWER SAVER MODES"
+msgstr ""
+
+msgid "disabled"
+msgstr ""
+
+msgid "default"
+msgstr ""
+
+msgid "enhanced"
 msgstr ""
 
 msgid "SAVE METADATA ON EXIT"
