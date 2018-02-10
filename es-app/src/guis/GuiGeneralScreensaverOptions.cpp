@@ -27,7 +27,7 @@ GuiGeneralScreensaverOptions::GuiGeneralScreensaverOptions(Window* window, const
 	screensavers.push_back("slideshow");
 	for(auto it = screensavers.cbegin(); it != screensavers.cend(); it++)
 		screensaver_behavior->add(*it, *it, Settings::getInstance()->getString("ScreenSaverBehavior") == *it);
-	addWithLabel("TYPE D'ÉCONOMISEUR", screensaver_behavior);
+	addWithLabel(_("SCREENSAVER BEHAVIOR"), screensaver_behavior);
 	addSaveFunc([this, screensaver_behavior] {
 		if (Settings::getInstance()->getString("ScreenSaverBehavior") != "random video" && screensaver_behavior->getSelected() == "random video") {
 			// if before it wasn't risky but now there's a risk of problems, show warning
