@@ -2,6 +2,7 @@
 
 #include "animations/LambdaAnimation.h"
 #include "views/ViewController.h"
+#include "Locale.h"
 
 DetailedGameListView::DetailedGameListView(Window* window, FileData* root) : 
 	BasicGameListView(window, root), 
@@ -31,29 +32,29 @@ DetailedGameListView::DetailedGameListView(Window* window, FileData* root) :
 	addChild(&mImage);
 
 	// metadata labels + values
-	mLblRating.setText("Rating: ");
+	mLblRating.setText(_("RATING:") + " ");
 	addChild(&mLblRating);
 	addChild(&mRating);
-	mLblReleaseDate.setText("Released: ");
+	mLblReleaseDate.setText(_("RELEASED:") + " ");
 	addChild(&mLblReleaseDate);
 	addChild(&mReleaseDate);
-	mLblDeveloper.setText("Developer: ");
+	mLblDeveloper.setText(_("DEVELOPER:") + " ");
 	addChild(&mLblDeveloper);
 	addChild(&mDeveloper);
-	mLblPublisher.setText("Publisher: ");
+	mLblPublisher.setText(_("PUBLISHER:") + " ");
 	addChild(&mLblPublisher);
 	addChild(&mPublisher);
-	mLblGenre.setText("Genre: ");
+	mLblGenre.setText(_("GENRE:") + " ");
 	addChild(&mLblGenre);
 	addChild(&mGenre);
-	mLblPlayers.setText("Players: ");
+	mLblPlayers.setText(_("PLAYERS:") + " ");
 	addChild(&mLblPlayers);
 	addChild(&mPlayers);
-	mLblLastPlayed.setText("Last played: ");
+	mLblLastPlayed.setText(_("LAST PLAYED:") + " ");
 	addChild(&mLblLastPlayed);
 	mLastPlayed.setDisplayMode(DateTimeComponent::DISP_RELATIVE_TO_NOW);
 	addChild(&mLastPlayed);
-	mLblPlayCount.setText("Times played: ");
+	mLblPlayCount.setText(_("TIMES PLAYED:") + " ");
 	addChild(&mLblPlayCount);
 	addChild(&mPlayCount);
 
@@ -196,9 +197,19 @@ void DetailedGameListView::updateInfoPanel()
 
 		mRating.setValue(file->metadata.get("rating"));
 		mReleaseDate.setValue(file->metadata.get("releasedate"));
-		mDeveloper.setValue(file->metadata.get("developer"));
-		mPublisher.setValue(file->metadata.get("publisher"));
-		mGenre.setValue(file->metadata.get("genre"));
+
+		std::string value = file->metadata.get("developer");
+		value = value == "unknown" ? _("unknown") : value;
+		mDeveloper.setValue(value);
+
+		value = file->metadata.get("publisher");
+		value = value == "unknown" ? _("unknown") : value;
+		mPublisher.setValue(value);
+
+		value = file->metadata.get("genre");
+		value = value == "unknown" ? _("unknown") : value;
+		mGenre.setValue(value);
+
 		mPlayers.setValue(file->metadata.get("players"));
 
 		if(file->getType() == GAME)

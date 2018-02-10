@@ -3,6 +3,7 @@
 #include "views/gamelist/IGameListView.h"
 #include "FileSorts.h"
 #include "SystemData.h"
+#include "Locale.h"
 
 static const std::string LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -125,7 +126,7 @@ void GuiFastSelect::scroll()
 void GuiFastSelect::updateSortText()
 {
 	std::stringstream ss;
-	ss << "<- " << FileSorts::SortTypes.at(mSortId).description << " ->";
+	ss << "<- " << _(FileSorts::SortTypes.at(mSortId).description.c_str()) << " ->";
 	mSortText.setText(ss.str());
 }
 

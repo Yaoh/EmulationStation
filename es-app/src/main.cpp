@@ -26,6 +26,7 @@
 #endif
 
 #include <FreeImage.h>
+#include "Locale.h"
 
 bool scrape_cmdline = false;
 
@@ -195,18 +196,18 @@ bool loadSystemConfigFile(const char** errorString)
 	if(!SystemData::loadConfig())
 	{
 		LOG(LogError) << "Error while parsing systems configuration file!";
-		*errorString = "IT LOOKS LIKE YOUR SYSTEMS CONFIGURATION FILE HAS NOT BEEN SET UP OR IS INVALID. YOU'LL NEED TO DO THIS BY HAND, UNFORTUNATELY.\n\n"
-			"VISIT EMULATIONSTATION.ORG FOR MORE INFORMATION.";
+		*errorString = _("IT LOOKS LIKE YOUR SYSTEMS CONFIGURATION FILE HAS NOT BEEN SET UP OR IS INVALID. YOU'LL NEED TO DO THIS BY HAND, UNFORTUNATELY.\n\n" \
+			"VISIT EMULATIONSTATION.ORG FOR MORE INFORMATION.").c_str();
 		return false;
 	}
 
 	if(SystemData::sSystemVector.size() == 0)
 	{
 		LOG(LogError) << "No systems found! Does at least one system have a game present? (check that extensions match!)\n(Also, make sure you've updated your es_systems.cfg for XML!)";
-		*errorString = "WE CAN'T FIND ANY SYSTEMS!\n"
-			"CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, "
-			"AND YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n\n"
-			"VISIT EMULATIONSTATION.ORG FOR MORE INFORMATION.";
+		*errorString = _("WE CAN'T FIND ANY SYSTEMS!\n" \
+			"CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, " \
+			"AND YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n\n" \
+			"VISIT EMULATIONSTATION.ORG FOR MORE INFORMATION.").c_str();
 		return false;
 	}
 
@@ -217,6 +218,47 @@ bool loadSystemConfigFile(const char** errorString)
 void onExit()
 {
 	Log::close();
+}
+
+int setLocale(char * argv1)
+{
+ 	char path_save[PATH_MAX];
+  	char abs_exe_path[PATH_MAX];
+  	char *p;
+
+	if(!(p = strrchr(argv1, '/'))) {
+    		getcwd(abs_exe_path, sizeof(abs_exe_path));
+	}
+  	else
+  	{
+    		*p = '\0';
+    		getcwd(path_save, sizeof(path_save));
+    		chdir(argv1);
+    		getcwd(abs_exe_path, sizeof(abs_exe_path));
+    		chdir(path_save);
+  	}
+	boost::locale::localization_backend_manager my = boost::locale::localization_backend_manager::global(); 
+	// Get global backend
+
+    	my.select("std");
+	boost::locale::localization_backend_manager::global(my);
+    	// set this backend globally
+
+    	boost::locale::generator gen;
+
+	std::string localeDir = abs_exe_path;
+	localeDir += "/locale/lang";
+	LOG(LogInfo) << "Setting local directory to " << localeDir;
+    	// Specify location of dictionaries
+    	gen.add_messages_path(localeDir);
+    	gen.add_messages_path("/usr/share/locale");
+    	gen.add_messages_domain("emulationstation2");
+
+    	// Generate locales and imbue them to iostream
+    	std::locale::global(gen(""));
+    	std::cout.imbue(std::locale());
+        LOG(LogInfo) << "Locals set...";
+	return 0;
 }
 
 int main(int argc, char* argv[])
@@ -278,6 +320,8 @@ int main(int argc, char* argv[])
 	//always close the log on exit
 	atexit(&onExit);
 
+	setLocale(argv[0]);
+
 	Window window;
 	SystemScreenSaver screensaver(&window);
 	PowerSaver::init();
@@ -316,7 +360,7 @@ int main(int argc, char* argv[])
 		// we can't handle es_systems.cfg file problems inside ES itself, so display the error message then quit
 		window.pushGui(new GuiMsgBox(&window,
 			errorMsg,
-			"QUIT", [] {
+			_("QUIT"), [] {
 				SDL_Event* quit = new SDL_Event();
 				quit->type = SDL_QUIT;
 				SDL_PushEvent(quit);

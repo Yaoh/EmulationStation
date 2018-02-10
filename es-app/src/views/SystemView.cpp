@@ -9,6 +9,7 @@
 #include "Settings.h"
 #include "SystemData.h"
 #include "Window.h"
+#include "Locale.h"
 
 // buffer values for scrolling velocity (left, stopped, right)
 const int logoBuffersLeft[] = { -5, -2, -1 };
@@ -122,7 +123,7 @@ void SystemView::populate()
 		if (!UIModeController::getInstance()->isUIModeFull())
 		{
 			Settings::getInstance()->setString("UIMode", "Full");
-			mWindow->pushGui(new GuiMsgBox(mWindow, "The selected UI mode has nothing to show,\n returning to UI mode: FULL", "OK", nullptr));
+			mWindow->pushGui(new GuiMsgBox(mWindow, _("The selected UI mode has nothing to show,\n returning to UI mode: FULL"), _("OK"), nullptr));
 		}
 	}
 }
@@ -257,10 +258,9 @@ void SystemView::onCursorChanged(const CursorState& /*state*/)
 		std::stringstream ss;
 
 		if (!getSelected()->isGameSystem())
-			ss << "CONFIGURATION";
+			ss << _("CONFIGURATION");
 		else
-			ss << gameCount << " GAMES AVAILABLE";
-
+			ss << boost::locale::format(ngettext("{1} GAME AVAILABLE", "{1} GAMES AVAILABLE", gameCount)) % gameCount;
 		mSystemInfo.setText(ss.str());
 	}, false, 1);
 
@@ -376,14 +376,14 @@ std::vector<HelpPrompt> SystemView::getHelpPrompts()
 {
 	std::vector<HelpPrompt> prompts;
 	if (mCarousel.type == VERTICAL || mCarousel.type == VERTICAL_WHEEL)
-		prompts.push_back(HelpPrompt("up/down", "choose"));
+		prompts.push_back(HelpPrompt("up/down", _("CHOOSE")));
 	else
-		prompts.push_back(HelpPrompt("left/right", "choose"));
-	prompts.push_back(HelpPrompt("a", "select"));
-	prompts.push_back(HelpPrompt("x", "random"));
+		prompts.push_back(HelpPrompt("left/right", _("CHOOSE")));
+	prompts.push_back(HelpPrompt("a", _("SELECT")));
+	prompts.push_back(HelpPrompt("x", _("RANDOM")));
 
 	if (Settings::getInstance()->getBool("ScreenSaverControls"))
-		prompts.push_back(HelpPrompt("select", "launch screensaver"));
+		prompts.push_back(HelpPrompt("select", _("LAUNCH SCREENSAVER")));
 
 	return prompts;
 }

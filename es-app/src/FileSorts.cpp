@@ -2,38 +2,40 @@
 
 #include "utils/StringUtil.h"
 
+#define gettext_noop(A) A
+
 namespace FileSorts
 {
 	const FileData::SortType typesArr[] = {
-		FileData::SortType(&compareName, true, "filename, ascending"),
-		FileData::SortType(&compareName, false, "filename, descending"),
+		FileData::SortType(&compareName, true, gettext_noop("FILENAME, ASCENDING")),
+		FileData::SortType(&compareName, false, gettext_noop("FILENAME, DESCENDING")),
 
-		FileData::SortType(&compareRating, true, "rating, ascending"),
-		FileData::SortType(&compareRating, false, "rating, descending"),
+		FileData::SortType(&compareRating, true, gettext_noop("RATING, ASCENDING")),
+		FileData::SortType(&compareRating, false, gettext_noop("RATING, DESCENDING")),
 
-		FileData::SortType(&compareTimesPlayed, true, "times played, ascending"),
-		FileData::SortType(&compareTimesPlayed, false, "times played, descending"),
+		FileData::SortType(&compareTimesPlayed, true, gettext_noop("TIMES PLAYED, ASCENDING")),
+		FileData::SortType(&compareTimesPlayed, false, gettext_noop("TIMES PLAYED, DESCENDING")),
 
-		FileData::SortType(&compareLastPlayed, true, "last played, ascending"),
-		FileData::SortType(&compareLastPlayed, false, "last played, descending"),
+		FileData::SortType(&compareLastPlayed, true, gettext_noop("LAST PLAYED, ASCENDING")),
+		FileData::SortType(&compareLastPlayed, false, gettext_noop("LAST PLAYED, DESCENDING")),
 
-		FileData::SortType(&compareNumPlayers, true, "number players, ascending"),
-		FileData::SortType(&compareNumPlayers, false, "number players, descending"),
+		FileData::SortType(&compareNumPlayers, true, gettext_noop("NUMBER PLAYERS, ASCENDING")),
+		FileData::SortType(&compareNumPlayers, false, gettext_noop("NUMBER PLAYERS, DESCENDING")),
 
-		FileData::SortType(&compareReleaseDate, true, "release date, ascending"),
-		FileData::SortType(&compareReleaseDate, false, "release date, descending"),
+		FileData::SortType(&compareReleaseDate, true, gettext_noop("RELEASE DATE, ASCENDING")),
+		FileData::SortType(&compareReleaseDate, false, gettext_noop("RELEASE DATE, DESCENDING")),
 
-		FileData::SortType(&compareGenre, true, "genre, ascending"),
-		FileData::SortType(&compareGenre, false, "genre, descending"),
+		FileData::SortType(&compareGenre, true, gettext_noop("GENRE, ASCENDING")),
+		FileData::SortType(&compareGenre, false, gettext_noop("GENRE, DESCENDING")),
 
-		FileData::SortType(&compareDeveloper, true, "developer, ascending"),
-		FileData::SortType(&compareDeveloper, false, "developer, descending"),
+		FileData::SortType(&compareDeveloper, true, gettext_noop("DEVELOPER, ASCENDING")),
+		FileData::SortType(&compareDeveloper, false, gettext_noop("DEVELOPER, DESCENDING")),
 
-		FileData::SortType(&comparePublisher, true, "publisher, ascending"),
-		FileData::SortType(&comparePublisher, false, "publisher, descending"),
+		FileData::SortType(&comparePublisher, true, gettext_noop("PUBLISHER, ASCENDING")),
+		FileData::SortType(&comparePublisher, false, gettext_noop("PUBLISHER, DESCENDING")),
 
-		FileData::SortType(&compareSystem, true, "system, ascending"),
-		FileData::SortType(&compareSystem, false, "system, descending")
+		FileData::SortType(&compareSystem, true, gettext_noop("SYSTEM, ASCENDING")),
+		FileData::SortType(&compareSystem, false, gettext_noop("SYSTEM, DESCENDING"))
 	};
 
 	const std::vector<FileData::SortType> SortTypes(typesArr, typesArr + sizeof(typesArr)/sizeof(typesArr[0]));
