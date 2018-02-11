@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: retropie-emulationstation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-10 17:10+0100\n"
+"POT-Creation-Date: 2018-02-11 12:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,13 +123,25 @@ msgstr ""
 msgid "ENTER LAST PLAYED DATE"
 msgstr ""
 
+msgid "collections"
+msgstr ""
+
+msgid "all"
+msgstr ""
+
 msgid "ALL GAMES"
 msgstr ""
 
 msgid "FILENAME, ASCENDING"
 msgstr ""
 
+msgid "recent"
+msgstr ""
+
 msgid "LAST PLAYED, DESCENDING"
+msgstr ""
+
+msgid "favorites"
 msgstr ""
 
 msgid "FAVORITES"
@@ -249,6 +261,12 @@ msgstr ""
 msgid "SYSTEM, DESCENDING"
 msgstr ""
 
+msgid "ADD STAR"
+msgstr ""
+
+msgid "CANCEL"
+msgstr ""
+
 msgid "RATING:"
 msgstr ""
 
@@ -276,9 +294,6 @@ msgstr ""
 msgid "SKIP"
 msgstr ""
 
-msgid "CANCEL"
-msgstr ""
-
 msgid "SEARCH FOR"
 msgstr ""
 
@@ -286,6 +301,9 @@ msgid "SEARCH"
 msgstr ""
 
 msgid "ACCEPT RESULT"
+msgstr ""
+
+msgid "MENU"
 msgstr ""
 
 msgid ""
@@ -344,6 +362,9 @@ msgid "LAST PLAYED:"
 msgstr ""
 
 msgid "TIMES PLAYED:"
+msgstr ""
+
+msgid "SCROLL"
 msgstr ""
 
 msgid "CLOSE"
@@ -771,6 +792,9 @@ msgstr[1] ""
 msgid "LOADING..."
 msgstr ""
 
+msgid "CHANGE"
+msgstr ""
+
 msgid "never"
 msgstr ""
 
@@ -797,6 +821,9 @@ msgstr[1] ""
 msgid "WORKING..."
 msgstr ""
 
+msgid "ACCEPT"
+msgstr ""
+
 msgid "SELECT ALL"
 msgstr ""
 
@@ -807,9 +834,6 @@ msgid "{1} SELECTED"
 msgid_plural "{1} SELECTED"
 msgstr[0] ""
 msgstr[1] ""
-
-msgid "CHANGE"
-msgstr ""
 
 msgid "MOVE CURSOR"
 msgstr ""

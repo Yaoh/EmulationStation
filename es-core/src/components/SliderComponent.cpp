@@ -2,6 +2,7 @@
 
 #include "resources/Font.h"
 #include "Renderer.h"
+#include "Locale.h"
 
 #define MOVE_REPEAT_DELAY 500
 #define MOVE_REPEAT_RATE 40
@@ -139,6 +140,6 @@ void SliderComponent::onValueChanged()
 std::vector<HelpPrompt> SliderComponent::getHelpPrompts()
 {
 	std::vector<HelpPrompt> prompts;
-	prompts.push_back(HelpPrompt("left/right", "change"));
+	prompts.push_back(HelpPrompt("left/right", _("CHANGE")));
 	return prompts;
 }

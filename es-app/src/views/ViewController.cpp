@@ -15,6 +15,7 @@
 #include "Settings.h"
 #include "SystemData.h"
 #include "Window.h"
+#include "Locale.h"
 
 ViewController* ViewController::sInstance = NULL;
 
@@ -507,7 +508,7 @@ std::vector<HelpPrompt> ViewController::getHelpPrompts()
 		return prompts;
 
 	prompts = mCurrentView->getHelpPrompts();
-	prompts.push_back(HelpPrompt("start", "menu"));
+	prompts.push_back(HelpPrompt("start", _("MENU")));
 
 	return prompts;
 }

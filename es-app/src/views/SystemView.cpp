@@ -63,8 +63,9 @@ void SystemView::populate()
 			if (!e.data.logo)
 			{
 				// no logo in theme; use text
+				std::string label = _((*it)->getName().c_str());
 				TextComponent* text = new TextComponent(mWindow,
-					(*it)->getName(),
+					label,
 					Font::get(FONT_SIZE_LARGE),
 					0x000000FF,
 					ALIGN_CENTER);

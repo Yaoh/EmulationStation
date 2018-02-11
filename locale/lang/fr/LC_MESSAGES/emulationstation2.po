@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: retropie-emulationstation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-10 17:10+0100\n"
+"POT-Creation-Date: 2018-02-11 12:44+0100\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -114,14 +114,26 @@ msgstr "JOUÉS RÉCEMMENT"
 msgid "ENTER LAST PLAYED DATE"
 msgstr "DATE DU DERNIER JEU"
 
+msgid "collections"
+msgstr "collections"
+
+msgid "all"
+msgstr "tous"
+
 msgid "ALL GAMES"
 msgstr "TOUS LES JEUX"
 
 msgid "FILENAME, ASCENDING"
 msgstr "NOM ↑"
 
+msgid "recent"
+msgstr "récents"
+
 msgid "LAST PLAYED, DESCENDING"
 msgstr "DERNIER JEU ↓"
+
+msgid "favorites"
+msgstr "favoris"
 
 msgid "FAVORITES"
 msgstr "FAVORIS"
@@ -250,6 +262,12 @@ msgstr "SYSTÈME ↑"
 msgid "SYSTEM, DESCENDING"
 msgstr "SYSTÈME ↓"
 
+msgid "ADD STAR"
+msgstr "AJOUTER UNE ÉTOILE"
+
+msgid "CANCEL"
+msgstr "ANNULER"
+
 msgid "RATING:"
 msgstr "NOTE :"
 
@@ -277,9 +295,6 @@ msgstr "RÉESSAYER"
 msgid "SKIP"
 msgstr "PASSER"
 
-msgid "CANCEL"
-msgstr "ANNULER"
-
 msgid "SEARCH FOR"
 msgstr "RECHERCHER"
 
@@ -288,6 +303,9 @@ msgstr "CHERCHER"
 
 msgid "ACCEPT RESULT"
 msgstr "ACCEPTER"
+
+msgid "MENU"
+msgstr "MENU"
 
 msgid ""
 "The selected UI mode has nothing to show,\n"
@@ -348,6 +366,9 @@ msgstr "DERNIER JEU :"
 
 msgid "TIMES PLAYED:"
 msgstr "NOMBRE DE PARTIES :"
+
+msgid "SCROLL"
+msgstr "DÉFILER"
 
 msgid "CLOSE"
 msgstr "FERMER"
@@ -803,6 +824,9 @@ msgstr[1] "{1} JEUX IGNORÉS."
 msgid "LOADING..."
 msgstr "CHARGEMENT..."
 
+msgid "CHANGE"
+msgstr "CHANGER"
+
 msgid "never"
 msgstr "jamais"
 
@@ -829,6 +853,9 @@ msgstr[1] "il y a {1} secondes"
 msgid "WORKING..."
 msgstr "EN COURS..."
 
+msgid "ACCEPT"
+msgstr "ACCEPTER"
+
 msgid "SELECT ALL"
 msgstr "TOUT SÉLECTIONNER"
 
@@ -839,9 +866,6 @@ msgid "{1} SELECTED"
 msgid_plural "{1} SELECTED"
 msgstr[0] "{1} SÉLECTIONNÉ"
 msgstr[1] "{1} SÉLECTIONNÉS"
-
-msgid "CHANGE"
-msgstr "CHANGER"
 
 msgid "MOVE CURSOR"
 msgstr "CURSEUR"

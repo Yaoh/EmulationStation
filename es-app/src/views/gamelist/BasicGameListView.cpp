@@ -145,7 +145,7 @@ std::vector<HelpPrompt> BasicGameListView::getHelpPrompts()
 	prompts.push_back(HelpPrompt("x", _("RANDOM")));
 	if(mRoot->getSystem()->isGameSystem() && !UIModeController::getInstance()->isUIModeKid())
 	{
-		std::string prompt = CollectionSystemManager::get()->getEditingCollection();
+		std::string prompt = _(CollectionSystemManager::get()->getEditingCollection().c_str());
 		prompts.push_back(HelpPrompt("y", prompt));
 	}
 	return prompts;

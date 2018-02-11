@@ -88,11 +88,11 @@ private:
 				mMenu.addRow(row, (!mParent->mMultiSelect && it->selected));
 			}
 
-			mMenu.addButton(_("BACK"), "accept", [this] { delete this; });
+			mMenu.addButton(_("BACK"), _("ACCEPT"), [this] { delete this; });
 
 			if(mParent->mMultiSelect)
 			{
-				mMenu.addButton(_("SELECT ALL"), "select all", [this, checkboxes] {
+				mMenu.addButton(_("SELECT ALL"), _("SELECT ALL"), [this, checkboxes] {
 					for(unsigned int i = 0; i < mParent->mEntries.size(); i++)
 					{
 						mParent->mEntries.at(i).selected = true;
@@ -101,7 +101,7 @@ private:
 					mParent->onSelectedChanged();
 				});
 
-				mMenu.addButton(_("SELECT NONE"), "select none", [this, checkboxes] {
+				mMenu.addButton(_("SELECT NONE"), _("SELECT NONE"), [this, checkboxes] {
 					for(unsigned int i = 0; i < mParent->mEntries.size(); i++)
 					{
 						mParent->mEntries.at(i).selected = false;

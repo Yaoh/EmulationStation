@@ -296,7 +296,8 @@ void GuiMenu::openUISettings()
 	{
 		if ("retropie" != (*it)->getName())
 		{
-			systemfocus_list->add((*it)->getName(), (*it)->getName(), Settings::getInstance()->getString("StartupSystem") == (*it)->getName());
+			std::string label(_((*it)->getName().c_str()));
+			systemfocus_list->add(label, (*it)->getName(), Settings::getInstance()->getString("StartupSystem") == (*it)->getName());
 		}
 	}
 	s->addWithLabel(_("START ON SYSTEM"), systemfocus_list);
