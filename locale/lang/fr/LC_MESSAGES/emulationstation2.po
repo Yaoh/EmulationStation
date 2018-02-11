@@ -40,10 +40,10 @@ msgid "ENTER PATH TO MARQUEE"
 msgstr "CHEMIN DE L'AFFICHE"
 
 msgid "THUMBNAIL"
-msgstr "MINIATURE"
+msgstr "VIGNETTE"
 
 msgid "ENTER PATH TO THUMBNAIL"
-msgstr "CHEMIN DE LA MINIATURE"
+msgstr "CHEMIN DE LA VIGNETTE"
 
 msgid "RATING"
 msgstr "NOTE"
