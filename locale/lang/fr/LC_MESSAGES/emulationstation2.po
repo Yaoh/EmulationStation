@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: retropie-emulationstation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-11 12:44+0100\n"
+"POT-Creation-Date: 2018-02-11 21:54+0100\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -474,13 +474,13 @@ msgstr "ACTIVER LE SON DES VIDÉOS"
 msgid "OMX PLAYER AUDIO DEVICE"
 msgstr "PÉRIPHÉRIQUE SON POUR OMX PLAYER"
 
-msgid "LOCAL"
+msgid "local"
 msgstr "LOCAL"
 
-msgid "HDMI"
+msgid "hdmi"
 msgstr "HDMI"
 
-msgid "BOTH"
+msgid "both"
 msgstr "LES DEUX"
 
 msgid "UI MODE"
@@ -718,11 +718,23 @@ msgstr "OUI"
 msgid "SWAP VIDEO AFTER (SECS)"
 msgstr "CHANGER DE VIDÉO APRÈS"
 
+msgid "USE OMX PLAYER FOR SCREENSAVER"
+msgstr "UTILISER LE LECTEUR OMX POUR L'ÉCRAN DE VEILLE"
+
 msgid "SCREENSAVER CONTROLS"
 msgstr "CONTRÔLE DE L'ÉCRAN DE VEILLE"
 
 msgid "SHOW GAME INFO"
 msgstr "AFFICHER LES INFOS DU JEU"
+
+msgid "always"
+msgstr "TOUJOURS"
+
+msgid "start & end"
+msgstr "DÉBUT & FIN"
+
+msgid "never"
+msgstr "JAMAIS"
 
 msgid "SHOW GAME INFO ON SCREENSAVER"
 msgstr "AFFICHER LES INFOS DU JEU"
@@ -826,9 +838,6 @@ msgstr "CHARGEMENT..."
 
 msgid "CHANGE"
 msgstr "CHANGER"
-
-msgid "never"
-msgstr "jamais"
 
 msgid "{1} day ago"
 msgid_plural "{1} days ago"
@@ -1009,5 +1018,3 @@ msgstr "APPUYER SUR UN BOUTON"
 msgid "ALREADY TAKEN"
 msgstr "DÉJÀ DÉFINI"
 
-#~ msgid "UNKNOWN"
-#~ msgstr "INCONNU"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-11 17:55+0100\n"
+"POT-Creation-Date: 2018-02-11 22:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -463,13 +463,13 @@ msgstr ""
 msgid "OMX PLAYER AUDIO DEVICE"
 msgstr ""
 
-msgid "LOCAL"
+msgid "local"
 msgstr ""
 
-msgid "HDMI"
+msgid "hdmi"
 msgstr ""
 
-msgid "BOTH"
+msgid "both"
 msgstr ""
 
 msgid "UI MODE"
@@ -697,10 +697,22 @@ msgstr ""
 msgid "SWAP VIDEO AFTER (SECS)"
 msgstr ""
 
+msgid "USE OMX PLAYER FOR SCREENSAVER"
+msgstr ""
+
 msgid "SCREENSAVER CONTROLS"
 msgstr ""
 
 msgid "SHOW GAME INFO"
+msgstr ""
+
+msgid "always"
+msgstr ""
+
+msgid "start & end"
+msgstr ""
+
+msgid "never"
 msgstr ""
 
 msgid "SHOW GAME INFO ON SCREENSAVER"
@@ -793,9 +805,6 @@ msgid "LOADING..."
 msgstr ""
 
 msgid "CHANGE"
-msgstr ""
-
-msgid "never"
 msgstr ""
 
 msgid "{1} day ago"

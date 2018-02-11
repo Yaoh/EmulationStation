@@ -6,6 +6,8 @@
 #include "guis/GuiMsgBox.h"
 #include "Settings.h"
 
+#define gettext_noop(A) A
+
 GuiVideoScreensaverOptions::GuiVideoScreensaverOptions(Window* window, const char* title) : GuiScreensaverOptions(window, title)
 {
 	// timeout to swap videos
@@ -21,7 +23,7 @@ GuiVideoScreensaverOptions::GuiVideoScreensaverOptions(Window* window, const cha
 #ifdef _RPI_
 	auto ss_omx = std::make_shared<SwitchComponent>(mWindow);
 	ss_omx->setState(Settings::getInstance()->getBool("ScreenSaverOmxPlayer"));
-	addWithLabel("USE OMX PLAYER FOR SCREENSAVER", ss_omx);
+	addWithLabel(_("USE OMX PLAYER FOR SCREENSAVER"), ss_omx);
 	addSaveFunc([ss_omx, this] { Settings::getInstance()->setBool("ScreenSaverOmxPlayer", ss_omx->getState()); });
 #endif
 
@@ -34,11 +36,11 @@ GuiVideoScreensaverOptions::GuiVideoScreensaverOptions(Window* window, const cha
 	// Render Video Game Name as subtitles
 	auto ss_info = std::make_shared< OptionListComponent<std::string> >(mWindow, _("SHOW GAME INFO"), false);
 	std::vector<std::string> info_type;
-	info_type.push_back("always");
-	info_type.push_back("start & end");
-	info_type.push_back("never");
+	info_type.push_back(gettext_noop("always"));
+	info_type.push_back(gettext_noop("start & end"));
+	info_type.push_back(gettext_noop("never"));
 	for(auto it = info_type.cbegin(); it != info_type.cend(); it++)
-		ss_info->add(*it, *it, Settings::getInstance()->getString("ScreenSaverGameInfo") == *it);
+		ss_info->add(_(it->c_str()), *it, Settings::getInstance()->getString("ScreenSaverGameInfo") == *it);
 	addWithLabel(_("SHOW GAME INFO ON SCREENSAVER"), ss_info);
 	addSaveFunc([ss_info, this] { Settings::getInstance()->setString("ScreenSaverGameInfo", ss_info->getSelected()); });
 

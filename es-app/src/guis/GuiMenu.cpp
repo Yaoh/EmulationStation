@@ -101,11 +101,11 @@ void GuiMenu::openSoundSettings()
 		// volume control device
 		auto vol_dev = std::make_shared< OptionListComponent<std::string> >(mWindow, _("AUDIO DEVICE"), false);
 		std::vector<std::string> transitions;
-		transitions.push_back(_("PCM"));
-		transitions.push_back(_("Speaker"));
-		transitions.push_back(_("Master"));
+		transitions.push_back(gettext_noop("PCM"));
+		transitions.push_back(gettext_noop("Speaker"));
+		transitions.push_back(gettext_noop("Master"));
 		for(auto it = transitions.cbegin(); it != transitions.cend(); it++)
-			vol_dev->add(*it, *it, Settings::getInstance()->getString("AudioDevice") == *it);
+			vol_dev->add(_(it->c_str()), *it, Settings::getInstance()->getString("AudioDevice") == *it);
 		s->addWithLabel(_("AUDIO DEVICE"), vol_dev);
 		s->addSaveFunc([vol_dev] {
 			Settings::getInstance()->setString("AudioDevice", vol_dev->getSelected());
@@ -138,14 +138,14 @@ void GuiMenu::openSoundSettings()
 		// OMX player Audio Device
 		auto omx_audio_dev = std::make_shared< OptionListComponent<std::string> >(mWindow, _("OMX PLAYER AUDIO DEVICE"), false);
 		std::vector<std::string> devices;
-		devices.push_back(_("LOCAL"));
-		devices.push_back(_("HDMI"));
-		devices.push_back(_("BOTH"));
+		devices.push_back(gettext_noop("local"));
+		devices.push_back(gettext_noop("hdmi"));
+		devices.push_back(gettext_noop("both"));
 		// USB audio
 		devices.push_back("alsa:hw:0,0");
 		devices.push_back("alsa:hw:1,0");
 		for (auto it = devices.cbegin(); it != devices.cend(); it++)
-			omx_audio_dev->add(*it, *it, Settings::getInstance()->getString("OMXAudioDev") == *it);
+			omx_audio_dev->add(_(it->c_str()), *it, Settings::getInstance()->getString("OMXAudioDev") == *it);
 		s->addWithLabel(_("OMX PLAYER AUDIO DEVICE"), omx_audio_dev);
 		s->addSaveFunc([omx_audio_dev] {
 			if (Settings::getInstance()->getString("OMXAudioDev") != omx_audio_dev->getSelected())
