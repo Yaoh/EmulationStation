@@ -4,14 +4,13 @@
 
 #include <vector>
 #include <string>
+#include "Locale.h"
 
 class FileData;
 class InputConfig;
 class ViewController;
 
 struct Input;
-
-#define gettext_noop(A) A
 
 class UIModeController {
 public:
@@ -39,7 +38,7 @@ private:
 	void unlockUIMode(); 
 
 	static UIModeController * sInstance;
-	const std::vector<std::string> mUIModes = { gettext_noop("Full"), gettext_noop("Kiosk"), gettext_noop("Kid") };
+	const std::vector<std::string> mUIModes = { N_("Full"), N_("Kiosk"), N_("Kid") };
 	
 	// default passkeyseq = "uuddlrlrba", as defined in the setting 'UIMode_passkey'.
 	std::string mPassKeySequence;

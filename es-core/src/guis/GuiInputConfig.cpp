@@ -74,35 +74,35 @@ static const bool inputSkippable[inputCount] =
 	true
 };
 
-#define gettext_noop(s) s
+#define pgettext_noop(context, id) id
 
 static const char *inputDispName[inputCount] =
 {
-	gettext_noop("D-PAD UP"),
-	gettext_noop("D-PAD DOWN"),
-	gettext_noop("D-PAD LEFT"),
-	gettext_noop("D-PAD RIGHT"),
-	gettext_noop("START"),
-	gettext_noop("SELECT_BTN"),
-	gettext_noop("A"),
-	gettext_noop("B"),
-	gettext_noop("X"),
-	gettext_noop("Y"),
-	gettext_noop("LEFT SHOULDER"),
-	gettext_noop("RIGHT SHOULDER"),
-	gettext_noop("LEFT TRIGGER"),
-	gettext_noop("RIGHT TRIGGER"),
-	gettext_noop("LEFT THUMB"),
-	gettext_noop("RIGHT THUMB"),
-	gettext_noop("LEFT ANALOG UP"),
-	gettext_noop("LEFT ANALOG DOWN"),
-	gettext_noop("LEFT ANALOG LEFT"),
-	gettext_noop("LEFT ANALOG RIGHT"),
-	gettext_noop("RIGHT ANALOG UP"),
-	gettext_noop("RIGHT ANALOG DOWN"),
-	gettext_noop("RIGHT ANALOG LEFT"),
-	gettext_noop("RIGHT ANALOG RIGHT"),
-	gettext_noop("HOTKEY ENABLE")
+	pgettext_noop("button", "D-PAD UP"),
+	pgettext_noop("button", "D-PAD DOWN"),
+	pgettext_noop("button", "D-PAD LEFT"),
+	pgettext_noop("button", "D-PAD RIGHT"),
+	pgettext_noop("button", "START"),
+	pgettext_noop("button", "SELECT"),
+	pgettext_noop("button", "A"),
+	pgettext_noop("button", "B"),
+	pgettext_noop("button", "X"),
+	pgettext_noop("button", "Y"),
+	pgettext_noop("button", "LEFT SHOULDER"),
+	pgettext_noop("button", "RIGHT SHOULDER"),
+	pgettext_noop("button", "LEFT TRIGGER"),
+	pgettext_noop("button", "RIGHT TRIGGER"),
+	pgettext_noop("button", "LEFT THUMB"),
+	pgettext_noop("button", "RIGHT THUMB"),
+	pgettext_noop("button", "LEFT ANALOG UP"),
+	pgettext_noop("button", "LEFT ANALOG DOWN"),
+	pgettext_noop("button", "LEFT ANALOG LEFT"),
+	pgettext_noop("button", "LEFT ANALOG RIGHT"),
+	pgettext_noop("button", "RIGHT ANALOG UP"),
+	pgettext_noop("button", "RIGHT ANALOG DOWN"),
+	pgettext_noop("button", "RIGHT ANALOG LEFT"),
+	pgettext_noop("button", "RIGHT ANALOG RIGHT"),
+	pgettext_noop("button", "HOTKEY ENABLE")
 };
 static const char* inputIcon[inputCount] =
 {
@@ -192,7 +192,7 @@ GuiInputConfig::GuiInputConfig(Window* window, InputConfig* target, bool reconfi
 		spacer->setSize(16, 0);
 		row.addElement(spacer, false);
 
-		auto text = std::make_shared<TextComponent>(mWindow, _(inputDispName[i]), Font::get(FONT_SIZE_MEDIUM), 0x777777FF);
+		auto text = std::make_shared<TextComponent>(mWindow, boost::locale::pgettext("button", inputDispName[i]), Font::get(FONT_SIZE_MEDIUM), 0x777777FF);
 		row.addElement(text, true);
 
 		auto mapping = std::make_shared<TextComponent>(mWindow, _("-NOT DEFINED-"), Font::get(FONT_SIZE_MEDIUM, FONT_PATH_LIGHT), 0x999999FF, ALIGN_RIGHT);

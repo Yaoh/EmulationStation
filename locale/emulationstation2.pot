@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-11 22:03+0100\n"
+"POT-Creation-Date: 2018-02-12 10:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -876,75 +876,103 @@ msgstr ""
 msgid "DISCARD CHANGES"
 msgstr ""
 
+msgctxt "button"
 msgid "D-PAD UP"
 msgstr ""
 
+msgctxt "button"
 msgid "D-PAD DOWN"
 msgstr ""
 
+msgctxt "button"
 msgid "D-PAD LEFT"
 msgstr ""
 
+msgctxt "button"
 msgid "D-PAD RIGHT"
 msgstr ""
 
-msgid "SELECT_BTN"
+msgctxt "button"
+msgid "START"
 msgstr ""
 
+msgctxt "button"
+msgid "SELECT"
+msgstr ""
+
+msgctxt "button"
 msgid "A"
 msgstr ""
 
+msgctxt "button"
 msgid "B"
 msgstr ""
 
+msgctxt "button"
 msgid "X"
 msgstr ""
 
+msgctxt "button"
 msgid "Y"
 msgstr ""
 
+msgctxt "button"
 msgid "LEFT SHOULDER"
 msgstr ""
 
+msgctxt "button"
 msgid "RIGHT SHOULDER"
 msgstr ""
 
+msgctxt "button"
 msgid "LEFT TRIGGER"
 msgstr ""
 
+msgctxt "button"
 msgid "RIGHT TRIGGER"
 msgstr ""
 
+msgctxt "button"
 msgid "LEFT THUMB"
 msgstr ""
 
+msgctxt "button"
 msgid "RIGHT THUMB"
 msgstr ""
 
+msgctxt "button"
 msgid "LEFT ANALOG UP"
 msgstr ""
 
+msgctxt "button"
 msgid "LEFT ANALOG DOWN"
 msgstr ""
 
+msgctxt "button"
 msgid "LEFT ANALOG LEFT"
 msgstr ""
 
+msgctxt "button"
 msgid "LEFT ANALOG RIGHT"
 msgstr ""
 
+msgctxt "button"
 msgid "RIGHT ANALOG UP"
 msgstr ""
 
+msgctxt "button"
 msgid "RIGHT ANALOG DOWN"
 msgstr ""
 
+msgctxt "button"
 msgid "RIGHT ANALOG LEFT"
 msgstr ""
 
+msgctxt "button"
 msgid "RIGHT ANALOG RIGHT"
 msgstr ""
 
+msgctxt "button"
 msgid "HOTKEY ENABLE"
 msgstr ""
 

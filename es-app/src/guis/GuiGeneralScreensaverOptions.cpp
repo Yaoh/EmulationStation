@@ -7,8 +7,6 @@
 #include "guis/GuiVideoScreensaverOptions.h"
 #include "Settings.h"
 
-#define gettext_noop(A) A
-
 GuiGeneralScreensaverOptions::GuiGeneralScreensaverOptions(Window* window, const char* title) : GuiScreensaverOptions(window, title)
 {
 	// screensaver time
@@ -23,10 +21,10 @@ GuiGeneralScreensaverOptions::GuiGeneralScreensaverOptions(Window* window, const
 	// screensaver behavior
 	auto screensaver_behavior = std::make_shared< OptionListComponent<std::string> >(mWindow, _("SCREENSAVER BEHAVIOR"), false);
 	std::vector<std::string> screensavers;
-	screensavers.push_back(gettext_noop("dim"));
-	screensavers.push_back(gettext_noop("black"));
-	screensavers.push_back(gettext_noop("random video"));
-	screensavers.push_back(gettext_noop("slideshow"));
+	screensavers.push_back(N_("dim"));
+	screensavers.push_back(N_("black"));
+	screensavers.push_back(N_("random video"));
+	screensavers.push_back(N_("slideshow"));
 	for(auto it = screensavers.cbegin(); it != screensavers.cend(); it++)
 		screensaver_behavior->add(_(it->c_str()), *it, Settings::getInstance()->getString("ScreenSaverBehavior") == *it);
 	addWithLabel(_("SCREENSAVER BEHAVIOR"), screensaver_behavior);

@@ -15,9 +15,7 @@
 #include <fstream>
 #include "Locale.h"
 
-#define gettext_noop(A) A
-
-std::string myCollectionsName = gettext_noop("collections");
+std::string myCollectionsName = N_("collections");
 
 /* Handling the getting, initialization, deinitialization, saving and deletion of
  * a CollectionSystemManager Instance */
@@ -27,9 +25,9 @@ CollectionSystemManager::CollectionSystemManager(Window* window) : mWindow(windo
 {
 	CollectionSystemDecl systemDecls[] = {
 		//type                  name            long name            //default sort              // theme folder            // isCustom
-	  { AUTO_ALL_GAMES,       gettext_noop("all"),         _("ALL GAMES"),      _("FILENAME, ASCENDING"),    "auto-allgames",           false },
-	  { AUTO_LAST_PLAYED,     gettext_noop("recent"),      _("LAST PLAYED"),    _("LAST PLAYED, DESCENDING"),"auto-lastplayed",         false },
-	  { AUTO_FAVORITES,       gettext_noop("favorites"),   _("FAVORITES"),      _("FILENAME, ASCENDING"),    "auto-favorites",          false },
+	  { AUTO_ALL_GAMES,       N_("all"),         _("ALL GAMES"),      _("FILENAME, ASCENDING"),    "auto-allgames",           false },
+	  { AUTO_LAST_PLAYED,     N_("recent"),      _("LAST PLAYED"),    _("LAST PLAYED, DESCENDING"),"auto-lastplayed",         false },
+	  { AUTO_FAVORITES,       N_("favorites"),   _("FAVORITES"),      _("FILENAME, ASCENDING"),    "auto-favorites",          false },
 	  { CUSTOM_COLLECTION,    myCollectionsName,_("COLLECTIONS"),  _("FILENAME, ASCENDING"),    "custom-collections",      true }
 	};
 

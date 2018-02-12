@@ -6,8 +6,6 @@
 #include "guis/GuiMsgBox.h"
 #include "Settings.h"
 
-#define gettext_noop(A) A
-
 GuiVideoScreensaverOptions::GuiVideoScreensaverOptions(Window* window, const char* title) : GuiScreensaverOptions(window, title)
 {
 	// timeout to swap videos
@@ -36,9 +34,9 @@ GuiVideoScreensaverOptions::GuiVideoScreensaverOptions(Window* window, const cha
 	// Render Video Game Name as subtitles
 	auto ss_info = std::make_shared< OptionListComponent<std::string> >(mWindow, _("SHOW GAME INFO"), false);
 	std::vector<std::string> info_type;
-	info_type.push_back(gettext_noop("always"));
-	info_type.push_back(gettext_noop("start & end"));
-	info_type.push_back(gettext_noop("never"));
+	info_type.push_back(N_("always"));
+	info_type.push_back(N_("start & end"));
+	info_type.push_back(N_("never"));
 	for(auto it = info_type.cbegin(); it != info_type.cend(); it++)
 		ss_info->add(_(it->c_str()), *it, Settings::getInstance()->getString("ScreenSaverGameInfo") == *it);
 	addWithLabel(_("SHOW GAME INFO ON SCREENSAVER"), ss_info);

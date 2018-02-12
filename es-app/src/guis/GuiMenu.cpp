@@ -17,8 +17,6 @@
 #include "VolumeControl.h"
 #include <SDL_events.h>
 
-#define gettext_noop(A) A
-
 GuiMenu::GuiMenu(Window* window) : GuiComponent(window), mMenu(window, _("MAIN MENU").c_str()), mVersion(window)
 {
 	bool isFullUI = UIModeController::getInstance()->isUIModeFull();
@@ -101,9 +99,9 @@ void GuiMenu::openSoundSettings()
 		// volume control device
 		auto vol_dev = std::make_shared< OptionListComponent<std::string> >(mWindow, _("AUDIO DEVICE"), false);
 		std::vector<std::string> transitions;
-		transitions.push_back(gettext_noop("PCM"));
-		transitions.push_back(gettext_noop("Speaker"));
-		transitions.push_back(gettext_noop("Master"));
+		transitions.push_back(N_("PCM"));
+		transitions.push_back(N_("Speaker"));
+		transitions.push_back(N_("Master"));
 		for(auto it = transitions.cbegin(); it != transitions.cend(); it++)
 			vol_dev->add(_(it->c_str()), *it, Settings::getInstance()->getString("AudioDevice") == *it);
 		s->addWithLabel(_("AUDIO DEVICE"), vol_dev);
@@ -138,9 +136,9 @@ void GuiMenu::openSoundSettings()
 		// OMX player Audio Device
 		auto omx_audio_dev = std::make_shared< OptionListComponent<std::string> >(mWindow, _("OMX PLAYER AUDIO DEVICE"), false);
 		std::vector<std::string> devices;
-		devices.push_back(gettext_noop("local"));
-		devices.push_back(gettext_noop("hdmi"));
-		devices.push_back(gettext_noop("both"));
+		devices.push_back(N_("local"));
+		devices.push_back(N_("hdmi"));
+		devices.push_back(N_("both"));
 		// USB audio
 		devices.push_back("alsa:hw:0,0");
 		devices.push_back("alsa:hw:1,0");
@@ -222,9 +220,9 @@ void GuiMenu::openUISettings()
 	// transition style
 	auto transition_style = std::make_shared< OptionListComponent<std::string> >(mWindow, _("TRANSITION STYLE"), false);
 	std::vector<std::string> transitions;
-	transitions.push_back(gettext_noop("fade"));
-	transitions.push_back(gettext_noop("slide"));
-	transitions.push_back(gettext_noop("instant"));
+	transitions.push_back(N_("fade"));
+	transitions.push_back(N_("slide"));
+	transitions.push_back(N_("instant"));
 	for(auto it = transitions.cbegin(); it != transitions.cend(); it++)
 	  transition_style->add(_(it->c_str()), *it, Settings::getInstance()->getString("TransitionStyle") == *it);
 	s->addWithLabel(_("TRANSITION STYLE"), transition_style);
@@ -273,10 +271,10 @@ void GuiMenu::openUISettings()
 	// GameList view style
 	auto gamelist_style = std::make_shared< OptionListComponent<std::string> >(mWindow, _("GAMELIST VIEW STYLE"), false);
 	std::vector<std::string> styles;
-	styles.push_back(gettext_noop("automatic"));
-	styles.push_back(gettext_noop("basic"));
-	styles.push_back(gettext_noop("detailed"));
-	styles.push_back(gettext_noop("video"));
+	styles.push_back(N_("automatic"));
+	styles.push_back(N_("basic"));
+	styles.push_back(N_("detailed"));
+	styles.push_back(N_("video"));
 	for (auto it = styles.cbegin(); it != styles.cend(); it++)
 	  gamelist_style->add(_(it->c_str()), *it, Settings::getInstance()->getString("GamelistViewStyle") == *it);
 	s->addWithLabel(_("GAMELIST VIEW STYLE"), gamelist_style);
@@ -328,10 +326,10 @@ void GuiMenu::openOtherSettings()
 	// power saver
 	auto power_saver = std::make_shared< OptionListComponent<std::string> >(mWindow, _("POWER SAVER MODES"), false);
 	std::vector<std::string> modes;
-	modes.push_back(gettext_noop("disabled"));
-	modes.push_back(gettext_noop("default"));
-	modes.push_back(gettext_noop("enhanced"));
-	modes.push_back(gettext_noop("instant"));
+	modes.push_back(N_("disabled"));
+	modes.push_back(N_("default"));
+	modes.push_back(N_("enhanced"));
+	modes.push_back(N_("instant"));
 	for (auto it = modes.cbegin(); it != modes.cend(); it++)
 	  power_saver->add(_(it->c_str()), *it, Settings::getInstance()->getString("PowerSaverMode") == *it);
 	s->addWithLabel(_("POWER SAVER MODES"), power_saver);

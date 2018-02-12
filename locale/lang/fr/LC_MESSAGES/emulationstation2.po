@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: retropie-emulationstation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-11 21:54+0100\n"
+"POT-Creation-Date: 2018-02-12 10:09+0100\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -908,75 +908,103 @@ msgstr "PRESSER ÉCHAP POUR ANNULER."
 msgid "DISCARD CHANGES"
 msgstr "ANNULER"
 
+msgctxt "button"
 msgid "D-PAD UP"
 msgstr "D-PAD HAUT"
 
+msgctxt "button"
 msgid "D-PAD DOWN"
 msgstr "D-PAD BAS"
 
+msgctxt "button"
 msgid "D-PAD LEFT"
 msgstr "D-PAD GAUCHE"
 
+msgctxt "button"
 msgid "D-PAD RIGHT"
 msgstr "D-PAD DROITE"
 
-msgid "SELECT_BTN"
+msgctxt "button"
+msgid "START"
+msgstr "START"
+
+msgctxt "button"
+msgid "SELECT"
 msgstr "SELECT"
 
+msgctxt "button"
 msgid "A"
 msgstr "A"
 
+msgctxt "button"
 msgid "B"
 msgstr "B"
 
+msgctxt "button"
 msgid "X"
 msgstr "X"
 
+msgctxt "button"
 msgid "Y"
-msgstr "Z"
+msgstr "Y"
 
+msgctxt "button"
 msgid "LEFT SHOULDER"
 msgstr "L1"
 
+msgctxt "button"
 msgid "RIGHT SHOULDER"
 msgstr "R1"
 
+msgctxt "button"
 msgid "LEFT TRIGGER"
 msgstr "L2"
 
+msgctxt "button"
 msgid "RIGHT TRIGGER"
 msgstr "R2"
 
+msgctxt "button"
 msgid "LEFT THUMB"
 msgstr "POUCE GAUCHE"
 
+msgctxt "button"
 msgid "RIGHT THUMB"
 msgstr "POUCE DROIT"
 
+msgctxt "button"
 msgid "LEFT ANALOG UP"
 msgstr "ANALOGIQUE GAUCHE HAUT"
 
+msgctxt "button"
 msgid "LEFT ANALOG DOWN"
 msgstr "ANALOGIQUE GAUCHE BAS"
 
+msgctxt "button"
 msgid "LEFT ANALOG LEFT"
 msgstr "ANALOGIQUE GAUCHE GAUCHE"
 
+msgctxt "button"
 msgid "LEFT ANALOG RIGHT"
 msgstr "ANALOGIQUE GAUCHE DROITE"
 
+msgctxt "button"
 msgid "RIGHT ANALOG UP"
 msgstr "ANALOGIQUE DROIT HAUT"
 
+msgctxt "button"
 msgid "RIGHT ANALOG DOWN"
 msgstr "ANALOGIQUE DROIT BAS"
 
+msgctxt "button"
 msgid "RIGHT ANALOG LEFT"
 msgstr "ANALOGIQUE DROIT GAUCHE"
 
+msgctxt "button"
 msgid "RIGHT ANALOG RIGHT"
 msgstr "ANALOGIQUE DROIT DROITE"
 
+msgctxt "button"
 msgid "HOTKEY ENABLE"
 msgstr "HOTKEY"
 
@@ -1017,4 +1045,3 @@ msgstr "APPUYER SUR UN BOUTON"
 
 msgid "ALREADY TAKEN"
 msgstr "DÉJÀ DÉFINI"
-

@@ -3,44 +3,43 @@
 #include "utils/FileSystemUtil.h"
 #include "Log.h"
 #include <pugixml/src/pugixml.hpp>
-
-#define gettext_noop(A) A
+#include "Locale.h"
 
 MetaDataDecl gameDecls[] = {
   // key,         type,                   default,            statistic,  name in GuiMetaDataEd,                prompt in GuiMetaDataEd
-  {"name",        MD_STRING,              "",                 false,      gettext_noop("NAME"),                 gettext_noop("ENTER GAME NAME")},
-  {"desc",        MD_MULTILINE_STRING,    "",                 false,      gettext_noop("DESCRIPTION"),          gettext_noop("ENTER DESCRIPTION")},
-  {"image",       MD_PATH,                "",                 false,      gettext_noop("IMAGE"),                gettext_noop("ENTER PATH TO IMAGE")},
-  {"video",       MD_PATH     ,           "",                 false,      gettext_noop("VIDEO"),                gettext_noop("ENTER PATH TO VIDEO")},
-  {"marquee",     MD_PATH,                "",                 false,      gettext_noop("MARQUEE"),              gettext_noop("ENTER PATH TO MARQUEE")},
-  {"thumbnail",   MD_PATH,                "",                 false,      gettext_noop("THUMBNAIL"),            gettext_noop("ENTER PATH TO THUMBNAIL")},
-  {"rating",      MD_RATING,              "0.000000",         false,      gettext_noop("RATING"),               gettext_noop("ENTER RATING")},
-  {"releasedate", MD_DATE,                "not-a-date-time",  false,      gettext_noop("RELEASE DATE"),         gettext_noop("ENTER RELEASE DATE")},
-  {"developer",   MD_STRING,              gettext_noop("unknown"),          false,      gettext_noop("DEVELOPER"),            gettext_noop("ENTER GAME DEVELOPER")},
-  {"publisher",   MD_STRING,              gettext_noop("unknown"),          false,      gettext_noop("PUBLISHER"),            gettext_noop("ENTER GAME PUBLISHER")},
-  {"genre",       MD_STRING,              gettext_noop("unknown"),          false,      gettext_noop("GENRE"),                gettext_noop("ENTER GAME GENRE")},
-  {"players",     MD_INT,                 "1",                false,      gettext_noop("PLAYERS"),              gettext_noop("ENTER NUMBER OF PLAYERS")},
-  {"favorite",    MD_BOOL,                "false",            false,      gettext_noop("FAVORITE"),             gettext_noop("ENTER FAVORITE OFF/ON")},
-  {"hidden",      MD_BOOL,                "false",            false,      gettext_noop("HIDDEN"),               gettext_noop("ENTER HIDDEN OFF/ON" )},
-  {"kidgame",     MD_BOOL,                "false",            false,      gettext_noop("KIDGAME"),              gettext_noop("ENTER KIDGAME OFF/ON" )},
-  {"playcount",   MD_INT,                 "0",                true,       gettext_noop("PLAY COUNT"),           gettext_noop("ENTER NUMBER OF TIMES PLAYED")},
-  {"lastplayed",  MD_TIME,                "0",                true,       gettext_noop("LAST PLAYED"),          gettext_noop("ENTER LAST PLAYED DATE")}
+  {"name",        MD_STRING,              "",                 false,      N_("NAME"),                 N_("ENTER GAME NAME")},
+  {"desc",        MD_MULTILINE_STRING,    "",                 false,      N_("DESCRIPTION"),          N_("ENTER DESCRIPTION")},
+  {"image",       MD_PATH,                "",                 false,      N_("IMAGE"),                N_("ENTER PATH TO IMAGE")},
+  {"video",       MD_PATH     ,           "",                 false,      N_("VIDEO"),                N_("ENTER PATH TO VIDEO")},
+  {"marquee",     MD_PATH,                "",                 false,      N_("MARQUEE"),              N_("ENTER PATH TO MARQUEE")},
+  {"thumbnail",   MD_PATH,                "",                 false,      N_("THUMBNAIL"),            N_("ENTER PATH TO THUMBNAIL")},
+  {"rating",      MD_RATING,              "0.000000",         false,      N_("RATING"),               N_("ENTER RATING")},
+  {"releasedate", MD_DATE,                "not-a-date-time",  false,      N_("RELEASE DATE"),         N_("ENTER RELEASE DATE")},
+  {"developer",   MD_STRING,              N_("unknown"),          false,      N_("DEVELOPER"),            N_("ENTER GAME DEVELOPER")},
+  {"publisher",   MD_STRING,              N_("unknown"),          false,      N_("PUBLISHER"),            N_("ENTER GAME PUBLISHER")},
+  {"genre",       MD_STRING,              N_("unknown"),          false,      N_("GENRE"),                N_("ENTER GAME GENRE")},
+  {"players",     MD_INT,                 "1",                false,      N_("PLAYERS"),              N_("ENTER NUMBER OF PLAYERS")},
+  {"favorite",    MD_BOOL,                "false",            false,      N_("FAVORITE"),             N_("ENTER FAVORITE OFF/ON")},
+  {"hidden",      MD_BOOL,                "false",            false,      N_("HIDDEN"),               N_("ENTER HIDDEN OFF/ON" )},
+  {"kidgame",     MD_BOOL,                "false",            false,      N_("KIDGAME"),              N_("ENTER KIDGAME OFF/ON" )},
+  {"playcount",   MD_INT,                 "0",                true,       N_("PLAY COUNT"),           N_("ENTER NUMBER OF TIMES PLAYED")},
+  {"lastplayed",  MD_TIME,                "0",                true,       N_("LAST PLAYED"),          N_("ENTER LAST PLAYED DATE")}
 };
 const std::vector<MetaDataDecl> gameMDD(gameDecls, gameDecls + sizeof(gameDecls) / sizeof(gameDecls[0]));
 
 MetaDataDecl folderDecls[] = {
-  {"name",        MD_STRING,              "",                 false,      gettext_noop("NAME"),                 gettext_noop("ENTER GAME NAME")},
-  {"desc",        MD_MULTILINE_STRING,    "",                 false,      gettext_noop("DESCRIPTION"),          gettext_noop("ENTER DESCRIPTION")},
-  {"image",       MD_PATH,                "",                 false,      gettext_noop("IMAGE"),                gettext_noop("ENTER PATH TO IMAGE")},
-  {"thumbnail",   MD_PATH,                "",                 false,      gettext_noop("THUMBNAIL"),            gettext_noop("ENTER PATH TO THUMBNAIL")},
-  {"video",       MD_PATH,                "",                 false,      gettext_noop("VIDEO"),                gettext_noop("ENTER PATH TO VIDEO")},
-  {"marquee",     MD_PATH,                "",                 false,      gettext_noop("MARQUEE"),              gettext_noop("ENTER PATH TO MARQUEE")},
-  {"rating",      MD_RATING,              "0.000000",         false,      gettext_noop("RATING"),               gettext_noop("ENTER RATING")},
-  {"releasedate", MD_DATE,                "not-a-date-time",  false,      gettext_noop("RELEASE DATE"),         gettext_noop("ENTER RELEASE DATE")},
-  {"developer",   MD_STRING,              gettext_noop("unknown"),          false,      gettext_noop("DEVELOPER"),            gettext_noop("ENTER GAME DEVELOPER")},
-  {"publisher",   MD_STRING,              gettext_noop("unknown"),          false,      gettext_noop("PUBLISHER"),            gettext_noop("ENTER GAME PUBLISHER")},
-  {"genre",       MD_STRING,              gettext_noop("unknown"),          false,      gettext_noop("GENRE"),                gettext_noop("ENTER GAME GENRE")},
-  {"players",     MD_INT,                 "1",                false,      gettext_noop("PLAYERS"),              gettext_noop("ENTER NUMBER OF PLAYERS")}
+  {"name",        MD_STRING,              "",                 false,      N_("NAME"),                 N_("ENTER GAME NAME")},
+  {"desc",        MD_MULTILINE_STRING,    "",                 false,      N_("DESCRIPTION"),          N_("ENTER DESCRIPTION")},
+  {"image",       MD_PATH,                "",                 false,      N_("IMAGE"),                N_("ENTER PATH TO IMAGE")},
+  {"thumbnail",   MD_PATH,                "",                 false,      N_("THUMBNAIL"),            N_("ENTER PATH TO THUMBNAIL")},
+  {"video",       MD_PATH,                "",                 false,      N_("VIDEO"),                N_("ENTER PATH TO VIDEO")},
+  {"marquee",     MD_PATH,                "",                 false,      N_("MARQUEE"),              N_("ENTER PATH TO MARQUEE")},
+  {"rating",      MD_RATING,              "0.000000",         false,      N_("RATING"),               N_("ENTER RATING")},
+  {"releasedate", MD_DATE,                "not-a-date-time",  false,      N_("RELEASE DATE"),         N_("ENTER RELEASE DATE")},
+  {"developer",   MD_STRING,              N_("unknown"),          false,      N_("DEVELOPER"),            N_("ENTER GAME DEVELOPER")},
+  {"publisher",   MD_STRING,              N_("unknown"),          false,      N_("PUBLISHER"),            N_("ENTER GAME PUBLISHER")},
+  {"genre",       MD_STRING,              N_("unknown"),          false,      N_("GENRE"),                N_("ENTER GAME GENRE")},
+  {"players",     MD_INT,                 "1",                false,      N_("PLAYERS"),              N_("ENTER NUMBER OF PLAYERS")}
 };
 const std::vector<MetaDataDecl> folderMDD(folderDecls, folderDecls + sizeof(folderDecls) / sizeof(folderDecls[0]));
 

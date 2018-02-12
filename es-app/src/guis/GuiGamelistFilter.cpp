@@ -47,8 +47,6 @@ GuiGamelistFilter::~GuiGamelistFilter()
 	mFilterOptions.clear();
 }
 
-#define gettext_noop(A) A
-
 void GuiGamelistFilter::addFiltersToMenu()
 {
 	std::vector<FilterDataDecl> decls = mFilterIndex->getFilterDataDecls();
@@ -75,7 +73,7 @@ void GuiGamelistFilter::addFiltersToMenu()
 		for(auto it: *allKeys)
 		{
 			std::string label = it.first;
-			if (label == gettext_noop("FALSE") || label == gettext_noop("TRUE"))
+			if (label == N_("FALSE") || label == N_("TRUE"))
 			  label = _(label.c_str());
 		    
 			optionList->add(label, it.first, mFilterIndex->isKeyBeingFilteredBy(it.first, type));
