@@ -263,6 +263,7 @@ void GuiMenu::openUISettings()
 			if(needReload)
 			{
 				CollectionSystemManager::get()->updateSystemsList();
+				ViewController::get()->goToStart();
 				ViewController::get()->reloadAll(); // TODO - replace this with some sort of signal-based implementation
 			}
 		});
@@ -275,6 +276,11 @@ void GuiMenu::openUISettings()
 	styles.push_back(N_("basic"));
 	styles.push_back(N_("detailed"));
 	styles.push_back(N_("video"));
+
+	// Temporary "hack" so ES don't crash when leaving this menu after he enabled the grid by tweaking config file
+	if (Settings::getInstance()->getString("GamelistViewStyle") == "grid")
+		styles.push_back("grid");
+
 	for (auto it = styles.cbegin(); it != styles.cend(); it++)
 	  gamelist_style->add(_(it->c_str()), *it, Settings::getInstance()->getString("GamelistViewStyle") == *it);
 	s->addWithLabel(_("GAMELIST VIEW STYLE"), gamelist_style);
