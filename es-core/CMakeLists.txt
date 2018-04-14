@@ -77,6 +77,7 @@ set(CORE_HEADERS
 )
 
 set(CORE_SOURCES
+	${CMAKE_CURRENT_SOURCE_DIR}/src/AsyncHandle.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/AudioManager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/CECInput.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/GuiComponent.cpp

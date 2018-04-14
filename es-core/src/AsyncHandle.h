@@ -15,8 +15,8 @@ enum AsyncHandleStatus
 class AsyncHandle
 {
 public:
-	AsyncHandle() : mStatus(ASYNC_IN_PROGRESS) {};
-	virtual ~AsyncHandle() {};
+	AsyncHandle() : mStatus(ASYNC_IN_PROGRESS) { mAliveHandles++; }
+	virtual ~AsyncHandle() { mAliveHandles--; }
 
 	virtual void update() = 0;
 
@@ -39,12 +39,15 @@ public:
 		}
 	}
 
+	inline static int aliveHandles() { return mAliveHandles; }
+
 protected:
 	inline void setStatus(AsyncHandleStatus status) { mStatus = status; }
 	inline void setError(const std::string& error) { setStatus(ASYNC_ERROR); mError = error; }
 
 	std::string mError;
 	AsyncHandleStatus mStatus;
+	static int mAliveHandles;
 };
 
 #endif // ES_CORE_ASYNC_HANDLE_H
