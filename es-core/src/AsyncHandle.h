@@ -3,6 +3,7 @@
 #define ES_CORE_ASYNC_HANDLE_H
 
 #include <string>
+#include <mutex>
 
 enum AsyncHandleStatus
 {
@@ -15,8 +16,8 @@ enum AsyncHandleStatus
 class AsyncHandle
 {
 public:
-	AsyncHandle() : mStatus(ASYNC_IN_PROGRESS) { mAliveHandles++; }
-	virtual ~AsyncHandle() { mAliveHandles--; }
+	AsyncHandle() : mStatus(ASYNC_IN_PROGRESS) { std::unique_lock<std::mutex> lock(mAliveMutex); mAliveHandles++; }
+	virtual ~AsyncHandle() { std::unique_lock<std::mutex> lock(mAliveMutex); mAliveHandles--; }
 
 	virtual void update() = 0;
 
@@ -39,7 +40,7 @@ public:
 		}
 	}
 
-	inline static int aliveHandles() { return mAliveHandles; }
+	inline static int aliveHandles() { std::unique_lock<std::mutex> lock(mAliveMutex); return mAliveHandles; }
 
 protected:
 	inline void setStatus(AsyncHandleStatus status) { mStatus = status; }
@@ -47,6 +48,7 @@ protected:
 
 	std::string mError;
 	AsyncHandleStatus mStatus;
+	static std::mutex mAliveMutex;
 	static int mAliveHandles;
 };
 
