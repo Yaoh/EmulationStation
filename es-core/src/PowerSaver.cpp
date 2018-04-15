@@ -2,6 +2,7 @@
 
 #include "AudioManager.h"
 #include "Settings.h"
+#include "AsyncHandle.h"
 
 bool PowerSaver::mState = false;
 bool PowerSaver::mRunningScreenSaver = false;
@@ -67,7 +68,7 @@ void PowerSaver::updateMode()
 
 bool PowerSaver::getState()
 {
-	return mState;
+	return mState && AsyncHandle::aliveHandles() == 0;
 }
 
 void PowerSaver::setState(bool state)
