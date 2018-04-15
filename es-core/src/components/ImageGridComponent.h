@@ -4,6 +4,13 @@
 
 #include "components/IList.h"
 #include "resources/TextureResource.h"
+#include "GridTileComponent.h"
+
+enum ScrollDirection
+{
+	SCROLL_VERTICALLY,
+	SCROLL_HORIZONTALLY
+};
 
 struct ImageGridData
 {
@@ -32,35 +39,39 @@ public:
 	ImageGridComponent(Window* window);
 
 	void add(const std::string& name, const std::string& imagePath, const T& obj);
-	
-	void onSizeChanged() override;
 
 	bool input(InputConfig* config, Input input) override;
 	void update(int deltaTime) override;
 	void render(const Transform4x4f& parentTrans) override;
+	virtual void applyTheme(const std::shared_ptr<ThemeData>& theme, const std::string& view, const std::string& element, unsigned int properties) override;
+
+	void onSizeChanged() override;
+
+	inline void setCursorChangedCallback(const std::function<void(CursorState state)>& func) { mCursorChangedCallback = func; }
+
+protected:
+	virtual void onCursorChanged(const CursorState& state) override;
 
 private:
-	// Calculate how much tiles of size mTileMaxSize we can fit in a grid of size mSize using a margin of size mMargin
-	Vector2i getGridDimension() const
-	{
-		           // GRID_SIZE = COLUMNS * TILE_SIZE + (COLUMNS - 1) * MARGIN
-		           // <=> COLUMNS = (GRID_SIZE + MARGIN) / (TILE_SIZE + MARGIN)
-		return Vector2i((int) ((mSize.x() + mMargin.x()) / (mTileMaxSize.x() + mMargin.x())),
-						(int) ((mSize.y() + mMargin.y()) / (mTileMaxSize.y() + mMargin.y())));
-	};
+	// TILES
+	void buildTiles();
+	void updateTiles();
+	int getStartPosition() const;
+	void calcGridDimension();
 
-	void buildImages();
-	void updateImages();
-
-	virtual void onCursorChanged(const CursorState& state);
-
+	// IMAGES & ENTRIES
 	bool mEntriesDirty;
 
+	// TILES
 	Vector2f mMargin;
-	Vector2f mTileMaxSize;
-	Vector2f mSelectedTileMaxSize;
+	Vector2f mTileSize;
+	Vector2i mGridDimension;
+	std::shared_ptr<ThemeData> mTheme;
+	std::vector< std::shared_ptr<GridTileComponent> > mTiles;
 
-	std::vector<ImageComponent> mImages;
+	// MISCELLANEOUS
+	ScrollDirection mScrollDirection;
+	std::function<void(CursorState state)> mCursorChangedCallback;
 };
 
 template<typename T>
@@ -70,10 +81,13 @@ ImageGridComponent<T>::ImageGridComponent(Window* window) : IList<ImageGridData,
 
 	mEntriesDirty = true;
 
-	mSize = screen * 0.8f;
-	mMargin = screen * 0.01f;
-	mTileMaxSize = screen * 0.19f;
-	mSelectedTileMaxSize = mTileMaxSize + mMargin * 3.0f;
+	mSize = screen * 0.80f;
+	mMargin = screen * 0.07f;
+	mTileSize = GridTileComponent::getDefaultTileSize();
+
+	calcGridDimension();
+
+	mScrollDirection = SCROLL_VERTICALLY;
 }
 
 template<typename T>
@@ -94,17 +108,17 @@ bool ImageGridComponent<T>::input(InputConfig* config, Input input)
 	{
 		Vector2i dir = Vector2i::Zero();
 		if(config->isMappedTo("up", input))
-			dir[1] = -1;
+			dir[1 ^ mScrollDirection] = -1;
 		else if(config->isMappedTo("down", input))
-			dir[1] = 1;
+			dir[1 ^ mScrollDirection] = 1;
 		else if(config->isMappedTo("left", input))
-			dir[0] = -1;
+			dir[0 ^ mScrollDirection] = -1;
 		else if(config->isMappedTo("right", input))
-			dir[0] = 1;
+			dir[0 ^ mScrollDirection] = 1;
 
 		if(dir != Vector2i::Zero())
 		{
-			listInput(dir.x() + dir.y() * getGridDimension().x());
+			listInput(dir.x() + dir.y() * mGridDimension.x());
 			return true;
 		}
 	}else{
@@ -121,6 +135,9 @@ template<typename T>
 void ImageGridComponent<T>::update(int deltaTime)
 {
 	listUpdate(deltaTime);
+
+	for(auto it = mTiles.begin(); it != mTiles.end(); it++)
+		(*it)->update();
 }
 
 template<typename T>
@@ -130,126 +147,177 @@ void ImageGridComponent<T>::render(const Transform4x4f& parentTrans)
 
 	if(mEntriesDirty)
 	{
-		buildImages();
-		updateImages();
+		buildTiles();
+		updateTiles();
 		mEntriesDirty = false;
 	}
 
-	// Dirty solution (took from updateImages function) to keep the selected image and render it later (on top of the others)
-	// Will be changed for a cleaner way with the introduction of GridTileComponent
-	Vector2i gridDimension = getGridDimension();
-
-	int cursorRow = mCursor / gridDimension.x();
-
-	int start = (cursorRow - (gridDimension.y() / 2)) * gridDimension.x();
-
-	//if we're at the end put the row as close as we can and no higher
-	if(start + (gridDimension.x() * gridDimension.y()) >= (int)mEntries.size())
-		start = gridDimension.x() * ((int)mEntries.size()/gridDimension.x() - gridDimension.y() + 1);
-
-	if(start < 0)
-		start = 0;
-
-	unsigned int i = (unsigned int)start;
-	ImageComponent* selectedImage = NULL;
-	for(auto it = mImages.begin(); it != mImages.end(); it++)
+	std::shared_ptr<GridTileComponent> selectedTile = NULL;
+	for(auto it = mTiles.begin(); it != mTiles.end(); it++)
 	{
+		std::shared_ptr<GridTileComponent> tile = (*it);
+
 		// If it's the selected image, keep it for later, otherwise render it now
-		if(i == (unsigned int)mCursor)
-			selectedImage = it.base();
+		if(tile->isSelected())
+			selectedTile = tile;
 		else
-			it->render(trans);
-		i++;
+			tile->render(trans);
 	}
 
 	// Render the selected image on top of the others
-	if (selectedImage != NULL)
-		selectedImage->render(trans);
+	if (selectedTile != NULL)
+		selectedTile->render(trans);
 
 	GuiComponent::renderChildren(trans);
 }
 
 template<typename T>
-void ImageGridComponent<T>::onCursorChanged(const CursorState& /*state*/)
+void ImageGridComponent<T>::applyTheme(const std::shared_ptr<ThemeData>& theme, const std::string& view, const std::string& element, unsigned int properties)
 {
-	updateImages();
+	GuiComponent::applyTheme(theme, view, element, properties);
+
+	// Keep the theme pointer to apply it on the tiles later on
+	mTheme = theme;
+
+	Vector2f screen = Vector2f((float)Renderer::getScreenWidth(), (float)Renderer::getScreenHeight());
+
+	const ThemeData::ThemeElement* elem = theme->getElement(view, element, "imagegrid");
+	if (elem)
+	{
+		if (elem->has("margin"))
+			mMargin = elem->get<Vector2f>("margin") * screen;
+
+		if (elem->has("scrollDirection"))
+			mScrollDirection = (ScrollDirection)(elem->get<std::string>("scrollDirection") == "horizontal");
+	}
+
+	// We still need to manually get the grid tile size here,
+	// so we can recalculate the new grid dimension, and THEN (re)build the tiles
+	elem = theme->getElement(view, "default", "gridtile");
+
+	mTileSize = elem && elem->has("size") ?
+				elem->get<Vector2f>("size") * screen :
+				GridTileComponent::getDefaultTileSize();
+
+	// Recalculate grid dimension after theme changed
+	calcGridDimension();
 }
 
 template<typename T>
 void ImageGridComponent<T>::onSizeChanged()
 {
-	buildImages();
-	updateImages();
+	buildTiles();
+	updateTiles();
 }
 
-// Create and position imagecomponents (mImages)
 template<typename T>
-void ImageGridComponent<T>::buildImages()
+void ImageGridComponent<T>::onCursorChanged(const CursorState& state)
 {
-	mImages.clear();
+	updateTiles();
 
-	Vector2i gridDimension = getGridDimension();
-	Vector2f startPosition = mTileMaxSize / 2;
-	Vector2f tileDistance = mTileMaxSize + mMargin;
+	if(mCursorChangedCallback)
+		mCursorChangedCallback(state);
+}
+
+// Create and position tiles (mTiles)
+template<typename T>
+void ImageGridComponent<T>::buildTiles()
+{
+	mTiles.clear();
+
+	Vector2f startPosition = mTileSize / 2;
+	Vector2f tileDistance = mTileSize + mMargin;
+
+	int X, Y;
 
 	// Layout tile size and position
-	for(int y = 0; y < gridDimension.y(); y++)
+	for(int y = 0; y < mGridDimension.y(); y++)
 	{
-		for(int x = 0; x < gridDimension.x(); x++)
+		for(int x = 0; x < mGridDimension.x(); x++)
 		{
 			// Create tiles
-			mImages.push_back(ImageComponent(mWindow));
-			ImageComponent& image = mImages.at(y * gridDimension.x() + x);
+			auto tile = std::make_shared<GridTileComponent>(mWindow);
 
-			image.setPosition(x * tileDistance.x() + startPosition.x(), y * tileDistance.y() + startPosition.y());
-			image.setOrigin(0.5f, 0.5f);
-			image.setMaxSize(mTileMaxSize);
-			image.setImage("");
+			// In Vertical mod, tiles are ordered from left to right, then from top to bottom
+			// In Horizontal mod, tiles are ordered from top to bottom, then from left to right
+			X = mScrollDirection == SCROLL_VERTICALLY ? x : y;
+			Y = mScrollDirection == SCROLL_VERTICALLY ? y : x;
+
+			tile->setPosition(X * tileDistance.x() + startPosition.x(), Y * tileDistance.y() + startPosition.y());
+			tile->setOrigin(0.5f, 0.5f);
+			tile->setImage("");
+
+			if (mTheme)
+				tile->applyTheme(mTheme, "grid", "gridtile", ThemeFlags::ALL);
+
+			mTiles.push_back(tile);
 		}
 	}
 }
 
 template<typename T>
-void ImageGridComponent<T>::updateImages()
+void ImageGridComponent<T>::updateTiles()
 {
-	if(mImages.empty())
-		buildImages();
+	if(mTiles.empty())
+		buildTiles();
 
-	Vector2i gridDimension = getGridDimension();
+	int img = getStartPosition();
 
-	int cursorRow = mCursor / gridDimension.x();
+	for(int ti = 0; ti < mTiles.size(); ti++)
+	{
+		std::shared_ptr<GridTileComponent> tile = mTiles.at(ti);
 
-	int start = (cursorRow - (gridDimension.y() / 2)) * gridDimension.x();
+		// If we have more tiles than we have to display images on screen, hide them
+		if(img >= size())
+		{
+			tile->setSelected(false);
+			tile->setImage("");
+			tile->setVisible(false);
+			continue;
+		}
 
-	//if we're at the end put the row as close as we can and no higher
-	if(start + (gridDimension.x() * gridDimension.y()) >= (int)mEntries.size())
-		start = gridDimension.x() * ((int)mEntries.size()/gridDimension.x() - gridDimension.y() + 1);
+		tile->setSelected(img == mCursor);
+		tile->setImage(mEntries.at(img).data.texture);
+		tile->setVisible(true);
+
+		img++;
+	}
+}
+
+// Return the starting position (the number of the game which will be displayed on top left of the screen)
+template<typename T>
+int ImageGridComponent<T>::getStartPosition() const
+{
+	int cursorRow = mCursor / mGridDimension.x();
+
+	int start = (cursorRow - (mGridDimension.y() / 2)) * mGridDimension.x();
+
+	// If we are at the end put the row as close as we can and no higher, using the following formula
+	// Where E is the nb of entries, X the grid x dim (nb of column), Y the grid y dim (nb of line)
+	// start = first tile of last row - nb column * (nb line - 1)
+	//       = (E - 1) / X * X        - X * (Y - 1)
+	//       = X * ((E - 1) / X - Y + 1)
+	if(start + (mGridDimension.x() * mGridDimension.y()) >= (int)mEntries.size())
+		start = mGridDimension.x() * (((int)mEntries.size() - 1) / mGridDimension.x() - mGridDimension.y() + 1);
 
 	if(start < 0)
 		start = 0;
 
-	unsigned int i = (unsigned int)start;
-	for(unsigned int img = 0; img < mImages.size(); img++)
-	{
-		ImageComponent& image = mImages.at(img);
-		if(i >= (unsigned int)size())
-		{
-			image.setImage("");
-			continue;
-		}
-
-		if(i == (unsigned int)mCursor)
-		{
-			image.setColorShift(0xFFFFFFFF);
-			image.setMaxSize(mSelectedTileMaxSize);
-		}else{
-			image.setColorShift(0xAAAAAABB);
-			image.setMaxSize(mTileMaxSize);
-		}
-
-		image.setImage(mEntries.at(i).data.texture);
-		i++;
-	}
+	return start;
 }
+
+// Calculate how much tiles of size mTileSize we can fit in a grid of size mSize using a margin of size mMargin
+template<typename T>
+void ImageGridComponent<T>::calcGridDimension()
+{
+	// GRID_SIZE = COLUMNS * TILE_SIZE + (COLUMNS - 1) * MARGIN
+	// <=> COLUMNS = (GRID_SIZE + MARGIN) / (TILE_SIZE + MARGIN)
+	Vector2f gridDimension = (mSize + mMargin) / (mTileSize + mMargin);
+
+	mGridDimension = mScrollDirection == SCROLL_VERTICALLY ?
+					 Vector2i(gridDimension.x(), gridDimension.y()) :
+					 Vector2i(gridDimension.y(), gridDimension.x());
+};
+
 
 #endif // ES_CORE_COMPONENTS_IMAGE_GRID_COMPONENT_H

@@ -277,10 +277,11 @@ You can now change the order in which elements are rendered by setting `zIndex` 
 * `carousel name="systemcarousel"` - 40
 * `text name="systemInfo"` - 50
 
-##### basic, detailed, video
+##### basic, detailed, grid, video
 * `image name="background"` - 0
 * Extra Elements `extra="true"` - 10
 * `textlist name="gamelist"` - 20
+* `imagegrid name="gamegrid"` - 20
 * Media
 	* `image name="md_image"` - 30
 	* `video name="md_video"` - 30
@@ -471,6 +472,45 @@ Reference
 	- Displays the name of the system.  Only present if no "logo" image is specified.  Displayed at the top of the screen, centered by default.
 * `image name="logo"` - ALL
 	- A header image.  If a non-empty `path` is specified, `text name="headerText"` will be hidden and this image will be, by default, displayed roughly in its place.
+* `imagegrid name="gamegrid"` - ALL
+	- The gamegrid. The number of tile displayed is controlled by its size, margin and the default tile max size.
+* `gridtile name="default"` - ALL
+    - Note that many of the default gridtile parameters change the selected gridtile parameters if they are not explicitly set by the theme. For example, changing the background image of the default gridtile also change the background image of the selected gridtile. Refer to the gridtile documentation for more informations.
+* `gridtile name="selected"` - ALL
+    - See default gridtile description right above.
+
+* Metadata
+	* Labels
+		* `text name="md_lbl_rating"` - ALL
+		* `text name="md_lbl_releasedate"` - ALL
+		* `text name="md_lbl_developer"` - ALL
+		* `text name="md_lbl_publisher"` - ALL
+		* `text name="md_lbl_genre"` - ALL
+		* `text name="md_lbl_players"` - ALL
+		* `text name="md_lbl_lastplayed"` - ALL
+		* `text name="md_lbl_playcount"` - ALL
+
+	* Values
+		* All values will follow to the right of their labels if a position isn't specified.
+
+		* `rating name="md_rating"` - ALL
+			- The "rating" metadata.
+		* `datetime name="md_releasedate"` - ALL
+			- The "releasedate" metadata.
+		* `text name="md_developer"` - ALL
+			- The "developer" metadata.
+		* `text name="md_publisher"` - ALL
+			- The "publisher" metadata.
+		* `text name="md_genre"` - ALL
+			- The "genre" metadata.
+		* `text name="md_players"` - ALL
+			- The "players" metadata (number of players the game supports).
+		* `datetime name="md_lastplayed"` - ALL
+			- The "lastplayed" metadata.  Displayed as a string representing the time relative to "now" (e.g. "3 hours ago").
+		* `text name="md_playcount"` - ALL
+			- The "playcount" metadata (number of times the game has been played).
+		* `text name="md_description"` - POSITION | SIZE | FONT_PATH | FONT_SIZE | COLOR | Z_INDEX
+			- Text is the "desc" metadata.  If no `pos`/`size` is specified, will move and resize to fit under the lowest label and reach to the bottom of the screen.
 
 ---
 
@@ -531,7 +571,29 @@ Can be created as an extra.
 	- Multiply each pixel's color by this color. For example, an all-white image with `<color>FF0000</color>` would become completely red.  You can also control the transparency of an image with `<color>FFFFFFAA</color>` - keeping all the pixels their normal color and only affecting the alpha channel.
 * `zIndex` - type: FLOAT.
 	- z-index value for component.  Components will be rendered in order of z-index value from low to high.
-	
+
+#### imagegrid
+
+* `pos` - type: NORMALIZED_PAIR.
+* `size` - type: NORMALIZED_PAIR.
+    - The size of the grid. Take care the selected tile can go out of the grid size, so don't position the grid too close to another element or the screen border.
+* `margin` - type: NORMALIZED_PAIR.
+* `scrollDirection` - type: STRING.
+    - `vertical` by default, can also be set to `horizontal`. Not that in `horizontal` mod, the tiles are ordered from top to bottom, then from left to right.
+
+#### gridtile
+
+* `size` - type: NORMALIZED_PAIR.
+    - The size of the default gridtile is used to calculate how many tiles can fit in the imagegrid. If not explicitly set, the size of the selected gridtile is equal the size of the default gridtile * 1.2
+* `padding` - type: NORMALIZED_PAIR.
+    - The padding around the gridtile content. Default `16 16`. If not explicitly set, the selected tile padding will be equal to the default tile padding.
+* `backgroundImage` - type: PATH.
+    - If not explicitly set, the selected tile background image will be the same as the default tile background image.
+* `imageColor` - type: COLOR.
+    - The default tile image color and selected tile image color have no influence on each others.
+* `backgroundColor` - type: COLOR.
+    - The default tile background color and selected tile background color have no influence on each others.
+
 #### video
 
 * `pos` - type: NORMALIZED_PAIR.

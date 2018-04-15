@@ -122,13 +122,13 @@ void BasicGameListView::remove(FileData *game, bool deleteFile)
 	{
 		std::vector<FileData*> siblings = parent->getChildrenListToDisplay();
 		auto gameIter = std::find(siblings.cbegin(), siblings.cend(), game);
-		int gamePos = (int)std::distance(siblings.cbegin(), gameIter);
+		unsigned int gamePos = (int)std::distance(siblings.cbegin(), gameIter);
 		if (gameIter != siblings.cend())
 		{
 			if ((gamePos + 1) < siblings.size())
 			{
 				setCursor(siblings.at(gamePos + 1));
-			} else if ((gamePos - 1) > 0) {
+			} else if (gamePos > 1) {
 				setCursor(siblings.at(gamePos - 1));
 			}
 		}
@@ -152,7 +152,8 @@ std::vector<HelpPrompt> BasicGameListView::getHelpPrompts()
 	prompts.push_back(HelpPrompt("a", _("LAUNCH")));
 	prompts.push_back(HelpPrompt("b", _("BACK")));
 	prompts.push_back(HelpPrompt("select", _("OPTIONS")));
-	prompts.push_back(HelpPrompt("x", _("RANDOM")));
+	if(mRoot->getSystem()->isGameSystem())
+		prompts.push_back(HelpPrompt("x", _("RANDOM")));
 	if(mRoot->getSystem()->isGameSystem() && !UIModeController::getInstance()->isUIModeKid())
 	{
 		std::string prompt = _(CollectionSystemManager::get()->getEditingCollection().c_str());
