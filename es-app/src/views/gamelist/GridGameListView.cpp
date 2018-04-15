@@ -29,29 +29,29 @@ GridGameListView::GridGameListView(Window* window, FileData* root) :
 	populateList(root->getChildrenListToDisplay());
 
 	// metadata labels + values
-	mLblRating.setText("Rating: ");
+	mLblRating.setText(_("RATING:")+ " ");
 	addChild(&mLblRating);
 	addChild(&mRating);
-	mLblReleaseDate.setText("Released: ");
+	mLblReleaseDate.setText(_("RELEASED:") + " ");
 	addChild(&mLblReleaseDate);
 	addChild(&mReleaseDate);
-	mLblDeveloper.setText("Developer: ");
+	mLblDeveloper.setText(_("DEVELOPER:") + " ");
 	addChild(&mLblDeveloper);
 	addChild(&mDeveloper);
-	mLblPublisher.setText("Publisher: ");
+	mLblPublisher.setText(_("PUBLISHER:") + " ");
 	addChild(&mLblPublisher);
 	addChild(&mPublisher);
-	mLblGenre.setText("Genre: ");
+	mLblGenre.setText(_("GENRE:") + " ");
 	addChild(&mLblGenre);
 	addChild(&mGenre);
-	mLblPlayers.setText("Players: ");
+	mLblPlayers.setText(_("PLAYERS:") + " ");
 	addChild(&mLblPlayers);
 	addChild(&mPlayers);
-	mLblLastPlayed.setText("Last played: ");
+	mLblLastPlayed.setText(_("LAST PLAYED:") + " ");
 	addChild(&mLblLastPlayed);
 	mLastPlayed.setDisplayMode(DateTimeComponent::DISP_RELATIVE_TO_NOW);
 	addChild(&mLastPlayed);
-	mLblPlayCount.setText("Times played: ");
+	mLblPlayCount.setText(_("TIMES PLAYED:") + " ");
 	addChild(&mLblPlayCount);
 	addChild(&mPlayCount);
 
