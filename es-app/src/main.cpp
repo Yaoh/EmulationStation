@@ -23,6 +23,8 @@
 #include <time.h>
 #ifdef WIN32
 #include <Windows.h>
+#else
+#include <signal.h>
 #endif
 
 #include <FreeImage.h>
@@ -220,6 +222,12 @@ void onExit()
 	Log::close();
 }
 
+static void HandleSIGHUP(int sig) {
+	SDL_Event* quit = new SDL_Event();
+	quit->type = SDL_QUIT;
+	SDL_PushEvent(quit);
+}
+
 int setLocale(char * argv1)
 {
  	char path_save[PATH_MAX];
@@ -321,6 +329,16 @@ int main(int argc, char* argv[])
 	atexit(&onExit);
 
 	setLocale(argv[0]);
+
+#ifndef WIN32
+	// Do a clean exit when signaled with SIGHUP. SIGINT and SIGTERM are already handled by SDL2.
+	struct sigaction action;
+	sigaction(SIGHUP, NULL, &action);
+	if (action.sa_handler == SIG_DFL && (void (*)(int))action.sa_sigaction == SIG_DFL) {
+	        action.sa_handler = HandleSIGHUP;
+        	sigaction(SIGHUP, &action, NULL);
+    	}
+#endif
 
 	Window window;
 	SystemScreenSaver screensaver(&window);
