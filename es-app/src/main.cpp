@@ -31,6 +31,7 @@
 #include "Locale.h"
 
 bool scrape_cmdline = false;
+volatile static bool signalCaught = false;
 
 bool parseArgs(int argc, char* argv[])
 {
@@ -222,10 +223,9 @@ void onExit()
 	Log::close();
 }
 
-static void HandleSIGHUP(int sig) {
-	SDL_Event* quit = new SDL_Event();
-	quit->type = SDL_QUIT;
-	SDL_PushEvent(quit);
+static void HandleSignal(int sig) {
+	LOG(LogInfo) << "Signal caught " << sig;
+	signalCaught = true;
 }
 
 int setLocale(char * argv1)
@@ -331,13 +331,18 @@ int main(int argc, char* argv[])
 	setLocale(argv[0]);
 
 #ifndef WIN32
-	// Do a clean exit when signaled with SIGHUP. SIGINT and SIGTERM are already handled by SDL2.
+	// Do a clean exit when signaled with SIGHUP, SIGINT and SIGTERM. SDL2 will not install a handle for SIGINT and SIGTERM
+	// if one is already set.
 	struct sigaction action;
 	sigaction(SIGHUP, NULL, &action);
-	if (action.sa_handler == SIG_DFL && (void (*)(int))action.sa_sigaction == SIG_DFL) {
-	        action.sa_handler = HandleSIGHUP;
-        	sigaction(SIGHUP, &action, NULL);
-    	}
+        action.sa_handler = HandleSignal;
+       	sigaction(SIGHUP, &action, NULL);
+	sigaction(SIGINT, NULL, &action);
+        action.sa_handler = HandleSignal;
+       	sigaction(SIGINT, &action, NULL);
+	sigaction(SIGTERM, NULL, &action);
+        action.sa_handler = HandleSignal;
+       	sigaction(SIGTERM, &action, NULL);
 #endif
 
 	Window window;
@@ -417,7 +422,7 @@ int main(int argc, char* argv[])
 
 	bool running = true;
 
-	while(running)
+	while(running && !signalCaught)
 	{
 		SDL_Event event;
 		bool ps_standby = PowerSaver::getState() && (int) SDL_GetTicks() - ps_time > PowerSaver::getMode();
