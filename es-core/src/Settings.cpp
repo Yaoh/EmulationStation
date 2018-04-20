@@ -116,6 +116,7 @@ void Settings::setDefaults()
 		mBoolMap["ScreenSaverOmxPlayer"] = false;
 	#endif
 
+	mBoolMap["ScreenSaverHardwareBacklight"] = true;
 	mIntMap["ScreenSaverSwapVideoTimeout"] = 30000;
 
 	mBoolMap["VideoAudio"] = true;

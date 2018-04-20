@@ -37,6 +37,8 @@ private:
 
 	void input(InputConfig* config, Input input);
 
+	void setBacklightLevel(int level);
+
 	enum STATE {
 		STATE_INACTIVE,
 		STATE_FADE_OUT_WINDOW,
@@ -61,6 +63,9 @@ private:
 	int 			mVideoChangeTime;
 	std::shared_ptr<Sound>	mBackgroundAudio;
 	bool			mStopBackgroundAudio;
+	int			mDimBacklightLevel;
+	std::string		mBacklightPath;
+	int			mSavedBacklightLevel;
 };
 
 #endif // ES_APP_SYSTEM_SCREEN_SAVER_H

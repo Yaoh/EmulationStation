@@ -17,6 +17,9 @@
 #include <pugixml/src/pugixml.hpp>
 #include <unordered_map>
 #include <time.h>
+#include <iostream>
+#include <fstream>
+#include <cstring>
 
 #define FADE_TIME 			300
 
@@ -42,10 +45,43 @@ SystemScreenSaver::SystemScreenSaver(Window* window) :
 		Utils::FileSystem::createDirectory(path);
 	srand((unsigned int)time(NULL));
 	mVideoChangeTime = 30000;
+
+	if (Settings::getInstance()->getBool("ScreenSaverHardwareBacklight")) {
+		Utils::FileSystem::stringList backlights = Utils::FileSystem::getDirContent("/sys/class/backlight");
+		if (!backlights.empty()) {
+			std::string maxBrightnessPath = backlights.front() + "/max_brightness";
+			if (Utils::FileSystem::exists(maxBrightnessPath)) {
+				std::ifstream maxstream;
+				maxstream.open(maxBrightnessPath);
+				if (!maxstream.is_open())
+					LOG(LogError) << "Error opening " << maxBrightnessPath << ": " << std::strerror(errno);
+				else {
+					int maxBrightness;
+					maxstream >> maxBrightness;
+					mDimBacklightLevel = (int)(maxBrightness * 0.1);
+					maxstream.close();
+					if (mDimBacklightLevel == 0)
+						mDimBacklightLevel = 1;
+					mBacklightPath = backlights.front() + "/brightness";
+					if (!Utils::FileSystem::exists(mBacklightPath))
+						mBacklightPath = "";
+					else
+						LOG(LogInfo) << "Using " << mBacklightPath << " as LCD backlight control";
+				}
+			}
+		}
+	}
 }
 
 SystemScreenSaver::~SystemScreenSaver()
 {
+	if (Settings::getInstance()->getBool("ScreenSaverHardwareBacklight")) {
+		std::string screensaver_behavior = Settings::getInstance()->getString("ScreenSaverBehavior");
+		if (!mBacklightPath.empty() && mSavedBacklightLevel != 0 && mState == STATE_SCREENSAVER_ACTIVE && screensaver_behavior != "random video"
+		    && screensaver_behavior != "slideshow")
+			setBacklightLevel(mSavedBacklightLevel);
+	}
+
 	// Delete subtitle file, if existing
 	remove(getTitlePath().c_str());
 	mCurrentGame = NULL;
@@ -180,6 +216,31 @@ void SystemScreenSaver::startScreenSaver()
 	// No videos. Just use a standard screensaver
 	mState = STATE_SCREENSAVER_ACTIVE;
 	mCurrentGame = NULL;
+
+	if (Settings::getInstance()->getBool("ScreenSaverHardwareBacklight")
+	    && !mBacklightPath.empty())
+		setBacklightLevel(screensaver_behavior == "dim" ? mDimBacklightLevel : 0);
+}
+
+void SystemScreenSaver::setBacklightLevel(int level) {
+	LOG(LogDebug) << "Setting LCD backlight to " << level;
+	std::ifstream backlight_stream;
+	backlight_stream.open(mBacklightPath);
+	if (!backlight_stream.is_open())
+		LOG(LogError) << "Cannot open LCD backlight control " << mBacklightPath << ": " << std::strerror(errno);
+	else {
+		backlight_stream >> mSavedBacklightLevel;
+		backlight_stream.close();
+
+		std::ofstream backlight_ostream;
+		backlight_ostream.open(mBacklightPath);
+		if (!backlight_ostream.is_open())
+			LOG(LogError) << "Cannot open LCD backlight control " << mBacklightPath << " for writing: " << std::strerror(errno);
+		else {
+			backlight_ostream << std::to_string(level);
+			backlight_ostream.close();
+		}
+	}
 }
 
 void SystemScreenSaver::stopScreenSaver()
@@ -199,6 +260,10 @@ void SystemScreenSaver::stopScreenSaver()
 	mVideoScreensaver = NULL;
 	delete mImageScreensaver;
 	mImageScreensaver = NULL;
+
+	if (Settings::getInstance()->getBool("ScreenSaverHardwareBacklight")
+	    && !mBacklightPath.empty())
+		setBacklightLevel(mSavedBacklightLevel);
 
 	// we need this to loop through different videos
 	mState = STATE_INACTIVE;
@@ -250,9 +315,12 @@ void SystemScreenSaver::renderScreenSaver()
 	}
 	else if (mState != STATE_INACTIVE)
 	{
-		Renderer::setMatrix(Transform4x4f::Identity());
-		unsigned char opacity = screensaver_behavior == "dim" ? 0xA0 : 0xFF;
-		Renderer::drawRect(0, 0, Renderer::getScreenWidth(), Renderer::getScreenHeight(), 0x00000000 | opacity);
+		if (!Settings::getInstance()->getBool("ScreenSaverHardwareBacklight")
+		    || mBacklightPath.empty()) {
+			Renderer::setMatrix(Transform4x4f::Identity());
+			unsigned char opacity = screensaver_behavior == "dim" ? 0xA0 : 0xFF;
+			Renderer::drawRect(0, 0, Renderer::getScreenWidth(), Renderer::getScreenHeight(), 0x00000000 | opacity);
+		}
 	}
 }
 
@@ -445,12 +513,12 @@ void SystemScreenSaver::pickRandomCustomImage(std::string& path)
 		}
 		else
 		{
-			LOG(LogError) << "Slideshow Screensaver - No image files found\n";
+			LOG(LogError) << "Slideshow Screensaver - No image files found";
 		}
 	}
 	else
 	{
-		LOG(LogError) << "Slideshow Screensaver - Image directory does not exist: " << imageDir << "\n";
+		LOG(LogError) << "Slideshow Screensaver - Image directory does not exist: " << imageDir;
 	}
 }
 

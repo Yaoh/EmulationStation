@@ -2,6 +2,7 @@
 
 #include "components/OptionListComponent.h"
 #include "components/SliderComponent.h"
+#include "components/SwitchComponent.h"
 #include "guis/GuiMsgBox.h"
 #include "guis/GuiSlideshowScreensaverOptions.h"
 #include "guis/GuiVideoScreensaverOptions.h"
@@ -38,6 +39,11 @@ GuiGeneralScreensaverOptions::GuiGeneralScreensaverOptions(Window* window, const
 		Settings::getInstance()->setString("ScreenSaverBehavior", screensaver_behavior->getSelected());
 		PowerSaver::updateTimeouts();
 	});
+
+        auto ss_hwbacklight = std::make_shared<SwitchComponent>(mWindow);
+        ss_hwbacklight->setState(Settings::getInstance()->getBool("ScreenSaverHardwareBacklight"));
+        addWithLabel(_("USE HARDWARE BACKLIGHT CONTROL"), ss_hwbacklight);
+        addSaveFunc([ss_hwbacklight, this] { Settings::getInstance()->setBool("ScreenSaverHardwareBacklight", ss_hwbacklight->getState()); });
 
 	ComponentListRow row;
 
