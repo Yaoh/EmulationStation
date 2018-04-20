@@ -226,6 +226,11 @@ void onExit()
 static void HandleSignal(int sig) {
 	LOG(LogInfo) << "Signal caught " << sig;
 	signalCaught = true;
+
+	// Also send a QUIT event to wake up the event loop in case it's sleeping (power save)
+	SDL_Event event;
+        event.type = SDL_QUIT;
+        SDL_PushEvent(&event);
 }
 
 int setLocale(char * argv1)
