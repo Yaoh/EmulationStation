@@ -973,7 +973,6 @@ std::vector<std::string> CollectionSystemManager::getCollectionsFromConfigFolder
 {
 	std::vector<std::string> systems;
 	std::string configPath = getCollectionsFolder();
-	LOG(LogInfo) << "Collections folder: " << configPath;
 
 	if (Utils::FileSystem::exists(configPath))
 	{
