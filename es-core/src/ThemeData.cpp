@@ -29,13 +29,18 @@ std::map<std::string, std::map<std::string, ThemeData::ElementPropertyType>> The
 		{ "pos", NORMALIZED_PAIR },
 		{ "size", NORMALIZED_PAIR },
 		{ "margin", NORMALIZED_PAIR },
+		{ "gameImage", PATH },
+		{ "folderImage", PATH },
 		{ "scrollDirection", STRING } } },
 	{ "gridtile", {
 		{ "size", NORMALIZED_PAIR },
 		{ "padding", NORMALIZED_PAIR },
-		{ "backgroundImage", PATH },
 		{ "imageColor", COLOR },
-		{ "backgroundColor", COLOR } } },
+		{ "backgroundImage", PATH },
+		{ "backgroundCornerSize", NORMALIZED_PAIR },
+		{ "backgroundColor", COLOR },
+		{ "backgroundCenterColor", COLOR },
+		{ "backgroundEdgeColor", COLOR } } },
 	{ "text", {
 		{ "pos", NORMALIZED_PAIR },
 		{ "size", NORMALIZED_PAIR },
@@ -104,6 +109,7 @@ std::map<std::string, std::map<std::string, ThemeData::ElementPropertyType>> The
 		{ "path", PATH } } },
 	{ "helpsystem", {
 		{ "pos", NORMALIZED_PAIR },
+		{ "origin", NORMALIZED_PAIR },
 		{ "textColor", COLOR },
 		{ "iconColor", COLOR },
 		{ "fontPath", PATH },

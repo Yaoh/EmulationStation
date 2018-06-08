@@ -13,7 +13,8 @@ DetailedGameListView::DetailedGameListView(Window* window, FileData* root) :
 	mLblGenre(window), mLblPlayers(window), mLblLastPlayed(window), mLblPlayCount(window),
 
 	mRating(window), mReleaseDate(window), mDeveloper(window), mPublisher(window), 
-	mGenre(window), mPlayers(window), mLastPlayed(window), mPlayCount(window)
+	mGenre(window), mPlayers(window), mLastPlayed(window), mPlayCount(window),
+	mName(window)
 {
 	//mHeaderImage.setPosition(mSize.x() * 0.25f, 0);
 
@@ -58,6 +59,13 @@ DetailedGameListView::DetailedGameListView(Window* window, FileData* root) :
 	addChild(&mLblPlayCount);
 	addChild(&mPlayCount);
 
+	mName.setPosition(mSize.x(), mSize.y());
+	mName.setDefaultZIndex(40);
+	mName.setColor(0xAAAAAAFF);
+	mName.setFont(Font::get(FONT_SIZE_MEDIUM));
+	mName.setHorizontalAlignment(ALIGN_CENTER);
+	addChild(&mName);
+
 	mDescContainer.setPosition(mSize.x() * padding, mSize.y() * 0.65f);
 	mDescContainer.setSize(mSize.x() * (0.50f - 2*padding), mSize.y() - mDescContainer.getPosition().y());
 	mDescContainer.setAutoScroll(true);
@@ -80,6 +88,7 @@ void DetailedGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& them
 
 	using namespace ThemeFlags;
 	mImage.applyTheme(theme, getName(), "md_image", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION);
+	mName.applyTheme(theme, getName(), "md_name", ALL);
 
 	initMDLabels();
 	std::vector<TextComponent*> labels = getMDLabels();
@@ -211,6 +220,7 @@ void DetailedGameListView::updateInfoPanel()
 		mGenre.setValue(value);
 
 		mPlayers.setValue(file->metadata.get("players"));
+		mName.setValue(file->metadata.get("name"));
 
 		if(file->getType() == GAME)
 		{
@@ -224,6 +234,7 @@ void DetailedGameListView::updateInfoPanel()
 	std::vector<GuiComponent*> comps = getMDValues();
 	comps.push_back(&mImage);
 	comps.push_back(&mDescription);
+	comps.push_back(&mName);
 	std::vector<TextComponent*> labels = getMDLabels();
 	comps.insert(comps.cend(), labels.cbegin(), labels.cend());
 

@@ -358,7 +358,7 @@ bool ViewController::input(InputConfig* config, Input input)
 		return true;
 
 	// open menu
-	if(config->isMappedTo("start", input) && input.value != 0)
+	if(!UIModeController::getInstance()->isUIModeKid() && config->isMappedTo("start", input) && input.value != 0)
 	{
 		// open menu
 		mWindow->pushGui(new GuiMenu(mWindow));
@@ -513,7 +513,8 @@ std::vector<HelpPrompt> ViewController::getHelpPrompts()
 		return prompts;
 
 	prompts = mCurrentView->getHelpPrompts();
-	prompts.push_back(HelpPrompt("start", _("MENU")));
+	if(!UIModeController::getInstance()->isUIModeKid())
+		prompts.push_back(HelpPrompt("start", _("MENU")));
 
 	return prompts;
 }

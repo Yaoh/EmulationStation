@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 15:17+0000\n"
+"POT-Creation-Date: 2018-06-08 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,117 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid "NAME"
+msgstr ""
+
+msgid "ENTER GAME NAME"
+msgstr ""
+
+msgid "SORTNAME"
+msgstr ""
+
+msgid "ENTER GAME SORT NAME"
+msgstr ""
+
+msgid "DESCRIPTION"
+msgstr ""
+
+msgid "ENTER DESCRIPTION"
+msgstr ""
+
+msgid "IMAGE"
+msgstr ""
+
+msgid "ENTER PATH TO IMAGE"
+msgstr ""
+
+msgid "VIDEO"
+msgstr ""
+
+msgid "ENTER PATH TO VIDEO"
+msgstr ""
+
+msgid "MARQUEE"
+msgstr ""
+
+msgid "ENTER PATH TO MARQUEE"
+msgstr ""
+
+msgid "THUMBNAIL"
+msgstr ""
+
+msgid "ENTER PATH TO THUMBNAIL"
+msgstr ""
+
+msgid "RATING"
+msgstr ""
+
+msgid "ENTER RATING"
+msgstr ""
+
+msgid "RELEASE DATE"
+msgstr ""
+
+msgid "ENTER RELEASE DATE"
+msgstr ""
+
+msgid "unknown"
+msgstr ""
+
+msgid "DEVELOPER"
+msgstr ""
+
+msgid "ENTER GAME DEVELOPER"
+msgstr ""
+
+msgid "PUBLISHER"
+msgstr ""
+
+msgid "ENTER GAME PUBLISHER"
+msgstr ""
+
+msgid "GENRE"
+msgstr ""
+
+msgid "ENTER GAME GENRE"
+msgstr ""
+
+msgid "PLAYERS"
+msgstr ""
+
+msgid "ENTER NUMBER OF PLAYERS"
+msgstr ""
+
+msgid "FAVORITE"
+msgstr ""
+
+msgid "ENTER FAVORITE OFF/ON"
+msgstr ""
+
+msgid "HIDDEN"
+msgstr ""
+
+msgid "ENTER HIDDEN OFF/ON"
+msgstr ""
+
+msgid "KIDGAME"
+msgstr ""
+
+msgid "ENTER KIDGAME OFF/ON"
+msgstr ""
+
+msgid "PLAY COUNT"
+msgstr ""
+
+msgid "ENTER NUMBER OF TIMES PLAYED"
+msgstr ""
+
+msgid "LAST PLAYED"
+msgstr ""
+
+msgid "ENTER LAST PLAYED DATE"
+msgstr ""
 
 msgid "collections"
 msgstr ""
@@ -31,9 +142,6 @@ msgid "FILENAME, ASCENDING"
 msgstr ""
 
 msgid "recent"
-msgstr ""
-
-msgid "LAST PLAYED"
 msgstr ""
 
 msgid "LAST PLAYED, DESCENDING"
@@ -78,46 +186,31 @@ msgstr ""
 msgid "This collection contains {1} games, including {2}"
 msgstr ""
 
-msgid "ADD STAR"
+msgid ""
+"IT LOOKS LIKE YOUR SYSTEMS CONFIGURATION FILE HAS NOT BEEN SET UP OR IS "
+"INVALID. YOU'LL NEED TO DO THIS BY HAND, UNFORTUNATELY.\n"
+"\n"
+"VISIT EMULATIONSTATION.ORG FOR MORE INFORMATION."
 msgstr ""
 
-msgid "RATING:"
+msgid ""
+"WE CAN'T FIND ANY SYSTEMS!\n"
+"CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND "
+"YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
+"\n"
+"VISIT EMULATIONSTATION.ORG FOR MORE INFORMATION."
 msgstr ""
 
-msgid "RELEASED:"
+msgid "QUIT"
 msgstr ""
 
-msgid "DEVELOPER:"
+msgid "PUBLISHER / DEVELOPER"
 msgstr ""
 
-msgid "PUBLISHER:"
+msgid "{1} STARS"
 msgstr ""
 
-msgid "GENRE:"
-msgstr ""
-
-msgid "PLAYERS:"
-msgstr ""
-
-msgid "NO GAMES FOUND - SKIP"
-msgstr ""
-
-msgid "RETRY"
-msgstr ""
-
-msgid "SKIP"
-msgstr ""
-
-msgid "CANCEL"
-msgstr ""
-
-msgid "SEARCH FOR"
-msgstr ""
-
-msgid "SEARCH"
-msgstr ""
-
-msgid "ACCEPT RESULT"
+msgid "0 STARS"
 msgstr ""
 
 msgid "FILENAME, DESCENDING"
@@ -174,22 +267,49 @@ msgstr ""
 msgid "SYSTEM, DESCENDING"
 msgstr ""
 
-msgid ""
-"IT LOOKS LIKE YOUR SYSTEMS CONFIGURATION FILE HAS NOT BEEN SET UP OR IS "
-"INVALID. YOU'LL NEED TO DO THIS BY HAND, UNFORTUNATELY.\n"
-"\n"
-"VISIT EMULATIONSTATION.ORG FOR MORE INFORMATION."
+msgid "ADD STAR"
 msgstr ""
 
-msgid ""
-"WE CAN'T FIND ANY SYSTEMS!\n"
-"CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND "
-"YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
-"\n"
-"VISIT EMULATIONSTATION.ORG FOR MORE INFORMATION."
+msgid "CANCEL"
 msgstr ""
 
-msgid "QUIT"
+msgid "RATING:"
+msgstr ""
+
+msgid "RELEASED:"
+msgstr ""
+
+msgid "DEVELOPER:"
+msgstr ""
+
+msgid "PUBLISHER:"
+msgstr ""
+
+msgid "GENRE:"
+msgstr ""
+
+msgid "PLAYERS:"
+msgstr ""
+
+msgid "NO GAMES FOUND - SKIP"
+msgstr ""
+
+msgid "RETRY"
+msgstr ""
+
+msgid "SKIP"
+msgstr ""
+
+msgid "SEARCH FOR"
+msgstr ""
+
+msgid "SEARCH"
+msgstr ""
+
+msgid "ACCEPT RESULT"
+msgstr ""
+
+msgid "MENU"
 msgstr ""
 
 msgid ""
@@ -229,18 +349,6 @@ msgstr ""
 msgid "Kid"
 msgstr ""
 
-msgid "MENU"
-msgstr ""
-
-msgid "LAST PLAYED:"
-msgstr ""
-
-msgid "TIMES PLAYED:"
-msgstr ""
-
-msgid "unknown"
-msgstr ""
-
 msgid "<No Entries Found>"
 msgstr ""
 
@@ -256,151 +364,19 @@ msgstr ""
 msgid "OPTIONS"
 msgstr ""
 
-msgid "GENRE"
+msgid "LAST PLAYED:"
 msgstr ""
 
-msgid "PLAYERS"
-msgstr ""
-
-msgid "PUBLISHER / DEVELOPER"
-msgstr ""
-
-msgid "RATING"
-msgstr ""
-
-msgid "KIDGAME"
-msgstr ""
-
-msgid "HIDDEN"
-msgstr ""
-
-msgid "{1} STARS"
-msgstr ""
-
-msgid "0 STARS"
-msgstr ""
-
-msgid "NAME"
-msgstr ""
-
-msgid "ENTER GAME NAME"
-msgstr ""
-
-msgid "DESCRIPTION"
-msgstr ""
-
-msgid "ENTER DESCRIPTION"
-msgstr ""
-
-msgid "IMAGE"
-msgstr ""
-
-msgid "ENTER PATH TO IMAGE"
-msgstr ""
-
-msgid "VIDEO"
-msgstr ""
-
-msgid "ENTER PATH TO VIDEO"
-msgstr ""
-
-msgid "MARQUEE"
-msgstr ""
-
-msgid "ENTER PATH TO MARQUEE"
-msgstr ""
-
-msgid "THUMBNAIL"
-msgstr ""
-
-msgid "ENTER PATH TO THUMBNAIL"
-msgstr ""
-
-msgid "ENTER RATING"
-msgstr ""
-
-msgid "RELEASE DATE"
-msgstr ""
-
-msgid "ENTER RELEASE DATE"
-msgstr ""
-
-msgid "DEVELOPER"
-msgstr ""
-
-msgid "ENTER GAME DEVELOPER"
-msgstr ""
-
-msgid "PUBLISHER"
-msgstr ""
-
-msgid "ENTER GAME PUBLISHER"
-msgstr ""
-
-msgid "ENTER GAME GENRE"
-msgstr ""
-
-msgid "ENTER NUMBER OF PLAYERS"
-msgstr ""
-
-msgid "FAVORITE"
-msgstr ""
-
-msgid "ENTER FAVORITE OFF/ON"
-msgstr ""
-
-msgid "ENTER HIDDEN OFF/ON"
-msgstr ""
-
-msgid "ENTER KIDGAME OFF/ON"
-msgstr ""
-
-msgid "PLAY COUNT"
-msgstr ""
-
-msgid "ENTER NUMBER OF TIMES PLAYED"
-msgstr ""
-
-msgid "ENTER LAST PLAYED DATE"
+msgid "TIMES PLAYED:"
 msgstr ""
 
 msgid "CLOSE"
 msgstr ""
 
-msgid "GAME COLLECTION SETTINGS"
-msgstr ""
-
-msgid "CREATE NEW CUSTOM COLLECTION FROM THEME"
-msgstr ""
-
-msgid "SELECT THEME FOLDER"
-msgstr ""
-
-msgid "CREATE NEW CUSTOM COLLECTION"
-msgstr ""
-
-msgid "New Collection Name"
-msgstr ""
-
-msgid "GROUP UNTHEMED CUSTOM COLLECTIONS"
-msgstr ""
-
-msgid "SORT CUSTOM COLLECTIONS AND SYSTEMS"
-msgstr ""
-
-msgid "FINISH EDITING '{1}' COLLECTION"
-msgstr ""
-
-msgid "SELECT COLLECTIONS"
-msgstr ""
-
-msgid "AUTOMATIC GAME COLLECTIONS"
-msgstr ""
-
-msgid "CUSTOM GAME COLLECTIONS"
-msgstr ""
-
 msgid "SCREENSAVER AFTER"
+msgstr ""
+
+msgid "SCREENSAVER CONTROLS"
 msgstr ""
 
 msgid "SCREENSAVER BEHAVIOR"
@@ -442,154 +418,6 @@ msgstr ""
 msgid "SLIDESHOW SCREENSAVER"
 msgstr ""
 
-msgid "JUMP TO..."
-msgstr ""
-
-msgid "SORT GAMES BY"
-msgstr ""
-
-msgid "FILTER GAMELIST"
-msgstr ""
-
-msgid "ADD/REMOVE GAMES TO THIS GAME COLLECTION"
-msgstr ""
-
-msgid "EDIT THIS GAME'S METADATA"
-msgstr ""
-
-msgid "FILTER GAMELIST BY"
-msgstr ""
-
-msgid "RESET ALL FILTERS"
-msgstr ""
-
-msgid "FALSE"
-msgstr ""
-
-msgid "TRUE"
-msgstr ""
-
-msgid "SCRAPING IN PROGRESS"
-msgstr ""
-
-msgid "subtitle text"
-msgstr ""
-
-msgid "INPUT"
-msgstr ""
-
-msgid "STOP"
-msgstr ""
-
-msgid "STOP (PROGRESS SAVED)"
-msgstr ""
-
-msgid "GAME {1} OF {2}"
-msgstr ""
-
-msgid "NO GAMES WERE SCRAPED."
-msgstr ""
-
-msgid "{1} GAME SUCCESSFULLY SCRAPED!"
-msgid_plural "{1} GAMES SUCCESSFULLY SCRAPED!"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "{1} GAME SKIPPED."
-msgid_plural "{1} GAMES SKIPPED."
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "SWAP VIDEO AFTER (SECS)"
-msgstr ""
-
-msgid "USE OMX PLAYER FOR SCREENSAVER"
-msgstr ""
-
-msgid "SCREENSAVER CONTROLS"
-msgstr ""
-
-msgid "SHOW GAME INFO"
-msgstr ""
-
-msgid "always"
-msgstr ""
-
-msgid "start & end"
-msgstr ""
-
-msgid "never"
-msgstr ""
-
-msgid "SHOW GAME INFO ON SCREENSAVER"
-msgstr ""
-
-msgid "USE COMPATIBLE LOW RESOLUTION FOR CAPTIONS"
-msgstr ""
-
-msgid "STRETCH VIDEO ON SCREENSAVER"
-msgstr ""
-
-msgid ""
-"Using OMX Player and displaying Game Info may result in the video flickering "
-"in some TV modes. If that happens, consider:\n"
-"\n"
-"- Disabling the \"Show Game Info\" option;\n"
-"- Disabling \"Overscan\" on the Pi configuration menu might help:\n"
-"RetroPie > Raspi-Config > Advanced Options > Overscan > \"No\".\n"
-"- Disabling the use of OMX Player for the screensaver."
-msgstr ""
-
-msgid "GOT IT!"
-msgstr ""
-
-msgid "EDIT METADATA"
-msgstr ""
-
-msgid "SCRAPE"
-msgstr ""
-
-msgid "SAVE"
-msgstr ""
-
-msgid ""
-"THIS WILL DELETE A FILE!\n"
-"ARE YOU SURE?"
-msgstr ""
-
-msgid "YES"
-msgstr ""
-
-msgid "NO"
-msgstr ""
-
-msgid "DELETE"
-msgstr ""
-
-msgid "SAVE CHANGES?"
-msgstr ""
-
-msgid "SWAP IMAGE AFTER (SECS)"
-msgstr ""
-
-msgid "STRETCH IMAGES"
-msgstr ""
-
-msgid "BACKGROUND AUDIO"
-msgstr ""
-
-msgid "USE CUSTOM IMAGES"
-msgstr ""
-
-msgid "CUSTOM IMAGE DIR"
-msgstr ""
-
-msgid "CUSTOM IMAGE DIR RECURSIVE"
-msgstr ""
-
-msgid "CUSTOM IMAGE FILTER"
-msgstr ""
-
 msgid "MAIN MENU"
 msgstr ""
 
@@ -600,6 +428,9 @@ msgid "SOUND SETTINGS"
 msgstr ""
 
 msgid "UI SETTINGS"
+msgstr ""
+
+msgid "GAME COLLECTION SETTINGS"
 msgstr ""
 
 msgid "OTHER SETTINGS"
@@ -663,6 +494,12 @@ msgid ""
 "Do you want to proceed?"
 msgstr ""
 
+msgid "YES"
+msgstr ""
+
+msgid "NO"
+msgstr ""
+
 msgid "SCREENSAVER SETTINGS"
 msgstr ""
 
@@ -702,6 +539,9 @@ msgstr ""
 msgid "video"
 msgstr ""
 
+msgid "grid"
+msgstr ""
+
 msgid "START ON SYSTEM"
 msgstr ""
 
@@ -709,6 +549,9 @@ msgid "NONE"
 msgstr ""
 
 msgid "ON-SCREEN HELP"
+msgstr ""
+
+msgid "ENABLE FILTERS"
 msgstr ""
 
 msgid "Mb"
@@ -768,6 +611,144 @@ msgstr ""
 msgid "SHUTDOWN SYSTEM"
 msgstr ""
 
+msgid "CREATE NEW CUSTOM COLLECTION FROM THEME"
+msgstr ""
+
+msgid "SELECT THEME FOLDER"
+msgstr ""
+
+msgid "CREATE NEW CUSTOM COLLECTION"
+msgstr ""
+
+msgid "New Collection Name"
+msgstr ""
+
+msgid "GROUP UNTHEMED CUSTOM COLLECTIONS"
+msgstr ""
+
+msgid "SORT CUSTOM COLLECTIONS AND SYSTEMS"
+msgstr ""
+
+msgid "FINISH EDITING '{1}' COLLECTION"
+msgstr ""
+
+msgid "SELECT COLLECTIONS"
+msgstr ""
+
+msgid "AUTOMATIC GAME COLLECTIONS"
+msgstr ""
+
+msgid "CUSTOM GAME COLLECTIONS"
+msgstr ""
+
+msgid "EDIT METADATA"
+msgstr ""
+
+msgid "SCRAPE"
+msgstr ""
+
+msgid "SAVE"
+msgstr ""
+
+msgid ""
+"THIS WILL DELETE A FILE!\n"
+"ARE YOU SURE?"
+msgstr ""
+
+msgid "DELETE"
+msgstr ""
+
+msgid "SAVE CHANGES?"
+msgstr ""
+
+msgid "JUMP TO..."
+msgstr ""
+
+msgid "SORT GAMES BY"
+msgstr ""
+
+msgid "FILTER GAMELIST"
+msgstr ""
+
+msgid "ADD/REMOVE GAMES TO THIS GAME COLLECTION"
+msgstr ""
+
+msgid "EDIT THIS GAME'S METADATA"
+msgstr ""
+
+msgid "SWAP IMAGE AFTER (SECS)"
+msgstr ""
+
+msgid "STRETCH IMAGES"
+msgstr ""
+
+msgid "BACKGROUND AUDIO"
+msgstr ""
+
+msgid "USE CUSTOM IMAGES"
+msgstr ""
+
+msgid "CUSTOM IMAGE DIR"
+msgstr ""
+
+msgid "CUSTOM IMAGE DIR RECURSIVE"
+msgstr ""
+
+msgid "CUSTOM IMAGE FILTER"
+msgstr ""
+
+msgid "FILTER GAMELIST BY"
+msgstr ""
+
+msgid "RESET ALL FILTERS"
+msgstr ""
+
+msgid "FALSE"
+msgstr ""
+
+msgid "TRUE"
+msgstr ""
+
+msgid "SWAP VIDEO AFTER (SECS)"
+msgstr ""
+
+msgid "USE OMX PLAYER FOR SCREENSAVER"
+msgstr ""
+
+msgid "SHOW GAME INFO"
+msgstr ""
+
+msgid "always"
+msgstr ""
+
+msgid "start & end"
+msgstr ""
+
+msgid "never"
+msgstr ""
+
+msgid "SHOW GAME INFO ON SCREENSAVER"
+msgstr ""
+
+msgid "USE COMPATIBLE LOW RESOLUTION FOR CAPTIONS"
+msgstr ""
+
+msgid "STRETCH VIDEO ON SCREENSAVER"
+msgstr ""
+
+msgid ""
+"Using OMX Player and displaying Game Info may result in the video flickering "
+"in some TV modes. If that happens, consider:\n"
+"\n"
+"- Disabling the \"Show Game Info\" option;\n"
+"- Disabling \"Overscan\" on the Pi configuration menu might help:\n"
+"RetroPie > Raspi-Config > Advanced Options > Overscan > \"No\".\n"
+"- Disabling the use of OMX Player for the screensaver."
+msgstr ""
+
+msgid "GOT IT!"
+msgstr ""
+
 msgid "SCRAPE THESE GAMES"
 msgstr ""
 
@@ -801,6 +782,40 @@ msgstr ""
 msgid "NO GAMES FIT THAT CRITERIA."
 msgstr ""
 
+msgid "INPUT"
+msgstr ""
+
+msgid "SCRAPING IN PROGRESS"
+msgstr ""
+
+msgid "subtitle text"
+msgstr ""
+
+msgid "STOP"
+msgstr ""
+
+msgid "STOP (PROGRESS SAVED)"
+msgstr ""
+
+msgid "GAME {1} OF {2}"
+msgstr ""
+
+msgid "NO GAMES WERE SCRAPED."
+msgstr ""
+
+msgid "{1} GAME SUCCESSFULLY SCRAPED!"
+msgid_plural "{1} GAMES SUCCESSFULLY SCRAPED!"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{1} GAME SKIPPED."
+msgid_plural "{1} GAMES SKIPPED."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "LOADING..."
+msgstr ""
+
 msgid "CHANGE"
 msgstr ""
 
@@ -824,15 +839,6 @@ msgid_plural "{1} seconds ago"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "MOVE CURSOR"
-msgstr ""
-
-msgid "STOP EDITING"
-msgstr ""
-
-msgid "EDIT"
-msgstr ""
-
 msgid "WORKING..."
 msgstr ""
 
@@ -850,7 +856,36 @@ msgid_plural "{1} SELECTED"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "LOADING..."
+msgid "MOVE CURSOR"
+msgstr ""
+
+msgid "STOP EDITING"
+msgstr ""
+
+msgid "EDIT"
+msgstr ""
+
+msgid "WELCOME"
+msgstr ""
+
+msgid "{1} GAMEPAD DETECTED"
+msgid_plural "{1} GAMEPADS DETECTED"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "NO GAMEPADS DETECTED"
+msgstr ""
+
+msgid "HOLD A BUTTON ON YOUR DEVICE TO CONFIGURE IT."
+msgstr ""
+
+msgid "PRESS F4 TO QUIT AT ANY TIME."
+msgstr ""
+
+msgid "PRESS ESC TO CANCEL."
+msgstr ""
+
+msgid "DISCARD CHANGES"
 msgstr ""
 
 msgctxt "button"
@@ -986,27 +1021,4 @@ msgid "PRESS ANYTHING"
 msgstr ""
 
 msgid "ALREADY TAKEN"
-msgstr ""
-
-msgid "DISCARD CHANGES"
-msgstr ""
-
-msgid "WELCOME"
-msgstr ""
-
-msgid "{1} GAMEPAD DETECTED"
-msgid_plural "{1} GAMEPADS DETECTED"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "NO GAMEPADS DETECTED"
-msgstr ""
-
-msgid "HOLD A BUTTON ON YOUR DEVICE TO CONFIGURE IT."
-msgstr ""
-
-msgid "PRESS F4 TO QUIT AT ANY TIME."
-msgstr ""
-
-msgid "PRESS ESC TO CANCEL."
 msgstr ""

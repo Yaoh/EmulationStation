@@ -70,7 +70,7 @@ void SystemView::populate()
 					0x000000FF,
 					ALIGN_CENTER);
 				text->setSize(mCarousel.logoSize * mCarousel.logoScale);
-				text->applyTheme((*it)->getTheme(), "system", "logoText", ThemeFlags::FONT_PATH | ThemeFlags::FONT_SIZE | ThemeFlags::COLOR | ThemeFlags::FORCE_UPPERCASE);
+				text->applyTheme((*it)->getTheme(), "system", "logoText", ThemeFlags::FONT_PATH | ThemeFlags::FONT_SIZE | ThemeFlags::COLOR | ThemeFlags::FORCE_UPPERCASE | ThemeFlags::LINE_SPACING | ThemeFlags::TEXT);
 				e.data.logo = std::shared_ptr<GuiComponent>(text);
 
 				if (mCarousel.type == VERTICAL || mCarousel.type == VERTICAL_WHEEL)
@@ -198,7 +198,7 @@ bool SystemView::input(InputConfig* config, Input input)
 			config->isMappedTo("up", input) ||
 			config->isMappedTo("down", input))
 			listInput(0);
-		if(config->isMappedTo("select", input) && Settings::getInstance()->getBool("ScreenSaverControls"))
+		if(!UIModeController::getInstance()->isUIModeKid() && config->isMappedTo("select", input) && Settings::getInstance()->getBool("ScreenSaverControls"))
 		{
 			mWindow->startScreenSaver();
 			mWindow->renderScreenSaver();
@@ -383,7 +383,7 @@ std::vector<HelpPrompt> SystemView::getHelpPrompts()
 	prompts.push_back(HelpPrompt("a", _("SELECT")));
 	prompts.push_back(HelpPrompt("x", _("RANDOM")));
 
-	if (Settings::getInstance()->getBool("ScreenSaverControls"))
+	if (!UIModeController::getInstance()->isUIModeKid() && Settings::getInstance()->getBool("ScreenSaverControls"))
 		prompts.push_back(HelpPrompt("select", _("LAUNCH SCREENSAVER")));
 
 	return prompts;

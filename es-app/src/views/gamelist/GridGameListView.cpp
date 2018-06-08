@@ -17,7 +17,8 @@ GridGameListView::GridGameListView(Window* window, FileData* root) :
 	mLblGenre(window), mLblPlayers(window), mLblLastPlayed(window), mLblPlayCount(window),
 
 	mRating(window), mReleaseDate(window), mDeveloper(window), mPublisher(window),
-	mGenre(window), mPlayers(window), mLastPlayed(window), mPlayCount(window)
+	mGenre(window), mPlayers(window), mLastPlayed(window), mPlayCount(window),
+	mName(window)
 {
 	const float padding = 0.01f;
 
@@ -54,6 +55,13 @@ GridGameListView::GridGameListView(Window* window, FileData* root) :
 	mLblPlayCount.setText(_("TIMES PLAYED:") + " ");
 	addChild(&mLblPlayCount);
 	addChild(&mPlayCount);
+
+	mName.setPosition(mSize.x(), mSize.y());
+	mName.setDefaultZIndex(40);
+	mName.setColor(0xAAAAAAFF);
+	mName.setFont(Font::get(FONT_SIZE_MEDIUM));
+	mName.setHorizontalAlignment(ALIGN_CENTER);
+	addChild(&mName);
 
 	mDescContainer.setPosition(mSize.x() * padding, mSize.y() * 0.65f);
 	mDescContainer.setSize(mSize.x() * (0.50f - 2*padding), mSize.y() - mDescContainer.getPosition().y());
@@ -127,6 +135,7 @@ void GridGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 	using namespace ThemeFlags;
 
 	mGrid.applyTheme(theme, getName(), "gamegrid", ALL);
+	mName.applyTheme(theme, getName(), "md_name", ALL);
 
 	initMDLabels();
 	std::vector<TextComponent*> labels = getMDLabels();
@@ -246,6 +255,7 @@ void GridGameListView::updateInfoPanel()
 		mPublisher.setValue(file->metadata.get("publisher"));
 		mGenre.setValue(file->metadata.get("genre"));
 		mPlayers.setValue(file->metadata.get("players"));
+		mName.setValue(file->metadata.get("name"));
 
 		if(file->getType() == GAME)
 		{
@@ -258,6 +268,7 @@ void GridGameListView::updateInfoPanel()
 
 	std::vector<GuiComponent*> comps = getMDValues();
 	comps.push_back(&mDescription);
+	comps.push_back(&mName);
 	std::vector<TextComponent*> labels = getMDLabels();
 	comps.insert(comps.cend(), labels.cbegin(), labels.cend());
 
@@ -358,7 +369,8 @@ std::vector<HelpPrompt> GridGameListView::getHelpPrompts()
 	prompts.push_back(HelpPrompt("up/down/left/right", _("CHOOSE")));
 	prompts.push_back(HelpPrompt("a", _("LAUNCH")));
 	prompts.push_back(HelpPrompt("b", _("BACK")));
-	prompts.push_back(HelpPrompt("select", _("OPTIONS")));
+	if(!UIModeController::getInstance()->isUIModeKid())
+		prompts.push_back(HelpPrompt("select", _("OPTIONS")));
 	if(mRoot->getSystem()->isGameSystem())
 		prompts.push_back(HelpPrompt("x", _("RANDOM")));
 	if(mRoot->getSystem()->isGameSystem() && !UIModeController::getInstance()->isUIModeKid())
