@@ -349,13 +349,13 @@ msgid "LAUNCH SCREENSAVER"
 msgstr "PROTETOR DE TELA"
 
 msgid "Full"
-msgstr "Completo"
+msgstr "COMPLETO"
 
 msgid "Kiosk"
-msgstr "Kiosk"
+msgstr "KIOSK"
 
 msgid "Kid"
-msgstr "Infantil"
+msgstr "INFANTIL"
 
 msgid "<No Entries Found>"
 msgstr "<Nada Encontrado>"
@@ -391,16 +391,16 @@ msgid "SCREENSAVER BEHAVIOR"
 msgstr "TIPO DE PROTETOR DE TELA"
 
 msgid "dim"
-msgstr "iluminado"
+msgstr "ILUMINADO"
 
 msgid "black"
-msgstr "preto"
+msgstr "PRETO"
 
 msgid "random video"
-msgstr "vídeos aleatórios"
+msgstr "VÍDEOS ALEATÓRIOS"
 
 msgid "slideshow"
-msgstr "apresentação"
+msgstr "APRESENTAÇÃO"
 
 msgid ""
 "The \"Random Video\" screensaver shows videos from your gamelist.\n"
@@ -489,13 +489,13 @@ msgid "OMX PLAYER AUDIO DEVICE"
 msgstr "OMX PLAYER DISPOSITIVO DE ÁUDIO"
 
 msgid "local"
-msgstr "local"
+msgstr "LOCAL"
 
 msgid "hdmi"
-msgstr "hdmi"
+msgstr "HDMI"
 
 msgid "both"
-msgstr "both"
+msgstr "BOTH"
 
 msgid "UI MODE"
 msgstr "MODO DE INTERFACE"
@@ -538,13 +538,13 @@ msgid "TRANSITION STYLE"
 msgstr "ESTILO DA TRANSIÇÃO"
 
 msgid "fade"
-msgstr "fade"
+msgstr "FADE"
 
 msgid "slide"
-msgstr "slide"
+msgstr "SLIDE"
 
 msgid "instant"
-msgstr "instant"
+msgstr "INSTANT"
 
 msgid "THEME SET"
 msgstr "CONJUNTO DE TEMA"
@@ -553,19 +553,19 @@ msgid "GAMELIST VIEW STYLE"
 msgstr "VISUALIZAR ESTILO LISTA"
 
 msgid "automatic"
-msgstr "automático"
+msgstr "AUTOMÁTICO"
 
 msgid "basic"
-msgstr "básico"
+msgstr "BÁSICO"
 
 msgid "detailed"
-msgstr "detalhado"
+msgstr "DETALHADO"
 
 msgid "video"
-msgstr "vídeo"
+msgstr "VÍDEO"
 
 msgid "grid"
-msgstr "grade"
+msgstr "GRADE"
 
 msgid "START ON SYSTEM"
 msgstr "IINICIAR NO SISTEMA"
@@ -589,13 +589,13 @@ msgid "POWER SAVER MODES"
 msgstr "ECONOMIA DE ENERGIA"
 
 msgid "disabled"
-msgstr "desativado"
+msgstr "DESATIVADO"
 
 msgid "default"
-msgstr "padrão"
+msgstr "PADRÃO"
 
 msgid "enhanced"
-msgstr "melhorado"
+msgstr "MELHORADO"
 
 msgid "SAVE METADATA ON EXIT"
 msgstr "SALVAR DADOS AO SAIR"
@@ -746,13 +746,13 @@ msgid "SHOW GAME INFO"
 msgstr "MOSTRAR INFORMAÇÕES DO JOGO"
 
 msgid "always"
-msgstr "sempre"
+msgstr "SEMPRE"
 
 msgid "start & end"
-msgstr "começo & fim"
+msgstr "COMEÇO & FIM"
 
 msgid "never"
-msgstr "nunca"
+msgstr "NUNCA"
 
 msgid "SHOW GAME INFO ON SCREENSAVER"
 msgstr "MOSTRAR INFORMAÇÕES DO JOGO NA PROTEÇÃO DE TELA"
@@ -1063,6 +1063,3 @@ msgstr "PRESSIONAR QUALQUER UM"
 
 msgid "ALREADY TAKEN"
 msgstr "JÁ EXISTE"
-
-#~ msgid "among other titles."
-#~ msgstr "entre outros títulos."
