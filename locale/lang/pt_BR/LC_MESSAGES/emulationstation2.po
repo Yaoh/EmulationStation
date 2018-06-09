@@ -294,8 +294,9 @@ msgstr "EDITOR:"
 msgid "GENRE:"
 msgstr "GÊNERO:"
 
+# plural is too large
 msgid "PLAYERS:"
-msgstr "JOGADORES:"
+msgstr "JOGADOR:"
 
 msgid "NO GAMES FOUND - SKIP"
 msgstr "NENHUM JOGO ENCONTRADO - PULAR"
