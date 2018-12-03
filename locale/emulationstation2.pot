@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-21 19:03+0200\n"
+"POT-Creation-Date: 2018-12-03 12:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -451,6 +451,21 @@ msgstr ""
 msgid "SYSTEM VOLUME"
 msgstr ""
 
+msgid "AUDIO CARD"
+msgstr ""
+
+msgid "local"
+msgstr ""
+
+msgid "hdmi"
+msgstr ""
+
+msgid "both"
+msgstr ""
+
+msgid "default"
+msgstr ""
+
 msgid "AUDIO DEVICE"
 msgstr ""
 
@@ -463,6 +478,12 @@ msgstr ""
 msgid "Master"
 msgstr ""
 
+msgid "Digital"
+msgstr ""
+
+msgid "Analogue"
+msgstr ""
+
 msgid "ENABLE NAVIGATION SOUNDS"
 msgstr ""
 
@@ -470,15 +491,6 @@ msgid "ENABLE VIDEO AUDIO"
 msgstr ""
 
 msgid "OMX PLAYER AUDIO DEVICE"
-msgstr ""
-
-msgid "local"
-msgstr ""
-
-msgid "hdmi"
-msgstr ""
-
-msgid "both"
 msgstr ""
 
 msgid "UI MODE"
@@ -564,9 +576,6 @@ msgid "POWER SAVER MODES"
 msgstr ""
 
 msgid "disabled"
-msgstr ""
-
-msgid "default"
 msgstr ""
 
 msgid "enhanced"

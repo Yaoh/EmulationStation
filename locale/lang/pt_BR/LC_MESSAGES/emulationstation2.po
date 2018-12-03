@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: retropie-emulationstation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-21 18:59+0200\n"
+"POT-Creation-Date: 2018-12-03 12:15+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: heloisa \n"
 "Language-Team: https://github.com/heloisatech/emulationstationBR/blob/master/"
@@ -468,6 +468,21 @@ msgstr "SCRAPE AGORA"
 msgid "SYSTEM VOLUME"
 msgstr "VOLUME DO SISTEMA"
 
+msgid "AUDIO CARD"
+msgstr "PLACA DE SOM"
+
+msgid "local"
+msgstr "LOCAL"
+
+msgid "hdmi"
+msgstr "HDMI"
+
+msgid "both"
+msgstr "BOTH"
+
+msgid "default"
+msgstr "PADRÃO"
+
 msgid "AUDIO DEVICE"
 msgstr "DISPOSITIVO DE ÁUDIO"
 
@@ -480,6 +495,12 @@ msgstr "Caixa de som"
 msgid "Master"
 msgstr "Master"
 
+msgid "Digital"
+msgstr "Digital"
+
+msgid "Analogue"
+msgstr "Analógico"
+
 msgid "ENABLE NAVIGATION SOUNDS"
 msgstr "HABILITAR SONS DE NAVEGAÇÃO"
 
@@ -488,15 +509,6 @@ msgstr "HABILITAR ÁUDIO NO VÍDEO"
 
 msgid "OMX PLAYER AUDIO DEVICE"
 msgstr "OMX PLAYER DISPOSITIVO DE ÁUDIO"
-
-msgid "local"
-msgstr "LOCAL"
-
-msgid "hdmi"
-msgstr "HDMI"
-
-msgid "both"
-msgstr "BOTH"
 
 msgid "UI MODE"
 msgstr "MODO DE INTERFACE"
@@ -591,9 +603,6 @@ msgstr "ECONOMIA DE ENERGIA"
 
 msgid "disabled"
 msgstr "DESATIVADO"
-
-msgid "default"
-msgstr "PADRÃO"
 
 msgid "enhanced"
 msgstr "MELHORADO"
