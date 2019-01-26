@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 12:41+0100\n"
+"POT-Creation-Date: 2019-01-26 18:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -289,6 +289,14 @@ msgid "GENRE:"
 msgstr ""
 
 msgid "PLAYERS:"
+msgstr ""
+
+msgid ""
+"Configured scraper is no longer available.\n"
+"Please change the scraping source in the settings."
+msgstr ""
+
+msgid "FINISH"
 msgstr ""
 
 msgid "NO GAMES FOUND - SKIP"
@@ -660,7 +668,7 @@ msgid "SAVE"
 msgstr ""
 
 msgid ""
-"THIS WILL DELETE A FILE!\n"
+"THIS WILL DELETE THE ACTUAL GAME FILE(S)!\n"
 "ARE YOU SURE?"
 msgstr ""
 
