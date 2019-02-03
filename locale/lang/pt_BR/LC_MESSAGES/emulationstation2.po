@@ -471,7 +471,7 @@ msgid "SYSTEM VOLUME"
 msgstr "VOLUME DO SISTEMA"
 
 msgid "AUDIO CARD"
-msgstr ""
+msgstr "CARTÃO DE ÁUDIO"
 
 msgid "local"
 msgstr "LOCAL"
@@ -501,7 +501,7 @@ msgid "Digital"
 msgstr ""
 
 msgid "Analogue"
-msgstr ""
+msgstr "Analógico"
 
 msgid "ENABLE NAVIGATION SOUNDS"
 msgstr "HABILITAR SONS DE NAVEGAÇÃO"
@@ -690,7 +690,8 @@ msgstr "SALVAR"
 msgid ""
 "THIS WILL DELETE THE ACTUAL GAME FILE(S)!\n"
 "ARE YOU SURE?"
-msgstr ""
+msgstr "ISSO DELETARÁ O ARQUIVO ATUAL!\n"
+"TEM CERTEZA?"
 
 msgid "DELETE"
 msgstr "DELETAR"
@@ -717,7 +718,7 @@ msgid "SWAP IMAGE AFTER (SECS)"
 msgstr "MUDAR IMAGEM APÓS (S)"
 
 msgid "STRETCH IMAGES"
-msgstr "ESTICAR IMAGENS"
+msgstr "ESTENDER IMAGENS"
 
 msgid "BACKGROUND AUDIO"
 msgstr "ÁUDIO DE FUNDO"
@@ -771,7 +772,7 @@ msgid "USE COMPATIBLE LOW RESOLUTION FOR CAPTIONS"
 msgstr "USE BAIXA RESOLUÇÃO COMPATÍVEL PARA LEGENDA"
 
 msgid "STRETCH VIDEO ON SCREENSAVER"
-msgstr "ESTICAR VÍDEO NA PROTEÇÃO DE TELA"
+msgstr "ESTENDER VÍDEO NA PROTEÇÃO DE TELA"
 
 msgid ""
 "Using OMX Player and displaying Game Info may result in the video flickering "
@@ -961,19 +962,19 @@ msgstr "SELECIONAR"
 
 msgctxt "button"
 msgid "BUTTON A / EAST"
-msgstr ""
+msgstr "A"
 
 msgctxt "button"
 msgid "BUTTON B / SOUTH"
-msgstr ""
+msgstr "B"
 
 msgctxt "button"
 msgid "BUTTON X / NORTH"
-msgstr ""
+msgstr "X"
 
 msgctxt "button"
 msgid "BUTTON Y / WEST"
-msgstr ""
+msgstr "Y"
 
 msgctxt "button"
 msgid "LEFT SHOULDER"
@@ -1073,26 +1074,3 @@ msgstr "PRESSIONAR QUALQUER UM"
 
 msgid "ALREADY TAKEN"
 msgstr "JÁ EXISTE"
-
-#~ msgid ""
-#~ "THIS WILL DELETE A FILE!\n"
-#~ "ARE YOU SURE?"
-#~ msgstr ""
-#~ "ISSO DELETARÁ O ARQUIVO!\n"
-#~ "TEM CERTEZA?"
-
-#~ msgctxt "button"
-#~ msgid "A"
-#~ msgstr "A"
-
-#~ msgctxt "button"
-#~ msgid "B"
-#~ msgstr "B"
-
-#~ msgctxt "button"
-#~ msgid "X"
-#~ msgstr "X"
-
-#~ msgctxt "button"
-#~ msgid "Y"
-#~ msgstr "Y"
