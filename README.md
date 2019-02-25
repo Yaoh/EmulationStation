@@ -85,4 +85,5 @@ Thanks to:
 * [heloisa](https://github.com/heloisatech) - For the Portuguese (Brazilian) and Spanish (Spain) translations.
 * [wakaya](https://retropie.org.uk/forum/user/wakaya) - For the Japanese translations and for the instructions on how to use the localized EmulationStation.
 * [hiulit](https://github.com/hiulit) - For the Catalan and Spanish (Spain) translations.
+* [Taranchul](https://github.com/Taranchul) - For the German translations.
 * Unknown - For the Italian translations.
