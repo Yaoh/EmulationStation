@@ -8,10 +8,11 @@ Inspired by similar work on the Recalbox fork.
 
 * Catalan
 * French
+* German
 * Italian
 * Japanese
 * Portuguese (Brazilian)
-* Spanish
+* Spanish (Spain)
 
 ## How to use the localized EmulationStation
 
