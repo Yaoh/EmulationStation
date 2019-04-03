@@ -11,6 +11,7 @@ Inspired by similar work on the Recalbox fork.
 * German
 * Italian
 * Japanese
+* Korean
 * Portuguese (Brazilian)
 * Spanish (Spain)
 
@@ -88,3 +89,4 @@ Thanks to:
 * [hiulit](https://github.com/hiulit) - For the Catalan and Spanish (Spain) translations.
 * [Taranchul](https://github.com/Taranchul) - For the German translations.
 * Unknown - For the Italian translations.
+* [losernator](https://github.com/losernator) - For the Korean translations.
