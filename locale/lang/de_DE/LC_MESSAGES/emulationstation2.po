@@ -206,7 +206,7 @@ msgstr ""
 "ES WURDEN KEINE SYSTEME GEFUNDEN!"
 "BITTE PRÜFE DIE PFADE IN DEINER KONFIGURATIONSDATEI FÜR DIE SYSTEME UND "
 "DASS DEIN SPIELEVERZEICHNIS MINDESTENS EIN SPIEL MIT EINER KORREKTEN "
-"DATEIENDUNG BEINHALTET.
+"DATEIENDUNG BEINHALTET."
 "\n"
 "BESUCHE EMULATIONSTATION.ORG FÜR WEITERE INFORMATIONEN."
 
@@ -793,7 +793,7 @@ msgid ""
 "- Disabling the use of OMX Player for the screensaver."
 msgstr ""
 "Spieleinformationen können Kombination mit dem OMX Player in manchen Videomodi "
-"zu Bildflackern führen. In diesem Fall können folgende Schritte helfen:
+"zu Bildflackern führen. In diesem Fall können folgende Schritte helfen:"
 "\n"
 "- \"Spieleinformationen anzeigen\" abschalten;"
 "- \"Overscan\" in der Konfiguration des Raspberry Pi abschalten:"
@@ -1043,7 +1043,6 @@ msgstr "ANALOG RECHTS RECHTS"
 
 msgctxt "button"
 msgid "HOTKEY ENABLE"
-msgstr ""
 msgstr "HOTKEY FÜR EMULATOR-FUNKTIONEN"
 
 msgid "CONFIGURING"
