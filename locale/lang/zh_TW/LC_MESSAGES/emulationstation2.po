@@ -48,10 +48,10 @@ msgid "ENTER PATH TO VIDEO"
 msgstr "輸入影片路徑"
 
 msgid "MARQUEE"
-msgstr "MARQUEE"
+msgstr "橫幅圖片"
 
 msgid "ENTER PATH TO MARQUEE"
-msgstr "輸入MARQUEE路徑"
+msgstr "輸入橫幅路徑"
 
 msgid "THUMBNAIL"
 msgstr "縮略圖"
@@ -129,7 +129,7 @@ msgid "ENTER LAST PLAYED DATE"
 msgstr "輸入最後遊玩日"
 
 msgid "collections"
-msgstr "合集"
+msgstr "收藏匣"
 
 msgid "all"
 msgstr "全部"
@@ -180,7 +180,7 @@ msgid "Various"
 msgstr "各種"
 
 msgid " among other titles."
-msgstr "存在同樣的標題"
+msgstr "存在同樣的名稱"
 
 msgid "This collection contains {1} games, including {2}"
 msgstr "這個收藏匣 {1} 的遊戲含有 {2} "
@@ -194,7 +194,7 @@ msgstr ""
 "看起來您的系統配置文件尚未設置或無效 "
 "很遺憾,您必須手動進行配置.\n"
 "\n"
-"訪問 EMULATIONSTATION.ORG 取得更多訊息."
+"訪問 EMULATIONSTATION 取得更多訊息."
 
 msgid ""
 "WE CAN'T FIND ANY SYSTEMS!\n"
@@ -207,7 +207,7 @@ msgstr ""
 "CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND "
 "YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
 "\n"
-"訪問 EMULATIONSTATION.ORG 取得更多訊息."
+"訪問 EMULATIONSTATION 取得更多訊息."
 
 msgid "QUIT"
 msgstr "離開"
@@ -216,10 +216,10 @@ msgid "PUBLISHER / DEVELOPER"
 msgstr "發行商 / 開發商"
 
 msgid "{1} STARS"
-msgstr "{1} 星星"
+msgstr "{1} 顆星星"
 
 msgid "0 STARS"
-msgstr "0 星星"
+msgstr "0 顆星星"
 
 msgid "FILENAME, DESCENDING"
 msgstr "遊戲名稱排序"
@@ -246,10 +246,10 @@ msgid "NUMBER PLAYERS, DESCENDING"
 msgstr "遊戲人數 降序"
 
 msgid "RELEASE DATE, ASCENDING"
-msgstr "發布日期 升序"
+msgstr "發行日期 升序"
 
 msgid "RELEASE DATE, DESCENDING"
-msgstr "發布日期 降序"
+msgstr "發行日期 降序"
 
 msgid "GENRE, ASCENDING"
 msgstr "類型 升序"
@@ -284,8 +284,8 @@ msgstr "取消"
 msgid "RATING:"
 msgstr "評分:"
 
-msgid "發布日期："
-msgstr ""
+msgid "RELEASED:"
+msgstr "發行日期："
 
 msgid "DEVELOPER:"
 msgstr "開發商"
@@ -303,8 +303,8 @@ msgid ""
 "Configured scraper is no longer available.\n"
 "Please change the scraping source in the settings."
 msgstr ""
-"設定擦除不再可以使用.\n"
-"請更改設定中的擦除源,"
+"設定抓取不可以使用.\n"
+"請更改設定中的抓取源,"
 
 msgid "FINISH"
 msgstr "完成"
@@ -445,10 +445,10 @@ msgid "SLIDESHOW SCREENSAVER"
 msgstr "幻燈片螢幕保護程式"
 
 msgid "MAIN MENU"
-msgstr "主選單"
+msgstr "系統設定選單"
 
 msgid "SCRAPER"
-msgstr "SCRAPER"
+msgstr "下載遊戲資料"
 
 msgid "SOUND SETTINGS"
 msgstr "聲音設定"
@@ -463,16 +463,16 @@ msgid "OTHER SETTINGS"
 msgstr "其它設定"
 
 msgid "CONFIGURE INPUT"
-msgstr "輸出設定"
+msgstr "設定輸入"
 
 msgid "SCRAPE FROM"
-msgstr "SCRAPE FROM"
+msgstr "資料來源"
 
 msgid "SCRAPE RATINGS"
-msgstr "CRAPE RATINGS"
+msgstr "下載評價"
 
 msgid "SCRAPE NOW"
-msgstr "SCRAPE NOW"
+msgstr "開始下載"
 
 msgid "SYSTEM VOLUME"
 msgstr "系統音量"
@@ -493,7 +493,7 @@ msgid "default"
 msgstr "default"
 
 msgid "AUDIO DEVICE"
-msgstr "AUDIO DEVICE"
+msgstr "音效裝置"
 
 msgid "PCM"
 msgstr "PCM"
@@ -511,10 +511,10 @@ msgid "Analogue"
 msgstr "Analogue"
 
 msgid "ENABLE NAVIGATION SOUNDS"
-msgstr "ENABLE NAVIGATION SOUNDS"
+msgstr "啟用 NAVIGATION 聲音"
 
 msgid "ENABLE VIDEO AUDIO"
-msgstr "ENABLE VIDEO AUDIO"
+msgstr "啟用影片聲音"
 
 msgid "OMX PLAYER AUDIO DEVICE"
 msgstr "OMX PLAYER AUDIO DEVICE"
@@ -585,13 +585,13 @@ msgid "video"
 msgstr "影像"
 
 msgid "grid"
-msgstr "格子"
+msgstr "表格"
 
 msgid "START ON SYSTEM"
 msgstr "啟動系統"
 
 msgid "NONE"
-msgstr "NONE"
+msgstr "無"
 
 msgid "ON-SCREEN HELP"
 msgstr "屏幕幫助"
@@ -615,7 +615,7 @@ msgid "enhanced"
 msgstr "啟用"
 
 msgid "SAVE METADATA ON EXIT"
-msgstr "在退出時保存元資料"
+msgstr "在退出時保存資料"
 
 msgid "PARSE GAMESLISTS ONLY"
 msgstr "PARSE GAMESLISTS ONLY"
@@ -672,7 +672,7 @@ msgid "SORT CUSTOM COLLECTIONS AND SYSTEMS"
 msgstr "SORT CUSTOM COLLECTIONS AND SYSTEMS"
 
 msgid "FINISH EDITING '{1}' COLLECTION"
-msgstr "FINISH EDITING '{1}' COLLECTION"
+msgstr "'{1}' 完成編輯收藏匣"
 
 msgid "SELECT COLLECTIONS"
 msgstr "SELECT COLLECTIONS"
@@ -684,10 +684,10 @@ msgid "CUSTOM GAME COLLECTIONS"
 msgstr "CUSTOM GAME COLLECTIONS"
 
 msgid "EDIT METADATA"
-msgstr "EDIT METADATA"
+msgstr "編輯資料"
 
 msgid "SCRAPE"
-msgstr "擦除"
+msgstr "抓取"
 
 msgid "SAVE"
 msgstr "儲存"
@@ -736,7 +736,7 @@ msgid "CUSTOM IMAGE DIR"
 msgstr "自定義圖像目錄"
 
 msgid "CUSTOM IMAGE DIR RECURSIVE"
-msgstr "自定義圖像DIR遞迴"
+msgstr "自定義目錄中圖像遞迴"
 
 msgid "CUSTOM IMAGE FILTER"
 msgstr "自定義圖片篩選"
@@ -829,7 +829,7 @@ msgid ""
 "MAY BE EVEN MORE INACCURATE THAN USUAL!\n"
 "CONTINUE ANYWAY?"
 msgstr ""
-"警告G: 一些選定的系統沒有平臺設定 "
+"警告: 一些選定的系統沒有平臺設定 "
 "結果可能比平常更不準確!\n"
 "是否繼續?"
 
@@ -929,10 +929,10 @@ msgstr[0] "偵測到 {1} 遊戲手把"
 msgstr[1] "偵測到 {1} 遊戲手把"
 
 msgid "NO GAMEPADS DETECTED"
-msgstr "偵測不到遊戲手把"
+msgstr "偵測不到遊戲手把或鍵盤"
 
-msgid "在你的設備上按一個按鈕來設定它."
-msgstr ""
+msgid "HOLD A BUTTON ON YOUR DEVICE TO CONFIGURE IT."
+msgstr "在你的設備上按ㄧ個按鈕來設定它."
 
 msgid "PRESS F4 TO QUIT AT ANY TIME."
 msgstr "任何時間按 F4 來離開"
@@ -1041,7 +1041,7 @@ msgstr "右類比 右"
 
 msgctxt "button"
 msgid "HOTKEY ENABLE"
-msgstr "熱鍵啟用"
+msgstr "熱鍵"
 
 msgid "CONFIGURING"
 msgstr "設定"
