@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_TW\n"
-"MIME-Version: 1.0\n"
+"MIME-Version: 1.2\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -255,7 +255,7 @@ msgid "GENRE, ASCENDING"
 msgstr "類型 升序"
 
 msgid "GENRE, DESCENDING"
-msgstr "類型 降序
+msgstr "類型 降序"
 
 msgid "DEVELOPER, ASCENDING"
 msgstr "開發商 升序"
