@@ -313,7 +313,7 @@ msgid "NO GAMES FOUND - SKIP"
 msgstr "找不到遊戲 - 略過"
 
 msgid "RETRY"
-msgstr ""
+msgstr "重試"
 
 msgid "SKIP"
 msgstr "略過"
@@ -349,13 +349,13 @@ msgstr[0] "{1} 遊戲可遊玩"
 msgstr[1] "{1} 遊戲可遊玩"
 
 msgid "CHOOSE"
-msgstr "CHOOSE"
+msgstr "已選擇"
 
 msgid "SELECT"
-msgstr "SELECT"
+msgstr "選擇"
 
 msgid "RANDOM"
-msgstr "RANDOM"
+msgstr "隨機"
 
 msgid "LAUNCH SCREENSAVER"
 msgstr "啟動螢幕保護程式"
@@ -376,7 +376,7 @@ msgid "SYSTEM"
 msgstr "SYSTEM"
 
 msgid "LAUNCH"
-msgstr "LAUNCH"
+msgstr "執行"
 
 msgid "BACK"
 msgstr "BACK"
@@ -505,10 +505,10 @@ msgid "Master"
 msgstr "Master"
 
 msgid "Digital"
-msgstr "Digital"
+msgstr "數位"
 
 msgid "Analogue"
-msgstr "Analogue"
+msgstr "類比"
 
 msgid "ENABLE NAVIGATION SOUNDS"
 msgstr "啟用 NAVIGATION 聲音"
@@ -517,7 +517,7 @@ msgid "ENABLE VIDEO AUDIO"
 msgstr "啟用影片聲音"
 
 msgid "OMX PLAYER AUDIO DEVICE"
-msgstr "OMX PLAYER AUDIO DEVICE"
+msgstr "OMX PLAYER 音效裝置"
 
 msgid "UI MODE"
 msgstr "介面模式"
@@ -546,7 +546,7 @@ msgid "NO"
 msgstr "否"
 
 msgid "SCREENSAVER SETTINGS"
-msgstr "SCREENSAVER SETTINGS"
+msgstr "營幕保護設定"
 
 msgid "QUICK SYSTEM SELECT"
 msgstr "QUICK SYSTEM SELECT"
@@ -594,7 +594,7 @@ msgid "NONE"
 msgstr "無"
 
 msgid "ON-SCREEN HELP"
-msgstr "屏幕幫助"
+msgstr "顯示營幕幫助"
 
 msgid "ENABLE FILTERS"
 msgstr "啟用過濾器"
@@ -612,7 +612,7 @@ msgid "disabled"
 msgstr "停用"
 
 msgid "enhanced"
-msgstr "啟用"
+msgstr "加強"
 
 msgid "SAVE METADATA ON EXIT"
 msgstr "在退出時保存資料"
@@ -624,7 +624,7 @@ msgid "SHOW HIDDEN FILES"
 msgstr "顯示隱藏檔案"
 
 msgid "USE OMX PLAYER (HW ACCELERATED)"
-msgstr "USE OMX PLAYER (HW ACCELERATED)"
+msgstr "使用 OMX PLAYER (硬體加速)"
 
 msgid "SHOW FRAMERATE"
 msgstr "顯示幀數"
@@ -654,34 +654,34 @@ msgid "SHUTDOWN SYSTEM"
 msgstr "關閉系統"
 
 msgid "CREATE NEW CUSTOM COLLECTION FROM THEME"
-msgstr "CREATE NEW CUSTOM COLLECTION FROM THEME"
+msgstr "為此主題建立新的自定遊戲收藏"
 
 msgid "SELECT THEME FOLDER"
-msgstr "SELECT THEME FOLDER"
+msgstr "選擇主題目錄"
 
 msgid "CREATE NEW CUSTOM COLLECTION"
-msgstr "CREATE NEW CUSTOM COLLECTION"
+msgstr "建立新的自定遊戲收藏"
 
 msgid "New Collection Name"
-msgstr "New Collection Name"
+msgstr "新的收藏名稱"
 
 msgid "GROUP UNTHEMED CUSTOM COLLECTIONS"
-msgstr "GROUP UNTHEMED CUSTOM COLLECTIONS"
+msgstr "集合未主題化的自定遊戲收藏"
 
 msgid "SORT CUSTOM COLLECTIONS AND SYSTEMS"
-msgstr "SORT CUSTOM COLLECTIONS AND SYSTEMS"
+msgstr "排序自定遊戲收藏跟遊戲系統"
 
 msgid "FINISH EDITING '{1}' COLLECTION"
 msgstr "'{1}' 完成編輯收藏匣"
 
 msgid "SELECT COLLECTIONS"
-msgstr "SELECT COLLECTIONS"
+msgstr "選擇遊戲收藏"
 
 msgid "AUTOMATIC GAME COLLECTIONS"
 msgstr "自動遊戲收藏"
 
 msgid "CUSTOM GAME COLLECTIONS"
-msgstr "CUSTOM GAME COLLECTIONS"
+msgstr "自定遊戲收藏"
 
 msgid "EDIT METADATA"
 msgstr "編輯資料"
@@ -760,7 +760,7 @@ msgid "USE OMX PLAYER FOR SCREENSAVER"
 msgstr "使用OMX PLAYER在螢幕保護程式上"
 
 msgid "SHOW GAME INFO"
-msgstr "顯示遊戲訊息"
+msgstr "顯示遊戲資訊"
 
 msgid "always"
 msgstr "總是"
@@ -775,10 +775,10 @@ msgid "SHOW GAME INFO ON SCREENSAVER"
 msgstr "顯示遊戲資訊在螢幕保護程式"
 
 msgid "USE COMPATIBLE LOW RESOLUTION FOR CAPTIONS"
-msgstr "使用相容的低分辯率字幕"
+msgstr "使用相容的低解析度字幕"
 
 msgid "STRETCH VIDEO ON SCREENSAVER"
-msgstr "在螢幕保護程式上彈出視頻"
+msgstr "在螢幕保護程式上延展影片"
 
 msgid ""
 "Using OMX Player and displaying Game Info may result in the video flickering "
@@ -801,7 +801,7 @@ msgid "GOT IT!"
 msgstr "知道了!"
 
 msgid "SCRAPE THESE GAMES"
-msgstr "移掉這些遊戲"
+msgstr "抓取這些遊戲資訊"
 
 msgid "All Games"
 msgstr "所有遊戲"
@@ -813,7 +813,7 @@ msgid "FILTER"
 msgstr "篩選"
 
 msgid "SCRAPE THESE SYSTEMS"
-msgstr "移除這些系統"
+msgstr "抓取這些系統的遊戲資訊"
 
 msgid "SYSTEMS"
 msgstr "系統"
@@ -838,16 +838,16 @@ msgid "NO GAMES FIT THAT CRITERIA."
 msgstr "沒有遊戲符合這個標準"
 
 msgid "INPUT"
-msgstr "INPUT"
+msgstr "輸入"
 
 msgid "SCRAPING IN PROGRESS"
-msgstr "正在進行擦除"
+msgstr "正在抓取遊戲資訊"
 
 msgid "subtitle text"
 msgstr "副標題文字"
 
 msgid "STOP"
-msgstr "STOP"
+msgstr "停止"
 
 msgid "STOP (PROGRESS SAVED)"
 msgstr "停止（進度保存）"
@@ -856,12 +856,12 @@ msgid "GAME {1} OF {2}"
 msgstr "遊戲 {1} 到 {2}"
 
 msgid "NO GAMES WERE SCRAPED."
-msgstr "沒有遊戲被擦除"
+msgstr "沒有任何遊戲被抓取"
 
 msgid "{1} GAME SUCCESSFULLY SCRAPED!"
 msgid_plural "{1} GAMES SUCCESSFULLY SCRAPED!"
-msgstr[0] "{1} 遊戲成功擦除!"
-msgstr[1] "{1} 遊戲成功擦除!"
+msgstr[0] "{1} 遊戲成功抓取!"
+msgstr[1] "{1} 遊戲成功抓取!"
 
 msgid "{1} GAME SKIPPED."
 msgid_plural "{1} GAMES SKIPPED."
