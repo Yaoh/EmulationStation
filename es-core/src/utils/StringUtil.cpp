@@ -205,7 +205,7 @@ namespace Utils
 			{
 				done = true;
 
-				for(int i = 0; i < sizeof(remove); i += 2)
+				for(size_t i = 0; i < sizeof(remove); i += 2)
 				{
 					end   = string.find_first_of(remove[i + 1]);
 					start = string.find_last_of( remove[i + 0], end);
@@ -222,24 +222,30 @@ namespace Utils
 
 		} // removeParenthesis
 
-		stringVector commaStringToVector(const std::string& _string)
+		stringVector delimitedStringToVector(const std::string& _string, const std::string& _delimiter, bool sort)
 		{
 			stringVector vector;
 			size_t       start = 0;
-			size_t       comma = _string.find(",");
+			size_t       comma = _string.find(_delimiter);
 
 			while(comma != std::string::npos)
 			{
 				vector.push_back(_string.substr(start, comma - start));
 				start = comma + 1;
-				comma = _string.find(",", start);
+				comma = _string.find(_delimiter, start);
 			}
 
 			vector.push_back(_string.substr(start));
-			std::sort(vector.begin(), vector.end());
+			if (sort)
+				std::sort(vector.begin(), vector.end());
 
 			return vector;
 
+		} // delimitedStringToVector
+
+		stringVector commaStringToVector(const std::string& _string, bool sort)
+		{
+			return delimitedStringToVector(_string, ",", sort);
 		} // commaStringToVector
 
 		std::string vectorToCommaString(stringVector _vector)
@@ -280,14 +286,13 @@ namespace Utils
 
 		} // format
 
-		// Simple XOR scrambling of a string, with an accompanying key
-		std::string scramble(const std::string& _input, const std::string& key)
+		std::string scramble(const std::string& _input, const std::string& _key)
 		{
 			std::string buffer = _input;
 
-			for (size_t i = 0; i < _input.size(); ++i) 
-			{               
-				buffer[i] = _input[i] ^ key[i];
+			for(size_t i = 0; i < _input.size(); ++i)
+			{
+				buffer[i] = _input[i] ^ _key[i];
 			}
 
 			return buffer;

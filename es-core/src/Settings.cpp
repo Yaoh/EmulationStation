@@ -33,8 +33,7 @@ std::vector<const char*> settings_dont_save {
 	{ "ScreenHeight" },
 	{ "ScreenOffsetX" },
 	{ "ScreenOffsetY" },
-	{ "ScreenRotate" },
-	{ "ExePath" }
+	{ "ScreenRotate" }
 };
 
 Settings::Settings()
@@ -76,7 +75,6 @@ void Settings::setDefaults()
 	mBoolMap["HideConsole"] = true;
 	mBoolMap["QuickSystemSelect"] = true;
 	mBoolMap["MoveCarousel"] = true;
-	mBoolMap["SaveGamelistsOnExit"] = true;
 
 	mBoolMap["Debug"] = false;
 	mBoolMap["DebugGrid"] = false;
@@ -97,6 +95,7 @@ void Settings::setDefaults()
 	mStringMap["ScreenSaverBehavior"] = "dim";
 	mStringMap["Scraper"] = "TheGamesDB";
 	mStringMap["GamelistViewStyle"] = "automatic";
+	mStringMap["SaveGamelistsMode"] = "on exit";
 
 	mBoolMap["ScreenSaverControls"] = true;
 	mStringMap["ScreenSaverGameInfo"] = "never";
@@ -134,6 +133,7 @@ void Settings::setDefaults()
 	mStringMap["OMXAudioDev"] = "both";
 	mStringMap["CollectionSystemsAuto"] = "";
 	mStringMap["CollectionSystemsCustom"] = "";
+	mBoolMap["CollectionShowSystemInfo"] = true;
 	mBoolMap["SortAllSystems"] = false;
 	mBoolMap["UseCustomCollectionsSystem"] = true;
 
@@ -160,8 +160,6 @@ void Settings::setDefaults()
 	mIntMap["ScreenOffsetX"] = 0;
 	mIntMap["ScreenOffsetY"] = 0;
 	mIntMap["ScreenRotate"]  = 0;
-
-	mStringMap["ExePath"] = "";
 }
 
 template <typename K, typename V>
@@ -227,6 +225,19 @@ void Settings::loadFile()
 		setFloat(node.attribute("name").as_string(), node.attribute("value").as_float());
 	for(pugi::xml_node node = doc.child("string"); node; node = node.next_sibling("string"))
 		setString(node.attribute("name").as_string(), node.attribute("value").as_string());
+
+	processBackwardCompatibility();
+}
+
+void Settings::processBackwardCompatibility()
+{
+	{	// SaveGamelistsOnExit -> SaveGamelistsMode
+		std::map<std::string, bool>::const_iterator it = mBoolMap.find("SaveGamelistsOnExit");
+		if (it != mBoolMap.end()) {
+			mStringMap["SaveGamelistsMode"] = it->second ? "on exit" : "never";
+			mBoolMap.erase(it);
+		}
+	}
 }
 
 //Print a warning message if the setting we're trying to get doesn't already exist in the map, then return the value in the map.

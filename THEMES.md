@@ -538,6 +538,7 @@ Reference
 ## Types of properties:
 
 * NORMALIZED_PAIR - two decimals, in the range [0..1], delimited by a space.  For example, `0.25 0.5`.  Most commonly used for position (x and y coordinates) and size (width and height).
+* NORMALIZED_RECT - four decimals, in the range [0..1], delimited by a space. For example, `0.25 0.5 0.10 0.30`.  Most commonly used for padding to store top, left, bottom and right coordinates.
 * PATH - a path.  If the first character is a `~`, it will be expanded into the environment variable for the home path (`$HOME` for Linux or `%HOMEPATH%` for Windows).  If the first character is a `.`, it will be expanded to the theme file's directory, allowing you to specify resources relative to the theme file, like so: `./../general_art/myfont.ttf`.
 * BOOLEAN - `true`/`1` or `false`/`0`.
 * COLOR - a hexidecimal RGB or RGBA color (6 or 8 digits).  If 6 digits, will assume the alpha channel is `FF` (not transparent).
@@ -576,6 +577,8 @@ Can be created as an extra.
 	- If true, the image will be tiled instead of stretched to fit its size.  Useful for backgrounds.
 * `color` - type: COLOR.
 	- Multiply each pixel's color by this color. For example, an all-white image with `<color>FF0000</color>` would become completely red.  You can also control the transparency of an image with `<color>FFFFFFAA</color>` - keeping all the pixels their normal color and only affecting the alpha channel.
+* `visible` - type: BOOLEAN.
+    - If true, component will be rendered, otherwise rendering will be skipped.  Can be used to hide elements from a particular view.
 * `zIndex` - type: FLOAT.
 	- z-index value for component.  Components will be rendered in order of z-index value from low to high.
 
@@ -584,13 +587,29 @@ Can be created as an extra.
 * `pos` - type: NORMALIZED_PAIR.
 * `size` - type: NORMALIZED_PAIR.
     - The size of the grid. Take care the selected tile can go out of the grid size, so don't position the grid too close to another element or the screen border.
-* `margin` - type: NORMALIZED_PAIR.
+* `margin` - type: NORMALIZED_PAIR. Margin between tiles.
+* `padding` - type: NORMALIZED_RECT.
+    - NEW : Padding for displaying tiles.
+* `autoLayout` - type: NORMALIZED_PAIR.
+    - NEW : Number of column and rows in the grid (integer values).
+* `autoLayoutSelectedZoom` - type: FLOAT.
+    - NEW : Zoom factor to apply when a tile is selected.
 * `gameImage` - type: PATH.
     - The default image used for games which doesn't have an image.
 * `folderImage` - type: PATH.
     - The default image used for folders which doesn't have an image.
+* `imageSource` - type: STRING.
+    - Selects the image to display. `thumbnail` by default, can also be set to `image` or `marquee`. 
 * `scrollDirection` - type: STRING.
     - `vertical` by default, can also be set to `horizontal`. Not that in `horizontal` mod, the tiles are ordered from top to bottom, then from left to right.
+* `centerSelection` - type: BOOLEAN.
+    - `false` by default, when `true` the selected tile will be locked to the center of the grid.
+* `scrollLoop` - type: BOOLEAN.
+    - `false` by default, when `true` the grid will seamlessly loop around when scrolling reaches the end of the list.  Only works when `centerSelection` is `true`.
+* `animate` - type : BOOLEAN.
+    - `true` by default, when  `false` the grid scrolling will not be animated.
+* `zIndex` - type: FLOAT.
+    - z-index value for component.  Components will be rendered in order of z-index value from low to high.
 
 #### gridtile
 
@@ -632,6 +651,8 @@ Can be created as an extra.
 	- If true, image will be shown when selected game does not have a video and no `default` video is configured.
 * `showSnapshotDelay` - type: BOOLEAN
 	- If true, playing of video will be delayed for `delayed` seconds, when game is selected.
+* `visible` - type: BOOLEAN.
+    - If true, component will be rendered, otherwise rendering will be skipped.  Can be used to hide elements from a particular view.
 * `zIndex` - type: FLOAT.
 	- z-index value for component.  Components will be rendered in order of z-index value from low to high.
 
@@ -662,6 +683,8 @@ Can be created as an extra.
 	- Valid values are "left", "center", or "right".  Controls alignment on the X axis.  "center" will also align vertically.
 * `forceUppercase` - type: BOOLEAN.  Draw text in uppercase.
 * `lineSpacing` - type: FLOAT.  Controls the space between lines (as a multiple of font height).  Default is 1.5.
+* `visible` - type: BOOLEAN.
+    - If true, component will be rendered, otherwise rendering will be skipped.  Can be used to hide elements from a particular view.
 * `zIndex` - type: FLOAT.
 	- z-index value for component.  Components will be rendered in order of z-index value from low to high.
 
@@ -705,10 +728,12 @@ Can be created as an extra.
 * `pos` - type: NORMALIZED_PAIR.
 * `size` - type: NORMALIZED_PAIR.
 * `path` - type: PATH.
-
-EmulationStation borrows the concept of "nine patches" from Android (or "9-Slices"). Currently the implementation is very simple and hard-coded to only use 48x48px images (16x16px for each "patch"). Check the `data/resources` directory for some examples (button.png, frame.png).
+* `visible` - type: BOOLEAN.
+    - If true, component will be rendered, otherwise rendering will be skipped.  Can be used to hide elements from a particular view.
 * `zIndex` - type: FLOAT.
 	- z-index value for component.  Components will be rendered in order of z-index value from low to high.
+
+EmulationStation borrows the concept of "nine patches" from Android (or "9-Slices"). Currently the implementation is very simple and hard-coded to only use 48x48px images (16x16px for each "patch"). Check the `data/resources` directory for some examples (button.png, frame.png).
 
 #### rating
 
@@ -727,6 +752,8 @@ EmulationStation borrows the concept of "nine patches" from Android (or "9-Slice
 	- Path to the "unfilled star" image.  Image must be square (width equals height).
 * `color` - type: COLOR.
 	- Multiply each pixel's color by this color. For example, an all-white image with `<color>FF0000</color>` would become completely red.  You can also control the transparency of an image with `<color>FFFFFFAA</color>` - keeping all the pixels their normal color and only affecting the alpha channel.
+* `visible` - type: BOOLEAN.
+    - If true, component will be rendered, otherwise rendering will be skipped.  Can be used to hide elements from a particular view.
 * `zIndex` - type: FLOAT.
 	- z-index value for component.  Components will be rendered in order of z-index value from low to high.	
 
@@ -753,6 +780,8 @@ EmulationStation borrows the concept of "nine patches" from Android (or "9-Slice
 	- Valid values are "left", "center", or "right".  Controls alignment on the X axis.  "center" will also align vertically.
 * `forceUppercase` - type: BOOLEAN.  Draw text in uppercase.
 * `lineSpacing` - type: FLOAT.  Controls the space between lines (as a multiple of font height).  Default is 1.5.
+* `visible` - type: BOOLEAN.
+    - If true, component will be rendered, otherwise rendering will be skipped.  Can be used to hide elements from a particular view.
 * `zIndex` - type: FLOAT.
 	- z-index value for component.  Components will be rendered in order of z-index value from low to high.
 * `displayRelative` - type: BOOLEAN.  Renders the datetime as a a relative string (ex: 'x days ago')

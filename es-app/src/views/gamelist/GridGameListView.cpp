@@ -110,6 +110,18 @@ bool GridGameListView::input(InputConfig* config, Input input)
 	return ISimpleGameListView::input(config, input);
 }
 
+const std::string GridGameListView::getImagePath(FileData* file)
+{
+	ImageSource src = mGrid.getImageSource();
+
+	if (src == ImageSource::IMAGE)
+		return file->getImagePath();
+	else if (src == ImageSource::MARQUEE)
+		return file->getMarqueePath();
+
+	return file->getThumbnailPath();
+}
+
 void GridGameListView::populateList(const std::vector<FileData*>& files)
 {
 	mGrid.clear();
@@ -118,7 +130,7 @@ void GridGameListView::populateList(const std::vector<FileData*>& files)
 	{
 		for (auto it = files.cbegin(); it != files.cend(); it++)
 		{
-			mGrid.add((*it)->getName(), (*it)->getThumbnailPath(), *it);
+			mGrid.add((*it)->getName(), getImagePath(*it), *it);
 		}
 	}
 	else
@@ -163,9 +175,11 @@ void GridGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 		values[i]->applyTheme(theme, getName(), valElements[i], ALL ^ ThemeFlags::TEXT);
 	}
 
-	mDescContainer.applyTheme(theme, getName(), "md_description", POSITION | ThemeFlags::SIZE | Z_INDEX);
+	mDescContainer.applyTheme(theme, getName(), "md_description", POSITION | ThemeFlags::SIZE | Z_INDEX | VISIBLE);
 	mDescription.setSize(mDescContainer.getSize().x(), 0);
 	mDescription.applyTheme(theme, getName(), "md_description", ALL ^ (POSITION | ThemeFlags::SIZE | ThemeFlags::ORIGIN | TEXT | ROTATION));
+
+	populateList(mRoot->getChildrenListToDisplay());
 
 	sortChildren();
 }
