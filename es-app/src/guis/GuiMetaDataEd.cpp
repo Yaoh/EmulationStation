@@ -160,7 +160,7 @@ GuiMetaDataEd::GuiMetaDataEd(Window* window, MetaDataList* md, const std::vector
 	mButtons = makeButtonGrid(mWindow, buttons);
 	mGrid.setEntry(mButtons, Vector2i(0, 2), true, false);
 
-	// resize + center	
+	// resize + center
 	float width = (float)Math::min(Renderer::getScreenHeight(), (int)(Renderer::getScreenWidth() * 0.90f));
 	setSize(width, Renderer::getScreenHeight() * 0.82f);
 	setPosition((Renderer::getScreenWidth() - mSize.x()) / 2, (Renderer::getScreenHeight() - mSize.y()) / 2);
@@ -207,6 +207,8 @@ void GuiMetaDataEd::save()
 
 	// update respective Collection Entries
 	CollectionSystemManager::get()->refreshCollectionSystems(mScraperParams.game);
+
+	mScraperParams.system->onMetaDataSavePoint();
 }
 
 void GuiMetaDataEd::fetch()

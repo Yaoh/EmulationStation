@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 
-option(GLES "Set to ON if targeting OpenGL ES" ${GLES})
+option(GLES "Set to ON if targeting Embedded OpenGL" ${GLES})
 option(GL "Set to ON if targeting Desktop OpenGL" ${GL})
+option(RPI "Set to ON to enable the Raspberry PI video player (omxplayer)" ${RPI})
+option(CEC "Set to ON to enable CEC" ${CEC})
 
 project(emulationstation-all)
 
@@ -15,35 +17,35 @@ LIST(APPEND CMAKE_MODULE_PATH
 #-------------------------------------------------------------------------------
 #set up OpenGL system variable
 if(GLES)
-    set(GLSystem "OpenGL ES" CACHE STRING "The OpenGL system to be used")
+    set(GLSystem "Embedded OpenGL" CACHE STRING "The OpenGL system to be used")
 elseif(GL)
     set(GLSystem "Desktop OpenGL" CACHE STRING "The OpenGL system to be used")
 #-------------------------------------------------------------------------------
 #check if we're running on Raspberry Pi
-elseif(EXISTS "/opt/vc/include/bcm_host.h")
+elseif(EXISTS "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/bcm_host.h")
     MESSAGE("bcm_host.h found")
     set(BCMHOST found)
-    set(GLSystem "OpenGL ES" CACHE STRING "The OpenGL system to be used")
+    set(GLSystem "Embedded OpenGL" CACHE STRING "The OpenGL system to be used")
 #-------------------------------------------------------------------------------
 #check if we're running on OSMC Vero4K
-elseif(EXISTS "/opt/vero3/lib/libMali.so")
+elseif(EXISTS "${CMAKE_FIND_ROOT_PATH}/opt/vero3/lib/libMali.so")
     MESSAGE("libMali.so found")
     set(VERO4K found)
-    set(GLSystem "OpenGL ES" CACHE STRING "The OpenGL system to be used")
+    set(GLSystem "Embedded OpenGL" CACHE STRING "The OpenGL system to be used")
 #-------------------------------------------------------------------------------
 #check if we're running on olinuxino / odroid / etc
-elseif(EXISTS "/usr/lib/libMali.so" OR
-    EXISTS "/usr/lib/arm-linux-gnueabihf/libMali.so" OR
-    EXISTS "/usr/lib/aarch64-linux-gnu/libMali.so" OR
-    EXISTS "/usr/lib/arm-linux-gnueabihf/mali-egl/libmali.so" OR
-    EXISTS "/usr/lib/arm-linux-gnueabihf/libmali.so")
+elseif(EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/libMali.so" OR
+    EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/libMali.so" OR
+    EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/aarch64-linux-gnu/libMali.so" OR
+    EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/mali-egl/libmali.so" OR
+    EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/libmali.so")
     MESSAGE("libMali.so found")
-    set(GLSystem "OpenGL ES" CACHE STRING "The OpenGL system to be used")
+    set(GLSystem "Embedded OpenGL" CACHE STRING "The OpenGL system to be used")
 else()
     set(GLSystem "Desktop OpenGL" CACHE STRING "The OpenGL system to be used")
 endif(GLES)
 
-set_property(CACHE GLSystem PROPERTY STRINGS "Desktop OpenGL" "OpenGL ES")
+set_property(CACHE GLSystem PROPERTY STRINGS "Desktop OpenGL" "Embedded OpenGL")
 
 #finding necessary packages
 #-------------------------------------------------------------------------------
@@ -58,7 +60,12 @@ find_package(SDL2 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS date_time locale)
 find_package(CURL REQUIRED)
 find_package(VLC REQUIRED)
-find_package(libCEC)
+find_package(RapidJSON REQUIRED)
+
+#add libCEC support
+if(CEC)
+    find_package(libCEC REQUIRED)
+endif()
 
 #add ALSA for Linux
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -67,7 +74,7 @@ endif()
 
 #-------------------------------------------------------------------------------
 #set up compiler flags and excutable names
-if(DEFINED BCMHOST)
+if(DEFINED BCMHOST OR RPI)
     add_definitions(-D_RPI_)
 endif()
 
@@ -108,10 +115,14 @@ endif()
 endif()
 
 if(${GLSystem} MATCHES "Desktop OpenGL")
-    add_definitions(-DUSE_OPENGL_DESKTOP)
+    add_definitions(-DUSE_OPENGL_14)
 else()
-    add_definitions(-DUSE_OPENGL_ES)
+    add_definitions(-DUSE_OPENGLES_10)
 endif()
+
+# Enable additional defines for the Debug build configuration
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D_DEBUG")
 
 #-------------------------------------------------------------------------------
 #add include directories
@@ -122,6 +133,7 @@ set(COMMON_INCLUDE_DIRS
     ${Boost_INCLUDE_DIRS}
     ${CURL_INCLUDE_DIR}
     ${VLC_INCLUDE_DIR}
+    ${RAPIDJSON_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/external
     ${CMAKE_CURRENT_SOURCE_DIR}/es-core/src
 )
@@ -142,15 +154,15 @@ endif()
 
 if(DEFINED BCMHOST)
     LIST(APPEND COMMON_INCLUDE_DIRS
-        "/opt/vc/include"
-        "/opt/vc/include/interface/vcos"
-        "/opt/vc/include/interface/vmcs_host/linux"
-        "/opt/vc/include/interface/vcos/pthreads"
+        "${CMAKE_FIND_ROOT_PATH}/opt/vc/include"
+        "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/interface/vcos"
+        "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/interface/vmcs_host/linux"
+        "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/interface/vcos/pthreads"
     )
 #add include directory for Vero4K
 elseif(DEFINED VERO4K)
     LIST(APPEND COMMON_INCLUDE_DIRS
-        "/opt/vero3/include"
+        "${CMAKE_FIND_ROOT_PATH}/opt/vero3/include"
     )
 else()
     if(${GLSystem} MATCHES "Desktop OpenGL")
@@ -169,12 +181,12 @@ endif()
 if(DEFINED BCMHOST)
     link_directories(
         ${Boost_LIBRARY_DIRS}
-        "/opt/vc/lib"
+        "${CMAKE_FIND_ROOT_PATH}/opt/vc/lib"
     )
 elseif(DEFINED VERO4K)
     link_directories(
         ${Boost_LIBRARY_DIRS}
-        "/opt/vero3/lib"
+        "${CMAKE_FIND_ROOT_PATH}/opt/vero3/lib"
     )
 else()
     link_directories(

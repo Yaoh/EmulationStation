@@ -1,7 +1,6 @@
 #include "components/SliderComponent.h"
 
 #include "resources/Font.h"
-#include "Renderer.h"
 #include "Locale.h"
 
 #define MOVE_REPEAT_DELAY 500
@@ -17,7 +16,7 @@ SliderComponent::SliderComponent(Window* window, float min, float max, float inc
 
 	mKnob.setOrigin(0.5f, 0.5f);
 	mKnob.setImage(":/slider_knob.svg");
-	
+
 	setSize(Renderer::getScreenWidth() * 0.15f, Font::get(FONT_SIZE_MEDIUM)->getLetterHeight());
 }
 
@@ -56,14 +55,13 @@ void SliderComponent::update(int deltaTime)
 			mMoveAccumulator -= MOVE_REPEAT_RATE;
 		}
 	}
-	
+
 	GuiComponent::update(deltaTime);
 }
 
 void SliderComponent::render(const Transform4x4f& parentTrans)
 {
 	Transform4x4f trans = parentTrans * getTransform();
-	trans.round();
 	Renderer::setMatrix(trans);
 
 	// render suffix
@@ -74,11 +72,11 @@ void SliderComponent::render(const Transform4x4f& parentTrans)
 
 	//render line
 	const float lineWidth = 2;
-	Renderer::drawRect(mKnob.getSize().x() / 2, mSize.y() / 2 - lineWidth / 2, width, lineWidth, 0x777777FF);
+	Renderer::drawRect(mKnob.getSize().x() / 2, mSize.y() / 2 - lineWidth / 2, width, lineWidth, 0x777777FF, 0x777777FF);
 
 	//render knob
 	mKnob.render(trans);
-	
+
 	GuiComponent::renderChildren(trans);
 }
 
@@ -102,7 +100,7 @@ void SliderComponent::onSizeChanged()
 {
 	if(!mSuffix.empty())
 		mFont = Font::get((int)(mSize.y()), FONT_PATH_LIGHT);
-	
+
 	onValueChanged();
 }
 

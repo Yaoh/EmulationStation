@@ -16,7 +16,7 @@
 #include "Locale.h"
 
 ScraperSearchComponent::ScraperSearchComponent(Window* window, SearchType type) : GuiComponent(window),
-	mGrid(window, Vector2i(4, 3)), mBusyAnim(window), 
+	mGrid(window, Vector2i(4, 3)), mBusyAnim(window),
 	mSearchType(type)
 {
 	addChild(&mGrid);
@@ -38,7 +38,7 @@ ScraperSearchComponent::ScraperSearchComponent(Window* window, SearchType type) 
 	mResultDesc = std::make_shared<TextComponent>(mWindow, "Result desc", Font::get(FONT_SIZE_SMALL), 0x777777FF);
 	mDescContainer->addChild(mResultDesc.get());
 	mDescContainer->setAutoScroll(true);
-	
+
 	// metadata
 	auto font = Font::get(FONT_SIZE_SMALL); // this gets replaced in onSizeChanged() so its just a placeholder
 	const unsigned int mdColor = 0x777777FF;
@@ -79,7 +79,7 @@ ScraperSearchComponent::ScraperSearchComponent(Window* window, SearchType type) 
 void ScraperSearchComponent::onSizeChanged()
 {
 	mGrid.setSize(mSize);
-	
+
 	if(mSize.x() == 0 || mSize.y() == 0)
 		return;
 
@@ -88,10 +88,10 @@ void ScraperSearchComponent::onSizeChanged()
 		mGrid.setColWidthPerc(0, 0.02f); // looks better when this is higher in auto mode
 	else
 		mGrid.setColWidthPerc(0, 0.01f);
-	
+
 	mGrid.setColWidthPerc(1, 0.25f);
 	mGrid.setColWidthPerc(2, 0.25f);
-	
+
 	// row heights
 	if(mSearchType == ALWAYS_ACCEPT_FIRST_RESULT) // show name
 		mGrid.setRowHeightPerc(0, (mResultName->getFont()->getHeight() * 1.6f) / mGrid.getSize().y()); // result name
@@ -113,12 +113,12 @@ void ScraperSearchComponent::onSizeChanged()
 
 	// metadata
 	resizeMetadata();
-	
+
 	if(mSearchType != ALWAYS_ACCEPT_FIRST_RESULT)
 		mDescContainer->setSize(mGrid.getColWidth(1)*boxartCellScale + mGrid.getColWidth(2), mResultDesc->getFont()->getHeight() * 3);
 	else
 		mDescContainer->setSize(mGrid.getColWidth(3)*boxartCellScale, mResultDesc->getFont()->getHeight() * 8);
-	
+
 	mResultDesc->setSize(mDescContainer->getSize().x(), 0); // make desc text wrap at edge of container
 
 	mGrid.onSizeChanged();
@@ -300,7 +300,7 @@ void ScraperSearchComponent::updateInfoPane()
 	{
 		i = 0;
 	}
-	
+
 	if(i != -1 && (int)mScraperResults.size() > i)
 	{
 		ScraperSearchResult& res = mScraperResults.at(i);
@@ -360,9 +360,7 @@ void ScraperSearchComponent::render(const Transform4x4f& parentTrans)
 	if(mBlockAccept)
 	{
 		Renderer::setMatrix(trans);
-		Renderer::drawRect(0.f, 0.f, mSize.x(), mSize.y(), 0x00000011);
-		//Renderer::drawRect((int)mResultList->getPosition().x(), (int)mResultList->getPosition().y(),
-		//	(int)mResultList->getSize().x(), (int)mResultList->getSize().y(), 0x00000011);
+		Renderer::drawRect(0.0f, 0.0f, mSize.x(), mSize.y(), 0x00000011, 0x00000011);
 
 		mBusyAnim.render(trans);
 	}
@@ -402,7 +400,7 @@ void ScraperSearchComponent::update(int deltaTime)
 		auto results = mSearchHandle->getResults();
 		auto statusString = mSearchHandle->getStatusString();
 
-		// we reset here because onSearchDone in auto mode can call mSkipCallback() which can call 
+		// we reset here because onSearchDone in auto mode can call mSkipCallback() which can call
 		// another search() which will set our mSearchHandle to something important
 		mSearchHandle.reset();
 
@@ -456,9 +454,9 @@ void ScraperSearchComponent::openInputScreen(ScraperSearchParams& params)
 	};
 
 	stop();
-	mWindow->pushGui(new GuiTextEditPopup(mWindow, _("SEARCH FOR"), 
+	mWindow->pushGui(new GuiTextEditPopup(mWindow, _("SEARCH FOR"),
 		// initial value is last search if there was one, otherwise the clean path name
-		params.nameOverride.empty() ? params.game->getCleanName() : params.nameOverride, 
+		params.nameOverride.empty() ? params.game->getCleanName() : params.nameOverride,
 		searchForFunc, false, _("SEARCH").c_str()));
 }
 
@@ -467,7 +465,7 @@ std::vector<HelpPrompt> ScraperSearchComponent::getHelpPrompts()
 	std::vector<HelpPrompt> prompts = mGrid.getHelpPrompts();
 	if(getSelectedIndex() != -1)
 		prompts.push_back(HelpPrompt("a", _("ACCEPT RESULT")));
-	
+
 	return prompts;
 }
 

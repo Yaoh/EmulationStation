@@ -16,9 +16,9 @@ GuiScraperStart::GuiScraperStart(Window* window) : GuiComponent(window),
 
 	// add filters (with first one selected)
 	mFilters = std::make_shared< OptionListComponent<GameFilterFunc> >(mWindow, _("SCRAPE THESE GAMES"), false);
-	mFilters->add(_("All Games"), 
+	mFilters->add(_("All Games"),
 		[](SystemData*, FileData*) -> bool { return true; }, false);
-	mFilters->add(_("Only missing image"), 
+	mFilters->add(_("Only missing image"),
 		[](SystemData*, FileData* g) -> bool { return g->metadata.get("image").empty(); }, true);
 	mMenu.addWithLabel(_("FILTER"), mFilters);
 
@@ -48,8 +48,8 @@ void GuiScraperStart::pressedStart()
 	{
 		if((*it)->getPlatformIds().empty())
 		{
-			mWindow->pushGui(new GuiMsgBox(mWindow, 
-				_("WARNING: SOME OF YOUR SELECTED SYSTEMS DO NOT HAVE A PLATFORM SET. RESULTS MAY BE EVEN MORE INACCURATE THAN USUAL!\nCONTINUE ANYWAY?"), 
+			mWindow->pushGui(new GuiMsgBox(mWindow,
+				_("WARNING: SOME OF YOUR SELECTED SYSTEMS DO NOT HAVE A PLATFORM SET. RESULTS MAY BE EVEN MORE INACCURATE THAN USUAL!\nCONTINUE ANYWAY?"),
 				_("YES"), std::bind(&GuiScraperStart::start, this), 
 				_("NO"), nullptr));
 			return;
@@ -87,7 +87,7 @@ std::queue<ScraperSearchParams> GuiScraperStart::getSearches(std::vector<SystemD
 				ScraperSearchParams search;
 				search.game = *game;
 				search.system = *sys;
-				
+
 				queue.push(search);
 			}
 		}
@@ -101,7 +101,7 @@ bool GuiScraperStart::input(InputConfig* config, Input input)
 	bool consumed = GuiComponent::input(config, input);
 	if(consumed)
 		return true;
-	
+
 	if(input.value != 0 && config->isMappedTo("b", input))
 	{
 		delete this;

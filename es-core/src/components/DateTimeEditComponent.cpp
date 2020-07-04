@@ -2,13 +2,12 @@
 
 #include "resources/Font.h"
 #include "utils/StringUtil.h"
-#include "Renderer.h"
 #include "Log.h"
 #include "Locale.h"
 #include <boost/date_time.hpp>
 
-DateTimeEditComponent::DateTimeEditComponent(Window* window, DisplayMode dispMode) : GuiComponent(window), 
-	mEditing(false), mEditIndex(0), mDisplayMode(dispMode), mRelativeUpdateAccumulator(0), 
+DateTimeEditComponent::DateTimeEditComponent(Window* window, DisplayMode dispMode) : GuiComponent(window),
+	mEditing(false), mEditIndex(0), mDisplayMode(dispMode), mRelativeUpdateAccumulator(0),
 	mColor(0x777777FF), mFont(Font::get(FONT_SIZE_SMALL, FONT_PATH_LIGHT)), mUppercase(false), mAutoSize(true)
 {
 	updateTextCache();
@@ -57,9 +56,9 @@ bool DateTimeEditComponent::input(InputConfig* config, Input input)
 		}
 
 		int incDir = 0;
-		if(config->isMappedLike("up", input) || config->isMappedTo("pageup", input))
+		if(config->isMappedLike("up", input) || config->isMappedLike("leftshoulder", input))
 			incDir = 1;
-		else if(config->isMappedLike("down", input) || config->isMappedTo("pagedown", input))
+		else if(config->isMappedLike("down", input) || config->isMappedLike("rightshoulder", input))
 			incDir = -1;
 
 		if(incDir != 0)
@@ -88,7 +87,7 @@ bool DateTimeEditComponent::input(InputConfig* config, Input input)
 					new_tm.tm_mon = 0;
 				else if(new_tm.tm_mon < 0)
 					new_tm.tm_mon = 11;
-				
+
 			}
 			else if(mEditIndex == dayIndex)
 			{
@@ -115,7 +114,7 @@ bool DateTimeEditComponent::input(InputConfig* config, Input input)
 				new_tm.tm_mday = days_in_month;
 
 			mTime = new_tm;
-			
+
 			updateTextCache();
 			return true;
 		}
@@ -127,7 +126,7 @@ bool DateTimeEditComponent::input(InputConfig* config, Input input)
 				mEditIndex--;
 			return true;
 		}
-		
+
 		if(config->isMappedLike("left", input))
 		{
 			mEditIndex--;
@@ -164,7 +163,6 @@ void DateTimeEditComponent::render(const Transform4x4f& parentTrans)
 		// vertically center
 		Vector3f off(0, (mSize.y() - mTextCache->metrics.size.y()) / 2, 0);
 		trans.translate(off);
-		trans.round();
 
 		Renderer::setMatrix(trans);
 
@@ -177,8 +175,8 @@ void DateTimeEditComponent::render(const Transform4x4f& parentTrans)
 		{
 			if(mEditIndex >= 0 && (unsigned int)mEditIndex < mCursorBoxes.size())
 			{
-				Renderer::drawRect((int)mCursorBoxes[mEditIndex][0], (int)mCursorBoxes[mEditIndex][1], 
-					(int)mCursorBoxes[mEditIndex][2], (int)mCursorBoxes[mEditIndex][3], 0x00000022);
+				Renderer::drawRect(mCursorBoxes[mEditIndex][0], mCursorBoxes[mEditIndex][1],
+					mCursorBoxes[mEditIndex][2], mCursorBoxes[mEditIndex][3], 0x00000022, 0x00000022);
 			}
 		}
 	}
@@ -219,6 +217,8 @@ std::string DateTimeEditComponent::getDisplayString(DisplayMode mode) const
 		formatted << boost::locale::as::date << mTime.getTime();
 		break;
 	case DISP_DATE_TIME:
+		if(mTime.getTime() == 0)
+			return _("unknown");
 		formatted << boost::locale::as::datetime << mTime.getTime();
 		break;
 	case DISP_RELATIVE_TO_NOW:
@@ -241,9 +241,6 @@ std::string DateTimeEditComponent::getDisplayString(DisplayMode mode) const
 		}
 		break;
 	}
-	
-	if(mTime.getTime() == 0)
-		return _("unknown");
 
 	return formatted.str();
 }
@@ -332,7 +329,7 @@ void DateTimeEditComponent::applyTheme(const std::shared_ptr<ThemeData>& theme, 
 		return;
 
 	// We set mAutoSize BEFORE calling GuiComponent::applyTheme because it calls
-	// setSize(), which will call updateTextCache(), which will reset mSize if 
+	// setSize(), which will call updateTextCache(), which will reset mSize if
 	// mAutoSize == true, ignoring the theme's value.
 	if(properties & ThemeFlags::SIZE)
 		mAutoSize = !elem->has("size");

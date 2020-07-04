@@ -2,6 +2,7 @@
 
 #include "utils/FileSystemUtil.h"
 #include "Log.h"
+#include "Scripting.h"
 #include "platform.h"
 #include <pugixml/src/pugixml.hpp>
 #include <algorithm>
@@ -22,7 +23,9 @@ std::vector<const char*> settings_dont_save {
 	{ "HideConsole" },
 	{ "ShowExit" },
 	{ "SplashScreen" },
+	{ "SplashScreenProgress" },
 	{ "VSync" },
+	{ "FullscreenBorderless" },
 	{ "Windowed" },
 	{ "WindowWidth" },
 	{ "WindowHeight" },
@@ -30,8 +33,7 @@ std::vector<const char*> settings_dont_save {
 	{ "ScreenHeight" },
 	{ "ScreenOffsetX" },
 	{ "ScreenOffsetY" },
-	{ "ScreenRotate" },
-	{ "ExePath" }
+	{ "ScreenRotate" }
 };
 
 Settings::Settings()
@@ -58,9 +60,12 @@ void Settings::setDefaults()
 	mBoolMap["ShowHiddenFiles"] = false;
 	mBoolMap["DrawFramerate"] = false;
 	mBoolMap["ShowExit"] = true;
+	mBoolMap["FullscreenBorderless"] = false;
 	mBoolMap["Windowed"] = false;
 	mBoolMap["SplashScreen"] = true;
+	mBoolMap["SplashScreenProgress"] = true;
 	mStringMap["StartupSystem"] = "";
+	mBoolMap["DisableKidStartMenu"] = true;
 
 	mBoolMap["VSync"] = true;
 
@@ -71,14 +76,15 @@ void Settings::setDefaults()
 	mBoolMap["HideConsole"] = true;
 	mBoolMap["QuickSystemSelect"] = true;
 	mBoolMap["MoveCarousel"] = true;
-	mBoolMap["SaveGamelistsOnExit"] = true;
 
 	mBoolMap["Debug"] = false;
 	mBoolMap["DebugGrid"] = false;
 	mBoolMap["DebugText"] = false;
 	mBoolMap["DebugImage"] = false;
 
-	mIntMap["ScreenSaverTime"] = 5*60*1000; // 5 minutes
+	mIntMap["ScreenSaverTime"] = 5 * Settings::ONE_MINUTE_IN_MS;
+	mIntMap["SystemSleepTime"] = 0 * Settings::ONE_MINUTE_IN_MS;
+	mBoolMap["SystemSleepTimeHintDisplayed"] = false;
 	mIntMap["ScraperResizeWidth"] = 400;
 	mIntMap["ScraperResizeHeight"] = 0;
 	#ifdef _RPI_
@@ -92,6 +98,7 @@ void Settings::setDefaults()
 	mStringMap["ScreenSaverBehavior"] = "dim";
 	mStringMap["Scraper"] = "TheGamesDB";
 	mStringMap["GamelistViewStyle"] = "automatic";
+	mStringMap["SaveGamelistsMode"] = "on exit";
 
 	mBoolMap["ScreenSaverControls"] = true;
 	mStringMap["ScreenSaverGameInfo"] = "never";
@@ -112,6 +119,11 @@ void Settings::setDefaults()
 	#ifdef _RPI_
 		// we're defaulting to OMX Player for full screen video on the Pi
 		mBoolMap["ScreenSaverOmxPlayer"] = true;
+		// use OMX Player defaults
+		mStringMap["SubtitleFont"] = "/usr/share/fonts/truetype/freefont/FreeSans.ttf";
+		mStringMap["SubtitleItalicFont"] = "/usr/share/fonts/truetype/freefont/FreeSansOblique.ttf";
+		mIntMap["SubtitleSize"] = 55;
+		mStringMap["SubtitleAlignment"] = "left";
 	#else
 		mBoolMap["ScreenSaverOmxPlayer"] = false;
 	#endif
@@ -120,13 +132,17 @@ void Settings::setDefaults()
 	mIntMap["ScreenSaverSwapVideoTimeout"] = 30000;
 
 	mBoolMap["VideoAudio"] = true;
+	mBoolMap["ScreenSaverVideoMute"] = false;
 	mBoolMap["CaptionsCompatibility"] = true;
 	// Audio out device for Video playback using OMX player.
 	mStringMap["OMXAudioDev"] = "both";
 	mStringMap["CollectionSystemsAuto"] = "";
 	mStringMap["CollectionSystemsCustom"] = "";
+	mBoolMap["CollectionShowSystemInfo"] = true;
 	mBoolMap["SortAllSystems"] = false;
 	mBoolMap["UseCustomCollectionsSystem"] = true;
+
+	mBoolMap["LocalArt"] = false;
 
 	// Audio out device for volume control
 	#ifdef _RPI_
@@ -149,8 +165,6 @@ void Settings::setDefaults()
 	mIntMap["ScreenOffsetX"] = 0;
 	mIntMap["ScreenOffsetY"] = 0;
 	mIntMap["ScreenRotate"]  = 0;
-
-	mStringMap["ExePath"] = "";
 }
 
 template <typename K, typename V>
@@ -188,6 +202,9 @@ void Settings::saveFile()
 	}
 
 	doc.save_file(path.c_str());
+
+	Scripting::fireEvent("config-changed");
+	Scripting::fireEvent("settings-changed");
 }
 
 void Settings::loadFile()
@@ -213,6 +230,19 @@ void Settings::loadFile()
 		setFloat(node.attribute("name").as_string(), node.attribute("value").as_float());
 	for(pugi::xml_node node = doc.child("string"); node; node = node.next_sibling("string"))
 		setString(node.attribute("name").as_string(), node.attribute("value").as_string());
+
+	processBackwardCompatibility();
+}
+
+void Settings::processBackwardCompatibility()
+{
+	{	// SaveGamelistsOnExit -> SaveGamelistsMode
+		std::map<std::string, bool>::const_iterator it = mBoolMap.find("SaveGamelistsOnExit");
+		if (it != mBoolMap.end()) {
+			mStringMap["SaveGamelistsMode"] = it->second ? "on exit" : "never";
+			mBoolMap.erase(it);
+		}
+	}
 }
 
 //Print a warning message if the setting we're trying to get doesn't already exist in the map, then return the value in the map.

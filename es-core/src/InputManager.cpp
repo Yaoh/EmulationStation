@@ -4,6 +4,7 @@
 #include "CECInput.h"
 #include "Log.h"
 #include "platform.h"
+#include "Scripting.h"
 #include "Window.h"
 #include <pugixml/src/pugixml.hpp>
 #include <SDL.h>
@@ -19,7 +20,7 @@
 //    It can change even if the device is the same, and is only used to open joysticks (required to receive SDL events).
 // 2. SDL_JoystickID - this is an ID for each joystick that is supposed to remain consistent between plugging and unplugging.
 //    ES doesn't care if it does, though.
-// 3. "Device ID" - this is something I made up and is what InputConfig's getDeviceID() returns.  
+// 3. "Device ID" - this is something I made up and is what InputConfig's getDeviceID() returns.
 //    This is actually just an SDL_JoystickID (also called instance ID), but -1 means "keyboard" instead of "error."
 // 4. Joystick GUID - this is some squashed version of joystick vendor, version, and a bunch of other device-specific things.
 //    It should remain the same across runs of the program/system restarts/device reordering and is what I use to identify which joystick to load.
@@ -52,7 +53,7 @@ void InputManager::init()
 	if(initialized())
 		deinit();
 
-	SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS, 
+	SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS,
 		Settings::getInstance()->getBool("BackgroundJoystickInput") ? "1" : "0");
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	SDL_JoystickEventState(SDL_ENABLE);
@@ -77,7 +78,7 @@ void InputManager::init()
 void InputManager::addJoystickByDeviceIndex(int id)
 {
 	assert(id >= 0 && id < SDL_NumJoysticks());
-	
+
 	// open joystick & add to our list
 	SDL_Joystick* joy = SDL_JoystickOpen(id);
 	assert(joy);
@@ -101,14 +102,7 @@ void InputManager::addJoystickByDeviceIndex(int id)
 	// set up the prevAxisValues
 	int numAxes = SDL_JoystickNumAxes(joy);
 	mPrevAxisValues[joyId] = new int[numAxes];
-	mInitAxisValues[joyId] = new int[numAxes];
-
-	int axis;
-	for (int i = 0; i< numAxes; i++) {
-		axis = SDL_JoystickGetAxis(joy, i);
-		mInitAxisValues[joyId][i] = axis;
-		mPrevAxisValues[joyId][i] = axis;
-	}
+	std::fill(mPrevAxisValues[joyId], mPrevAxisValues[joyId] + numAxes, 0); //initialize array to 0
 }
 
 void InputManager::removeJoystickByJoystickID(SDL_JoystickID joyId)
@@ -178,6 +172,12 @@ void InputManager::deinit()
 }
 
 int InputManager::getNumJoysticks() { return (int)mJoysticks.size(); }
+
+int InputManager::getAxisCountByDevice(SDL_JoystickID id)
+{
+	return SDL_JoystickNumAxes(mJoysticks[id]);
+}
+
 int InputManager::getButtonCountByDevice(SDL_JoystickID id)
 {
 	if(id == DEVICE_KEYBOARD)
@@ -205,28 +205,21 @@ InputConfig* InputManager::getInputConfigByDevice(int device)
 bool InputManager::parseEvent(const SDL_Event& ev, Window* window)
 {
 	bool causedEvent = false;
-	int axis;
 	switch(ev.type)
 	{
 	case SDL_JOYAXISMOTION:
-		axis = ev.jaxis.value;
-		// Check for ABS_Z/ABS_RZ trigger axes which rest at -32768
-		if ((ev.jaxis.axis == 2 || ev.jaxis.axis == 5) && mInitAxisValues[ev.jaxis.which][ev.jaxis.axis] == -32768)
-		{
-			// shift to 0 - 32767.
-			axis = axis / 2 + 16384;
-		}
 		//if it switched boundaries
-		if((abs(axis) > DEADZONE) != (abs(mPrevAxisValues[ev.jaxis.which][ev.jaxis.axis]) > DEADZONE))
+		if((abs(ev.jaxis.value) > DEADZONE) != (abs(mPrevAxisValues[ev.jaxis.which][ev.jaxis.axis]) > DEADZONE))
 		{
 			int normValue;
-			if(abs(axis) <= DEADZONE)
+			if(abs(ev.jaxis.value) <= DEADZONE)
 				normValue = 0;
 			else
-				if(axis > 0)
+				if(ev.jaxis.value > 0)
 					normValue = 1;
 				else
 					normValue = -1;
+
 			window->input(getInputConfigByDevice(ev.jaxis.which), Input(ev.jaxis.which, TYPE_AXIS, ev.jaxis.axis, normValue, false));
 			causedEvent = true;
 		}
@@ -294,7 +287,7 @@ bool InputManager::loadInputConfig(InputConfig* config)
 	std::string path = getConfigPath();
 	if(!Utils::FileSystem::exists(path))
 		return false;
-	
+
 	pugi::xml_document doc;
 	pugi::xml_parse_result res = doc.load_file(path.c_str());
 
@@ -335,8 +328,8 @@ void InputManager::loadDefaultKBConfig()
 	cfg->mapInput("start", Input(DEVICE_KEYBOARD, TYPE_KEY, SDLK_F1, 1, true));
 	cfg->mapInput("select", Input(DEVICE_KEYBOARD, TYPE_KEY, SDLK_F2, 1, true));
 
-	cfg->mapInput("pageup", Input(DEVICE_KEYBOARD, TYPE_KEY, SDLK_RIGHTBRACKET, 1, true));
-	cfg->mapInput("pagedown", Input(DEVICE_KEYBOARD, TYPE_KEY, SDLK_LEFTBRACKET, 1, true));
+	cfg->mapInput("leftshoulder", Input(DEVICE_KEYBOARD, TYPE_KEY, SDLK_LEFTBRACKET, 1, true));
+	cfg->mapInput("rightshoulder", Input(DEVICE_KEYBOARD, TYPE_KEY, SDLK_RIGHTBRACKET, 1, true));
 }
 
 void InputManager::writeDeviceConfig(InputConfig* config)
@@ -396,7 +389,10 @@ void InputManager::writeDeviceConfig(InputConfig* config)
 
 	config->writeToXML(root);
 	doc.save_file(path.c_str());
-	
+
+	Scripting::fireEvent("config-changed");
+	Scripting::fireEvent("controls-changed");
+
 	// execute any onFinish commands and re-load the config for changes
 	doOnFinish();
 	loadInputConfig(config);

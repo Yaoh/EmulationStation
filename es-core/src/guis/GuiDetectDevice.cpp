@@ -6,13 +6,12 @@
 #include "utils/StringUtil.h"
 #include "InputManager.h"
 #include "PowerSaver.h"
-#include "Renderer.h"
 #include "Window.h"
 #include "Locale.h"
 
 #define HOLD_TIME 1000
 
-GuiDetectDevice::GuiDetectDevice(Window* window, bool firstRun, const std::function<void()>& doneCallback) : GuiComponent(window), mFirstRun(firstRun), 
+GuiDetectDevice::GuiDetectDevice(Window* window, bool firstRun, const std::function<void()>& doneCallback) : GuiComponent(window), mFirstRun(firstRun),
 	mBackground(window, ":/frame.png"), mGrid(window, Vector2i(1, 5))
 {
 	mHoldingConfig = NULL;
@@ -21,16 +20,16 @@ GuiDetectDevice::GuiDetectDevice(Window* window, bool firstRun, const std::funct
 
 	addChild(&mBackground);
 	addChild(&mGrid);
-	
+
 	// title
-	mTitle = std::make_shared<TextComponent>(mWindow, firstRun ? _("WELCOME") : _("CONFIGURE INPUT"), 
+	mTitle = std::make_shared<TextComponent>(mWindow, firstRun ? _("WELCOME") : _("CONFIGURE INPUT"),
 		Font::get(FONT_SIZE_LARGE), 0x555555FF, ALIGN_CENTER);
 	mGrid.setEntry(mTitle, Vector2i(0, 0), false, true, Vector2i(1, 1), GridFlags::BORDER_BOTTOM);
 
 	// device info
 	std::stringstream deviceInfo;
 	int numDevices = InputManager::getInstance()->getNumJoysticks();
-	
+
 	if(numDevices > 0)
 	  deviceInfo << (boost::locale::format(ngettext("{1} GAMEPAD DETECTED", "{1} GAMEPADS DETECTED", numDevices)) % numDevices).str();
 	else

@@ -15,6 +15,7 @@
 VideoGameListView::VideoGameListView(Window* window, FileData* root) :
 	BasicGameListView(window, root),
 	mDescContainer(window), mDescription(window),
+	mThumbnail(window),
 	mMarquee(window),
 	mImage(window),
 	mVideo(nullptr),
@@ -44,6 +45,14 @@ VideoGameListView::VideoGameListView(Window* window, FileData* root) :
 	mList.setAlignment(TextListComponent<FileData*>::ALIGN_LEFT);
 	mList.setCursorChangedCallback([&](const CursorState& /*state*/) { updateInfoPanel(); });
 
+	// Thumbnail
+	mThumbnail.setOrigin(0.5f, 0.5f);
+	mThumbnail.setPosition(2.0f, 2.0f);
+	mThumbnail.setVisible(false);
+	mThumbnail.setMaxSize(mSize.x() * (0.25f - 2*padding), mSize.y() * 0.10f);
+	mThumbnail.setDefaultZIndex(35);
+	addChild(&mThumbnail);
+
 	// Marquee
 	mMarquee.setOrigin(0.5f, 0.5f);
 	mMarquee.setPosition(mSize.x() * 0.25f, mSize.y() * 0.10f);
@@ -55,6 +64,7 @@ VideoGameListView::VideoGameListView(Window* window, FileData* root) :
 	mImage.setOrigin(0.5f, 0.5f);
 	// Default to off the screen
 	mImage.setPosition(2.0f, 2.0f);
+	mImage.setVisible(false);
 	mImage.setMaxSize(1.0f, 1.0f);
 	mImage.setDefaultZIndex(30);
 	addChild(&mImage);
@@ -124,9 +134,10 @@ void VideoGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 	BasicGameListView::onThemeChanged(theme);
 
 	using namespace ThemeFlags;
-	mMarquee.applyTheme(theme, getName(), "md_marquee", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION);
-	mImage.applyTheme(theme, getName(), "md_image", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION);
-	mVideo->applyTheme(theme, getName(), "md_video", POSITION | ThemeFlags::SIZE | ThemeFlags::DELAY | Z_INDEX | ROTATION);
+	mThumbnail.applyTheme(theme, getName(), "md_thumbnail", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION | VISIBLE);
+	mMarquee.applyTheme(theme, getName(), "md_marquee", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION | VISIBLE);
+	mImage.applyTheme(theme, getName(), "md_image", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION | VISIBLE);
+	mVideo->applyTheme(theme, getName(), "md_video", POSITION | ThemeFlags::SIZE | ThemeFlags::DELAY | Z_INDEX | ROTATION | VISIBLE);
 	mName.applyTheme(theme, getName(), "md_name", ALL);
 
 	initMDLabels();
@@ -156,7 +167,7 @@ void VideoGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 		values[i]->applyTheme(theme, getName(), valElements[i], ALL ^ ThemeFlags::TEXT);
 	}
 
-	mDescContainer.applyTheme(theme, getName(), "md_description", POSITION | ThemeFlags::SIZE | Z_INDEX);
+	mDescContainer.applyTheme(theme, getName(), "md_description", POSITION | ThemeFlags::SIZE | Z_INDEX | VISIBLE);
 	mDescription.setSize(mDescContainer.getSize().x(), 0);
 	mDescription.applyTheme(theme, getName(), "md_description", ALL ^ (POSITION | ThemeFlags::SIZE | ThemeFlags::ORIGIN | TEXT | ROTATION));
 
@@ -254,6 +265,7 @@ void VideoGameListView::updateInfoPanel()
 		mVideoPlaying = true;
 
 		mVideo->setImage(file->getThumbnailPath());
+		mThumbnail.setImage(file->getThumbnailPath());
 		mMarquee.setImage(file->getMarqueePath());
 		mImage.setImage(file->getImagePath());
 
@@ -287,6 +299,7 @@ void VideoGameListView::updateInfoPanel()
 	}
 
 	std::vector<GuiComponent*> comps = getMDValues();
+	comps.push_back(&mThumbnail);
 	comps.push_back(&mMarquee);
 	comps.push_back(mVideo);
 	comps.push_back(&mDescription);
@@ -326,6 +339,12 @@ void VideoGameListView::launch(FileData* game)
 		 mMarquee.getPosition().y() < screenHeight && mMarquee.getPosition().y() > 0.0f))
 	{
 		target = Vector3f(mMarquee.getCenter().x(), mMarquee.getCenter().y(), 0);
+	}
+	else if(mThumbnail.hasImage() &&
+		(mThumbnail.getPosition().x() < screenWidth && mThumbnail.getPosition().x() > 2.0f &&
+		 mThumbnail.getPosition().y() < screenHeight && mThumbnail.getPosition().y() > 2.0f))
+	{
+		target = Vector3f(mThumbnail.getCenter().x(), mThumbnail.getCenter().y(), 0);
 	}
 	else if(mImage.hasImage() &&
 		(mImage.getPosition().x() < screenWidth && mImage.getPosition().x() > 2.0f &&

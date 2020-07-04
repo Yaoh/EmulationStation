@@ -10,6 +10,7 @@
 #include "Log.h"
 #include "MameNames.h"
 #include "platform.h"
+#include "Scripting.h"
 #include "SystemData.h"
 #include "VolumeControl.h"
 #include "Window.h"
@@ -22,6 +23,7 @@ FileData::FileData(FileType type, const std::string& path, SystemEnvironmentData
 	if(metadata.get("name").empty())
 		metadata.set("name", getDisplayName());
 	mSystemName = system->getName();
+	metadata.resetChangedFlag();
 }
 
 FileData::~FileData()
@@ -59,7 +61,7 @@ const std::string FileData::getThumbnailPath() const
 		thumbnail = metadata.get("image");
 
 		// no image, try to use local image
-		if(thumbnail.empty())
+		if(thumbnail.empty() && Settings::getInstance()->getBool("LocalArt"))
 		{
 			const char* extList[2] = { ".png", ".jpg" };
 			for(int i = 0; i < 2; i++)
@@ -115,7 +117,7 @@ const std::string FileData::getVideoPath() const
 	std::string video = metadata.get("video");
 
 	// no video, try to use local video
-	if(video.empty())
+	if(video.empty() && Settings::getInstance()->getBool("LocalArt"))
 	{
 		std::string path = mEnvData->mStartPath + "/images/" + getDisplayName() + "-video.mp4";
 		if(Utils::FileSystem::exists(path))
@@ -130,7 +132,7 @@ const std::string FileData::getMarqueePath() const
 	std::string marquee = metadata.get("marquee");
 
 	// no marquee, try to use local marquee
-	if(marquee.empty())
+	if(marquee.empty() && Settings::getInstance()->getBool("LocalArt"))
 	{
 		const char* extList[2] = { ".png", ".jpg" };
 		for(int i = 0; i < 2; i++)
@@ -282,6 +284,8 @@ void FileData::launchGame(Window* window)
 	command = Utils::String::replace(command, "%BASENAME%", basename);
 	command = Utils::String::replace(command, "%ROM_RAW%", rom_raw);
 
+	Scripting::fireEvent("game-start", rom, basename);
+
 	LOG(LogInfo) << "	" << command;
 	int exitCode = runSystemCommand(command);
 
@@ -289,6 +293,8 @@ void FileData::launchGame(Window* window)
 	{
 		LOG(LogWarning) << "...launch terminated with nonzero exit code " << exitCode << "!";
 	}
+
+	Scripting::fireEvent("game-end");
 
 	window->init();
 	VolumeControl::getInstance()->init();
@@ -304,6 +310,8 @@ void FileData::launchGame(Window* window)
 	//update last played time
 	gameToUpdate->metadata.set("lastplayed", Utils::Time::DateTime(Utils::Time::now()));
 	CollectionSystemManager::get()->refreshCollectionSystems(gameToUpdate);
+
+	gameToUpdate->mSystem->onMetaDataSavePoint();
 }
 
 CollectionFileData::CollectionFileData(FileData* file, SystemData* system)
@@ -343,11 +351,14 @@ void CollectionFileData::refreshMetadata()
 const std::string& CollectionFileData::getName()
 {
 	if (mDirty) {
-		mCollectionFileName  = Utils::String::removeParenthesis(mSourceFileData->metadata.get("name"));
+		mCollectionFileName = Utils::String::removeParenthesis(mSourceFileData->metadata.get("name"));
 		mCollectionFileName += " [" + Utils::String::toUpper(mSourceFileData->getSystem()->getName()) + "]";
 		mDirty = false;
 	}
-	return mCollectionFileName;
+
+	if (Settings::getInstance()->getBool("CollectionShowSystemInfo"))
+		return mCollectionFileName;
+	return mSourceFileData->metadata.get("name");
 }
 
 // returns Sort Type based on a string description

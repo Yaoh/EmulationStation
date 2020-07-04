@@ -2,7 +2,6 @@
 
 #include "utils/StringUtil.h"
 #include "Log.h"
-#include "Renderer.h"
 #include "Log.h"
 #include "Locale.h"
 #include "Settings.h"

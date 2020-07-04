@@ -13,10 +13,12 @@
 #include "views/ViewController.h"
 #include "CollectionSystemManager.h"
 #include "EmulationStation.h"
+#include "Scripting.h"
 #include "SystemData.h"
 #include "VolumeControl.h"
 #include <SDL_events.h>
 #include <algorithm>
+#include "platform.h"
 
 GuiMenu::GuiMenu(Window* window) : GuiComponent(window), mMenu(window, _("MAIN MENU").c_str()), mVersion(window)
 {
@@ -58,7 +60,7 @@ void GuiMenu::openScraperSettings()
 
 	// Select either the first entry of the one read from the settings, just in case the scraper from settings has vanished.
 	for(auto it = scrapers.cbegin(); it != scrapers.cend(); it++)
-		scraper_list->add(*it, *it, *it == Settings::getInstance()->getString("Scraper") || it==scrapers.cbegin());
+		scraper_list->add(*it, *it, *it == Settings::getInstance()->getString("Scraper"));
 
 	s->addWithLabel(_("SCRAPE FROM"), scraper_list);
 	s->addSaveFunc([scraper_list] { Settings::getInstance()->setString("Scraper", scraper_list->getSelected()); });
@@ -101,12 +103,6 @@ void GuiMenu::openSoundSettings()
 		// audio card
 		auto audio_card = std::make_shared< OptionListComponent<std::string> >(mWindow, _("AUDIO CARD"), false);
 		std::vector<std::string> audio_cards;
-	#ifdef _RPI_
-		// RPi Specific  Audio Cards
-		audio_cards.push_back(N_("local"));
-		audio_cards.push_back(N_("hdmi"));
-		audio_cards.push_back(N_("both"));
-	#endif
 		audio_cards.push_back(N_("default"));
 		audio_cards.push_back("sysdefault");
 		audio_cards.push_back("dmix");
@@ -131,6 +127,8 @@ void GuiMenu::openSoundSettings()
 		auto vol_dev = std::make_shared< OptionListComponent<std::string> >(mWindow, _("AUDIO DEVICE"), false);
 		std::vector<std::string> transitions;
 		transitions.push_back(N_("PCM"));
+		transitions.push_back("HDMI");
+		transitions.push_back("Headphone");
 		transitions.push_back(N_("Speaker"));
 		transitions.push_back(N_("Master"));
 		transitions.push_back(N_("Digital"));
@@ -178,6 +176,7 @@ void GuiMenu::openSoundSettings()
 		omx_cards.push_back(N_("local"));
 		omx_cards.push_back(N_("hdmi"));
 		omx_cards.push_back(N_("both"));
+		omx_cards.push_back("alsa");
 		omx_cards.push_back("alsa:hw:0,0");
 		omx_cards.push_back("alsa:hw:1,0");
 		if (Settings::getInstance()->getString("OMXAudioDev") != "") {
@@ -222,7 +221,7 @@ void GuiMenu::openUISettings()
 				"\"{2}\"\n\n"								\
 				"Do you want to proceed?"))
 			  % _(selectedMode.c_str()) % UIModeController::getInstance()->getFormattedPassKeyStr();
-			window->pushGui(new GuiMsgBox(window, message.str(), 
+			window->pushGui(new GuiMsgBox(window, message.str(),
 				_("YES"), [selectedMode] {
 					LOG(LogDebug) << "Setting UI mode to " << selectedMode;
 					Settings::getInstance()->setString("UIMode", selectedMode);
@@ -267,7 +266,7 @@ void GuiMenu::openUISettings()
 	transitions.push_back(N_("slide"));
 	transitions.push_back(N_("instant"));
 	for(auto it = transitions.cbegin(); it != transitions.cend(); it++)
-	  transition_style->add(_(it->c_str()), *it, Settings::getInstance()->getString("TransitionStyle") == *it);
+		transition_style->add(_(it->c_str()), *it, Settings::getInstance()->getString("TransitionStyle") == *it);
 	s->addWithLabel(_("TRANSITION STYLE"), transition_style);
 	s->addSaveFunc([transition_style] {
 		if (Settings::getInstance()->getString("TransitionStyle") == "instant"
@@ -298,13 +297,15 @@ void GuiMenu::openUISettings()
 		s->addSaveFunc([window, theme_set]
 		{
 			bool needReload = false;
-			if(Settings::getInstance()->getString("ThemeSet") != theme_set->getSelected())
+			std::string oldTheme = Settings::getInstance()->getString("ThemeSet");
+			if(oldTheme != theme_set->getSelected())
 				needReload = true;
 
 			Settings::getInstance()->setString("ThemeSet", theme_set->getSelected());
 
 			if(needReload)
 			{
+				Scripting::fireEvent("theme-changed", theme_set->getSelected(), oldTheme);
 				CollectionSystemManager::get()->updateSystemsList();
 				ViewController::get()->goToStart();
 				ViewController::get()->reloadAll(); // TODO - replace this with some sort of signal-based implementation
@@ -359,11 +360,17 @@ void GuiMenu::openUISettings()
 	auto enable_filter = std::make_shared<SwitchComponent>(mWindow);
 	enable_filter->setState(!Settings::getInstance()->getBool("ForceDisableFilters"));
 	s->addWithLabel(_("ENABLE FILTERS"), enable_filter);
-	s->addSaveFunc([enable_filter] { 
+	s->addSaveFunc([enable_filter] {
 		bool filter_is_enabled = !Settings::getInstance()->getBool("ForceDisableFilters");
-		Settings::getInstance()->setBool("ForceDisableFilters", !enable_filter->getState()); 
+		Settings::getInstance()->setBool("ForceDisableFilters", !enable_filter->getState());
 		if (enable_filter->getState() != filter_is_enabled) ViewController::get()->ReloadAndGoToStart();
 	});
+
+	// hide start menu in Kid Mode
+	auto disable_start = std::make_shared<SwitchComponent>(mWindow);
+	disable_start->setState(Settings::getInstance()->getBool("DisableKidStartMenu"));
+	s->addWithLabel("DISABLE START MENU IN KID MODE", disable_start);
+	s->addSaveFunc([disable_start] { Settings::getInstance()->setBool("DisableKidStartMenu", disable_start->getState()); });
 
 	mWindow->pushGui(s);
 
@@ -400,15 +407,28 @@ void GuiMenu::openOtherSettings()
 	});
 
 	// gamelists
-	auto save_gamelists = std::make_shared<SwitchComponent>(mWindow);
-	save_gamelists->setState(Settings::getInstance()->getBool("SaveGamelistsOnExit"));
-	s->addWithLabel(_("SAVE METADATA ON EXIT"), save_gamelists);
-	s->addSaveFunc([save_gamelists] { Settings::getInstance()->setBool("SaveGamelistsOnExit", save_gamelists->getState()); });
+	auto gamelistsSaveMode = std::make_shared< OptionListComponent<std::string> >(mWindow, "SAVE METADATA", false);
+	std::vector<std::string> saveModes;
+	saveModes.push_back("on exit");
+	saveModes.push_back("always");
+	saveModes.push_back("never");
+
+	for(auto it = saveModes.cbegin(); it != saveModes.cend(); it++)
+		gamelistsSaveMode->add(*it, *it, Settings::getInstance()->getString("SaveGamelistsMode") == *it);
+	s->addWithLabel("SAVE METADATA", gamelistsSaveMode);
+	s->addSaveFunc([gamelistsSaveMode] {
+		Settings::getInstance()->setString("SaveGamelistsMode", gamelistsSaveMode->getSelected());
+	});
 
 	auto parse_gamelists = std::make_shared<SwitchComponent>(mWindow);
 	parse_gamelists->setState(Settings::getInstance()->getBool("ParseGamelistOnly"));
 	s->addWithLabel(_("PARSE GAMESLISTS ONLY"), parse_gamelists);
 	s->addSaveFunc([parse_gamelists] { Settings::getInstance()->setBool("ParseGamelistOnly", parse_gamelists->getState()); });
+
+	auto local_art = std::make_shared<SwitchComponent>(mWindow);
+	local_art->setState(Settings::getInstance()->getBool("LocalArt"));
+	s->addWithLabel("SEARCH FOR LOCAL ART", local_art);
+	s->addSaveFunc([local_art] { Settings::getInstance()->setBool("LocalArt", local_art->getState()); });
 
 	// hidden files
 	auto hidden_files = std::make_shared<SwitchComponent>(mWindow);
@@ -470,7 +490,8 @@ void GuiMenu::openQuitMenu()
 		row.makeAcceptInputHandler([window] {
 			window->pushGui(new GuiMsgBox(window, _("REALLY RESTART?"), _("YES"),
 				[] {
-				if(quitES("/tmp/es-restart") != 0)
+				Scripting::fireEvent("quit");
+				if(quitES(QuitMode::RESTART) != 0)
 					LOG(LogWarning) << "Restart terminated with non-zero result!";
 			}, _("NO"), nullptr));
 		});
@@ -485,9 +506,8 @@ void GuiMenu::openQuitMenu()
 			row.makeAcceptInputHandler([window] {
 				window->pushGui(new GuiMsgBox(window, _("REALLY QUIT?"), _("YES"),
 					[] {
-					SDL_Event ev;
-					ev.type = SDL_QUIT;
-					SDL_PushEvent(&ev);
+					Scripting::fireEvent("quit");
+					quitES();
 				}, _("NO"), nullptr));
 			});
 			row.addElement(std::make_shared<TextComponent>(window, _("QUIT EMULATIONSTATION"), Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
@@ -498,7 +518,9 @@ void GuiMenu::openQuitMenu()
 	row.makeAcceptInputHandler([window] {
 		window->pushGui(new GuiMsgBox(window, _("REALLY RESTART?"), _("YES"),
 			[] {
-			if (quitES("/tmp/es-sysrestart") != 0)
+			Scripting::fireEvent("quit", "reboot");
+			Scripting::fireEvent("reboot");
+			if (quitES(QuitMode::REBOOT) != 0)
 				LOG(LogWarning) << "Restart terminated with non-zero result!";
 		}, _("NO"), nullptr));
 	});
@@ -509,7 +531,9 @@ void GuiMenu::openQuitMenu()
 	row.makeAcceptInputHandler([window] {
 		window->pushGui(new GuiMsgBox(window, _("REALLY SHUTDOWN?"), _("YES"),
 			[] {
-			if (quitES("/tmp/es-shutdown") != 0)
+			Scripting::fireEvent("quit", "shutdown");
+			Scripting::fireEvent("shutdown");
+			if (quitES(QuitMode::SHUTDOWN) != 0)
 				LOG(LogWarning) << "Shutdown terminated with non-zero result!";
 		}, _("NO"), nullptr));
 	});
