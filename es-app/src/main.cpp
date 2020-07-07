@@ -397,9 +397,9 @@ int main(int argc, char* argv[])
 
 		if(splashScreen)
 		{
-			std::string progressText = "Loading...";
+			std::string progressText = _("Loading...");
 			if (splashScreenProgress)
-				progressText = "Loading system config...";
+				progressText = _("Loading system config...");
 			window.renderLoadingScreen(progressText);
 		}
 	}
@@ -440,7 +440,7 @@ int main(int argc, char* argv[])
 	ViewController::get()->preload();
 
 	if(splashScreen && splashScreenProgress)
-		window.renderLoadingScreen("Done.");
+		window.renderLoadingScreen(_("Done."));
 
 	//choose which GUI to open depending on if an input configuration already exists
 	if(errorMsg == NULL)

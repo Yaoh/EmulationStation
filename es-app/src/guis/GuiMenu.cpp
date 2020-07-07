@@ -104,11 +104,11 @@ void GuiMenu::openSoundSettings()
 		auto audio_card = std::make_shared< OptionListComponent<std::string> >(mWindow, _("AUDIO CARD"), false);
 		std::vector<std::string> audio_cards;
 		audio_cards.push_back(N_("default"));
-		audio_cards.push_back("sysdefault");
-		audio_cards.push_back("dmix");
-		audio_cards.push_back("hw");
-		audio_cards.push_back("plughw");
-		audio_cards.push_back("null");
+		audio_cards.push_back(N_("sysdefault"));
+		audio_cards.push_back(N_("dmix"));
+		audio_cards.push_back(N_("hw"));
+		audio_cards.push_back(N_("plughw"));
+		audio_cards.push_back(N_("null"));
 		if (Settings::getInstance()->getString("AudioCard") != "") {
 			if(std::find(audio_cards.begin(), audio_cards.end(), Settings::getInstance()->getString("AudioCard")) == audio_cards.end()) {
 				audio_cards.push_back(Settings::getInstance()->getString("AudioCard"));
@@ -127,8 +127,8 @@ void GuiMenu::openSoundSettings()
 		auto vol_dev = std::make_shared< OptionListComponent<std::string> >(mWindow, _("AUDIO DEVICE"), false);
 		std::vector<std::string> transitions;
 		transitions.push_back(N_("PCM"));
-		transitions.push_back("HDMI");
-		transitions.push_back("Headphone");
+		transitions.push_back(N_("HDMI"));
+		transitions.push_back(N_("Headphone"));
 		transitions.push_back(N_("Speaker"));
 		transitions.push_back(N_("Master"));
 		transitions.push_back(N_("Digital"));
@@ -176,9 +176,9 @@ void GuiMenu::openSoundSettings()
 		omx_cards.push_back(N_("local"));
 		omx_cards.push_back(N_("hdmi"));
 		omx_cards.push_back(N_("both"));
-		omx_cards.push_back("alsa");
-		omx_cards.push_back("alsa:hw:0,0");
-		omx_cards.push_back("alsa:hw:1,0");
+		omx_cards.push_back(N_("alsa"));
+		omx_cards.push_back(N_("alsa:hw:0,0"));
+		omx_cards.push_back(N_("alsa:hw:1,0"));
 		if (Settings::getInstance()->getString("OMXAudioDev") != "") {
 			if (std::find(omx_cards.begin(), omx_cards.end(), Settings::getInstance()->getString("OMXAudioDev")) == omx_cards.end()) {
 				omx_cards.push_back(Settings::getInstance()->getString("OMXAudioDev"));
@@ -369,7 +369,7 @@ void GuiMenu::openUISettings()
 	// hide start menu in Kid Mode
 	auto disable_start = std::make_shared<SwitchComponent>(mWindow);
 	disable_start->setState(Settings::getInstance()->getBool("DisableKidStartMenu"));
-	s->addWithLabel("DISABLE START MENU IN KID MODE", disable_start);
+	s->addWithLabel(_("DISABLE START MENU IN KID MODE"), disable_start);
 	s->addSaveFunc([disable_start] { Settings::getInstance()->setBool("DisableKidStartMenu", disable_start->getState()); });
 
 	mWindow->pushGui(s);
@@ -409,13 +409,13 @@ void GuiMenu::openOtherSettings()
 	// gamelists
 	auto gamelistsSaveMode = std::make_shared< OptionListComponent<std::string> >(mWindow, "SAVE METADATA", false);
 	std::vector<std::string> saveModes;
-	saveModes.push_back("on exit");
-	saveModes.push_back("always");
-	saveModes.push_back("never");
+	saveModes.push_back(N_("on exit"));
+	saveModes.push_back(N_("always"));
+	saveModes.push_back(N_("never"));
 
 	for(auto it = saveModes.cbegin(); it != saveModes.cend(); it++)
-		gamelistsSaveMode->add(*it, *it, Settings::getInstance()->getString("SaveGamelistsMode") == *it);
-	s->addWithLabel("SAVE METADATA", gamelistsSaveMode);
+		gamelistsSaveMode->add(_(it->c_str()), *it, Settings::getInstance()->getString("SaveGamelistsMode") == *it);
+	s->addWithLabel(_("SAVE METADATA"), gamelistsSaveMode);
 	s->addSaveFunc([gamelistsSaveMode] {
 		Settings::getInstance()->setString("SaveGamelistsMode", gamelistsSaveMode->getSelected());
 	});
@@ -427,7 +427,7 @@ void GuiMenu::openOtherSettings()
 
 	auto local_art = std::make_shared<SwitchComponent>(mWindow);
 	local_art->setState(Settings::getInstance()->getBool("LocalArt"));
-	s->addWithLabel("SEARCH FOR LOCAL ART", local_art);
+	s->addWithLabel(_("SEARCH FOR LOCAL ART"), local_art);
 	s->addSaveFunc([local_art] { Settings::getInstance()->setBool("LocalArt", local_art->getState()); });
 
 	// hidden files

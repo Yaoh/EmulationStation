@@ -71,7 +71,7 @@ GuiGeneralScreensaverOptions::GuiGeneralScreensaverOptions(Window* window, const
 	float max =  120.f;
 	auto system_sleep_time = std::make_shared<SliderComponent>(mWindow, 0.f, max, stepw, "m");
 	system_sleep_time->setValue((float)(Settings::getInstance()->getInt("SystemSleepTime") / Settings::ONE_MINUTE_IN_MS));
-	addWithLabel("SYSTEM SLEEP AFTER", system_sleep_time);
+	addWithLabel(_("SYSTEM SLEEP AFTER"), system_sleep_time);
 	addSaveFunc([this, system_sleep_time, screensaver_time, max, stepw] {
 		if (screensaver_time->getValue() > system_sleep_time->getValue() && system_sleep_time->getValue() > 0) {
 			int steps = Math::min(1 + (int)(screensaver_time->getValue() / stepw), (int)(max/stepw));
@@ -79,16 +79,16 @@ GuiGeneralScreensaverOptions::GuiGeneralScreensaverOptions(Window* window, const
 			system_sleep_time->setValue((float)adj_system_sleep_time);
 			std::string msg = "";
 			if (!Settings::getInstance()->getBool("SystemSleepTimeHintDisplayed")) {
-				msg += "One time note: Enabling the system sleep time will trigger user-defined scripts.";
-				msg += "\nPlease see Retropie/Emulationstation Wiki on events for details.";
+				msg += _("One time note: Enabling the system sleep time will trigger user-defined scripts.");
+				msg += _("\nPlease see Retropie/Emulationstation Wiki on events for details.");
 				Settings::getInstance()->setBool("SystemSleepTimeHintDisplayed", true);
 			}
 			if (msg.length() > 0) {
 				msg += "\n\n";
 			}
-			msg += "The system sleep delay is enabled, but is less than or equal to the screen saver start delay.";
-			msg	+= "\n\nAdjusted system sleep time to " + std::to_string(adj_system_sleep_time) + " minutes.";
-			mWindow->pushGui(new GuiMsgBox(mWindow, msg, "OK", [] { return; }));
+			msg += _("The system sleep delay is enabled, but is less than or equal to the screen saver start delay.");
+			msg	+= _("\n\nAdjusted system sleep time to ") + std::to_string(adj_system_sleep_time) + _(" minutes.");
+			mWindow->pushGui(new GuiMsgBox(mWindow, msg, _("OK"), [] { return; }));
 		}
 		Settings::getInstance()->setInt("SystemSleepTime", (int)Math::round(system_sleep_time->getValue()) * Settings::ONE_MINUTE_IN_MS);
 	});
